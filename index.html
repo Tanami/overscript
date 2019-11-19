@@ -10,10 +10,7 @@
 <script src="https://kit.fontawesome.com/f506cd76e7.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style type="text/css">
-* { margin: 0; padding: 0 }
-* { font-family: sans-serif }
 body, html { background: url('bg.jpg') }
-table { border-collapse: collapse; width: 100% }
 td { border: 1px solid rgba(200,200,200,0.10); padding: 0.2em 0.1em 0.2em 0.5em }
 th { font-size: 80%; padding-bottom: 0.3em }
 #desc { display: table-cell; width: auto; padding-left: 5px; font-size: 80% }
@@ -43,18 +40,26 @@ if you have any scripts you know about that aren't listed here, please email wei
 <div id="app">
     <div id="content">
             <div class="p-4">
-                    <div class="btn-group" role="group" aria-label="Basic example">
+                <div class="form-group">
+                    <div class="btn-group" role="group">
+                      <button v-if="sortMethod !== 'size'" type="button" class="btn btn-primary" @click="sortMethod = 'size'">Size</button>
+                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Size <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
+                    </div>
+                </div>
+        
+
+                <!-- <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-outline-primary">Left</button>
                         <button type="button" class="btn btn-outline-primary">Middle</button>
                         <button type="button" class="btn btn-outline-primary">Right</button>
-                    </div>
-                </div>
+                    </div>  -->
+            </div>
     
             <table class="table table-sm">
             <!-- <tr><th>#</th></th><th>Name</th> <th>Language</th> <th>Version</th> <th>Author</th> <th>Download</th> <th>Comments</th></tr> -->
             <!-- Sort options: Name, Language, Last Checked, Author -->
 
-            <template v-for="(script, index) in scripts">
+            <template v-for="(script, index) in sortedScripts">
                 <tr>
                     <table class="table table-sm">
                         <tr>
@@ -85,9 +90,27 @@ if you have any scripts you know about that aren't listed here, please email wei
         el: '#app',
         data: {
             scripts: script_data,
+            sortToggle: false,
+            sortMethod: '',
         },
         mounted: function() {
             this.loadScripts()
+        },
+        computed: {
+            sortedScripts: function() {
+                switch(this.sortMethod) {
+                    case 'size':
+                        if (this.sortToggle) {
+                            return this.scripts.sort((a, b) => a.name.localeCompare(b.name))
+                        }
+                        else {
+                            return this.scripts.sort((a, b) => b.name.localeCompare(a.name))
+                        }
+                    break;
+                    default: 
+                        return this.scripts
+                }
+            }
         },
         methods: {
             loadScripts: function() {

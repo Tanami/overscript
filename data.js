@@ -254,7 +254,7 @@ script_data = [
       "author_url" : "https://github.com/Floens",
       "download_url" : "https://github.com/Floens/uchan",
       "language" : "Python",
-      "name" : "&#181;chan",
+      "name" : "μchan",
       "notes" : "Focus on separation of concerns.",
       "version" : "n/a",
       "last_checked" : "2019-08-11"
