@@ -82,7 +82,7 @@ script_data = [
       "download_url" : "#none",
       "language" : "PHP",
       "name" : "Yamada IB",
-      "notes" : "n/a",
+      "notes" : "A long time ago the author sent me the source, unfortunately I have not retained it over the years. It is a fork of TinyIB.",
       "version" : "n/a",
       "status" : "unknown",
       "last_checked" : "2019-08-11"
@@ -90,13 +90,13 @@ script_data = [
    {
       "author_name" : "Kyle Farwell",
       "author_url" : "http://kfarwell.org",
-      "download_url" : "http://kfarwell.org/projects/werchan/downloads/",
+      "download_url" : "https://github.com/kfarwell/werchan",
       "language" : "Plan 9 rc",
       "name" : "werchan",
-      "notes" : "the chan fell off",
+      "notes" : "the chan fell off. Probably a great choice if you run Plan 9 or want to use an almost CGI-free environment (!).",
       "version" : "1.5",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11"
+      "status" : "inactive",
+      "last_checked" : "2019-11-20"
    },
    {
       "author_name" : "Joshua Moore",

@@ -67,25 +67,26 @@ if you have any scripts you know about that aren't listed here, please email wei
                 <tr>
                     <table class="table table-sm">
                         <tr>
-                            <!-- <td id="index">{{ index }}</td> -->
                             <td id="name"><h4>{{ script.name }}</h4></td>
-                            <td id="lang">{{ script.language }}</td>
-                            <td id="version">{{ script.version }}</td>
+                            <td id="author"><h6>by <a :href="script.author_url">{{ script.author_name || 'unknown' }}</a></h6></td>
+                            <td id="other">
+                                <button type="button" class="btn btn-sm btn-outline-dark">{{ script.language }}</button>
+                                <button type="button" class="btn btn-sm btn-outline-dark">{{ script.version }}</button>
+                            </td>
                         </tr>
                         <tr>
-                            <td id="author"><h5>by <a :href="script.author_url">{{ script.author_name }}</a></h5></td>
                             <td id="download">
                                 <template v-if="script.download_url.includes('github')">
-                                        <a class="btn btn-outline-success" target="_none" :href="script.download_url">GitHub</a>
+                                        <a class="btn btn-sm btn-outline-success" target="_none" :href="script.download_url">GitHub</a>
                                 </template>
                                 <template v-else-if="script.download_url !== '#none'">
-                                    <a class="btn btn-outline-primary" target="_none" :href="script.download_url">Download</a>
+                                    <a class="btn btn-sm btn-outline-primary" target="_none" :href="script.download_url">Download</a>
                                 </template>
                                 <template v-else>
-                                    <a class="btn btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
+                                    <a class="btn btn-sm btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
                                 </template>
                             </td>
-                            <td id="note">{{ script.notes }}</td>
+                            <td colspan="2" id="note">{{ script.notes || 'no details available' }}</td>
                         </tr>
                     </table>
                 </tr>
