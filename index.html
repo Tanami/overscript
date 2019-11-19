@@ -7,7 +7,6 @@
         <meta name="description" content="overscript - a list of imageboard software and *board software" />
     </head>
 <!-- fuck w3c -->
-<script src="https://kit.fontawesome.com/f506cd76e7.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style type="text/css">
 body, html { background: url('bg.jpg') }
@@ -40,18 +39,20 @@ if you have any scripts you know about that aren't listed here, please email wei
 <!-- it is a pretty well-known fact that modern javascript pretends to solve all templating problems but in the end the most useful code is always the hairiest.. -->
 <div id="app">
     <div id="content">
-            <div class="p-4">
+            <div class="p-4 text-center">
                 <div class="form-group">
                     <label>Sort By:</label>
                     <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-outline-primary" @click="sortMethod = ''">None</button>
+
                       <button v-if="sortMethod !== 'name'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'name'">Name</button>
-                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Name <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
+                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Name {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
 
                       <button v-if="sortMethod !== 'language'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'language'">Language</button>
-                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Language <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
+                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Language {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
 
                       <button v-if="sortMethod !== 'author'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'author'">Author</button>
-                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Author <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
+                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Author {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
                     </div>
                 </div>
             </div>
@@ -106,15 +107,15 @@ if you have any scripts you know about that aren't listed here, please email wei
             sortedScripts: function() {
                 switch(this.sortMethod) {
                     case 'name':
-                        return this.scripts.sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
+                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
                     break;
                     case 'author':
-                        return this.scripts.sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.author) : b.name.localeCompare(a.author))
+                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.author) : b.name.localeCompare(a.author))
                     break;
                     case 'language':
-                        return this.scripts.sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.language) : b.name.localeCompare(a.language))
+                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.language) : b.name.localeCompare(a.language))
                     break;
-                    default: 
+                    default:
                         return this.scripts
                 }
             }

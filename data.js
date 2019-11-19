@@ -7,6 +7,7 @@ script_data = [
       "name" : "Kareha",
       "notes" : "favourite script",
       "version" : "3.1.14",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -17,6 +18,7 @@ script_data = [
       "name" : "SchemeBBS",
       "notes" : "very new, might be unstable",
       "version" : "b013b246",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -27,6 +29,7 @@ script_data = [
       "name" : "RAL",
       "notes" : "gazou-style, anonymity-focussed",
       "version" : "1bc8179",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -37,6 +40,7 @@ script_data = [
       "name" : "nntpchan",
       "notes" : "uses NNTP to decentralise hosting",
       "version" : "0.4.0",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -47,6 +51,7 @@ script_data = [
       "name" : "LynxChan",
       "notes" : "JSON-RPC interface!",
       "version" : "1.6.2",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -57,6 +62,7 @@ script_data = [
       "name" : "Phutaba",
       "notes" : "lots of small new features",
       "version" : "f0356b9",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -67,6 +73,7 @@ script_data = [
       "name" : "maniwani",
       "notes" : "Experimental BBS with modern ideologies.",
       "version" : "52ca059",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -77,6 +84,7 @@ script_data = [
       "name" : "Yamada IB",
       "notes" : "n/a",
       "version" : "n/a",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -87,6 +95,7 @@ script_data = [
       "name" : "werchan",
       "notes" : "the chan fell off",
       "version" : "1.5",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -97,6 +106,7 @@ script_data = [
       "name" : "NodeChan",
       "notes" : "ambitious attempt at p2p which does not use the DHT",
       "version" : "0.7.5",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -107,6 +117,7 @@ script_data = [
       "name" : "negoto",
       "notes" : "runs as an executable",
       "version" : "05d87bb",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -117,6 +128,7 @@ script_data = [
       "name" : "Infinity Next",
       "notes" : "8ch.net in-house IB",
       "version" : "n/a",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -127,6 +139,7 @@ script_data = [
       "name" : "emanon",
       "notes" : "modern extensions to Tablecat",
       "version" : "727486f",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -137,6 +150,7 @@ script_data = [
       "name" : "Satoko",
       "notes" : "work in progress",
       "version" : "5aca872",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -147,6 +161,7 @@ script_data = [
       "name" : "Monaba",
       "notes" : "lots of modern features",
       "version" : "5d44e8d",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -157,6 +172,7 @@ script_data = [
       "name" : "vichan",
       "notes" : "vroom vroom caching",
       "version" : "5.1.0",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -167,6 +183,7 @@ script_data = [
       "name" : "meguca",
       "notes" : "where do we go from here?",
       "version" : "2.3.0",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -177,6 +194,7 @@ script_data = [
       "name" : "BlazeChan",
       "notes" : "WIP, looks dead",
       "version" : "54a941f",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -187,6 +205,7 @@ script_data = [
       "name" : "wakarimasen",
       "notes" : "wakaba-compatible, low memory usage, extended admin panel",
       "version" : "rev 444",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -197,6 +216,7 @@ script_data = [
       "name" : "Wakaba",
       "notes" : "sql-only",
       "version" : "3.0.8",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -207,6 +227,7 @@ script_data = [
       "name" : "Kusaba",
       "notes" : "HAHAHAHAHAHAHA",
       "version" : "0.9.2",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -217,6 +238,7 @@ script_data = [
       "name" : "Glaukaba",
       "notes" : "wakaba fork with a lot of new changes",
       "version" : "0.125",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -227,6 +249,7 @@ script_data = [
       "name" : "Mitsuba",
       "notes" : "made from scratch, has a module system",
       "version" : "rev 762",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -237,6 +260,7 @@ script_data = [
       "name" : "Futallaby",
       "notes" : "DEAD",
       "version" : "040103",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -247,6 +271,7 @@ script_data = [
       "name" : "Futaba",
       "notes" : "historical",
       "version" : "311005",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -257,6 +282,7 @@ script_data = [
       "name" : "μchan",
       "notes" : "Focus on separation of concerns.",
       "version" : "n/a",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -267,6 +293,7 @@ script_data = [
       "name" : "livechan",
       "notes" : "self-styled \"IRC-like imageboard\"",
       "version" : "n/a",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -277,6 +304,7 @@ script_data = [
       "name" : "Doushio",
       "notes" : "uses Redis as a datastore",
       "version" : "rev 1.465",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -287,6 +315,7 @@ script_data = [
       "name" : "FoolFuuka",
       "notes" : "made for archiving *boards, very fast",
       "version" : "0.730",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -297,6 +326,7 @@ script_data = [
       "name" : "Macro",
       "notes" : "one of my scripts",
       "version" : "0.5.1",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -307,6 +337,7 @@ script_data = [
       "name" : "Drydock",
       "notes" : "haven't tested it in years",
       "version" : "r211",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -317,6 +348,7 @@ script_data = [
       "name" : "iyagi",
       "notes" : "new clone of tablecat's backend",
       "version" : "4b4e080",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -327,6 +359,7 @@ script_data = [
       "name" : "Hanako",
       "notes" : "strong focus on scalability",
       "version" : "1.0.0",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -337,6 +370,7 @@ script_data = [
       "name" : "img2",
       "notes" : "untested",
       "version" : "061610",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -347,6 +381,7 @@ script_data = [
       "name" : "Regular Board",
       "notes" : "channel-style filtering, forum-like layout",
       "version" : "9528cce",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -357,6 +392,7 @@ script_data = [
       "name" : "Shiichan",
       "notes" : "use Kareha instead",
       "version" : "3960",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -367,6 +403,7 @@ script_data = [
       "name" : "gibson",
       "notes" : "emulates pre-internet BBSen with a JS console",
       "version" : "1.30",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -377,6 +414,7 @@ script_data = [
       "name" : "TinyBB",
       "notes" : "there is TinyBB &amp; TinyBBv3",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -387,6 +425,7 @@ script_data = [
       "name" : "Tablecat",
       "notes" : "VIP",
       "version" : "240411",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -397,6 +436,7 @@ script_data = [
       "name" : "Siokara",
       "notes" : "not updated since 2004",
       "version" : "1.04a",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -407,6 +447,7 @@ script_data = [
       "name" : "PyIB",
       "notes" : "written by an autist",
       "version" : "r66",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -417,6 +458,7 @@ script_data = [
       "name" : "Cynthia",
       "notes" : "japanese",
       "version" : "02e1",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -427,6 +469,7 @@ script_data = [
       "name" : "Yotsubanome",
       "notes" : "written by a retard",
       "version" : "who cares",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -437,6 +480,7 @@ script_data = [
       "name" : "TinyIB",
       "notes" : "never seen it being used",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -447,6 +491,7 @@ script_data = [
       "name" : "Joyful Note",
       "notes" : "japanese, untested",
       "version" : "2.73",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -457,6 +502,7 @@ script_data = [
       "name" : "Ochiba",
       "notes" : "special hybrid-script",
       "version" : "1.2.1",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -467,6 +513,7 @@ script_data = [
       "name" : "4chandk",
       "notes" : "appears to be dead.",
       "version" : "240207",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -477,6 +524,7 @@ script_data = [
       "name" : "Pixmicat",
       "notes" : "taiwanese script based on japanese source",
       "version" : "6",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -487,6 +535,7 @@ script_data = [
       "name" : "0ch",
       "notes" : "untested",
       "version" : "4.xx",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -497,6 +546,7 @@ script_data = [
       "name" : "GazouBBS",
       "notes" : "I can't read wapanese",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -507,6 +557,7 @@ script_data = [
       "name" : "Gazo-CH",
       "notes" : "unknown, uncertain of existence",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -517,6 +568,7 @@ script_data = [
       "name" : "Yotsuba",
       "notes" : "4chan's script",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -527,6 +579,7 @@ script_data = [
       "name" : "REchan",
       "notes" : "???",
       "version" : "080726",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -537,6 +590,7 @@ script_data = [
       "name" : "Mikich",
       "notes" : "SYNchan's script",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -547,6 +601,7 @@ script_data = [
       "name" : "Tinyboard",
       "notes" : "4chon.net's script",
       "version" : "0.9.2",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -557,6 +612,7 @@ script_data = [
       "name" : "Taimaba",
       "notes" : "420chan's script",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -567,6 +623,7 @@ script_data = [
       "name" : "Matsuba",
       "notes" : "sovietrussia's script",
       "version" : "<i>(git)</i>",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -577,6 +634,7 @@ script_data = [
       "name" : "C-BOARD",
       "notes" : "this is actually a modded version",
       "version" : "3.8",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -587,6 +645,7 @@ script_data = [
       "name" : "K-Board",
       "notes" : "experimental features",
       "version" : "1.9",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -597,6 +656,7 @@ script_data = [
       "name" : "Tackynote",
       "notes" : "untested",
       "version" : "0.996",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -607,6 +667,7 @@ script_data = [
       "name" : "Mkakikomitai",
       "notes" : "japanese, emoticons and shit",
       "version" : "0.73",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -617,6 +678,7 @@ script_data = [
       "name" : "Tackyvote",
       "notes" : "",
       "version" : "0.95",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -627,6 +689,7 @@ script_data = [
       "name" : "Mezase2",
       "notes" : "",
       "version" : "0.58",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -637,6 +700,7 @@ script_data = [
       "name" : "Ignium",
       "notes" : "untested, website is horrid",
       "version" : "170709",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -647,6 +711,7 @@ script_data = [
       "name" : "Ha Chan",
       "notes" : "not actively developed?",
       "version" : "1.07",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -657,6 +722,7 @@ script_data = [
       "name" : "Orphereus",
       "notes" : "python, \"modular\"",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -667,6 +733,7 @@ script_data = [
       "name" : "desuchan",
       "notes" : "forked from wakaba, lots of changes",
       "version" : "rev 168",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -677,6 +744,7 @@ script_data = [
       "name" : "ochan",
       "notes" : "ENTERPRISE QUALITY",
       "version" : "r326",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -687,6 +755,7 @@ script_data = [
       "name" : "kotoba-ib",
       "notes" : "russian",
       "version" : "r437",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -697,6 +766,7 @@ script_data = [
       "name" : "imgboard.cgi",
       "notes" : "quite popular in japan",
       "version" : "1.22",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -707,6 +777,7 @@ script_data = [
       "name" : "minibbs",
       "notes" : "japanese",
       "version" : "10.32",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -717,6 +788,7 @@ script_data = [
       "name" : "Sweetnote",
       "notes" : "proprietary?",
       "version" : "unknown",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -727,6 +799,7 @@ script_data = [
       "name" : "imageboard",
       "notes" : "lol",
       "version" : "1.21",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -737,6 +810,7 @@ script_data = [
       "name" : "mconv",
       "notes" : "last updated in 2004, archaic",
       "version" : "1.2.7",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -747,6 +821,7 @@ script_data = [
       "name" : "Saguaro",
       "notes" : "based on futallaby",
       "version" : "0.97.5",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -757,6 +832,7 @@ script_data = [
       "name" : "Kakaha",
       "notes" : "uses SQLite backend",
       "version" : "r21",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -767,6 +843,7 @@ script_data = [
       "name" : "himgb",
       "notes" : "U MENA HASKEL",
       "version" : "unknown",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -777,6 +854,7 @@ script_data = [
       "name" : "backyard",
       "notes" : "looks buggy",
       "version" : "0.0.5",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -787,6 +865,7 @@ script_data = [
       "name" : "p2pchan",
       "notes" : "windows-only?",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -797,6 +876,7 @@ script_data = [
       "name" : "Thorn",
       "notes" : "very, very old",
       "version" : "???",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -807,6 +887,7 @@ script_data = [
       "name" : "Anonsaba",
       "notes" : "Anonsaba is apparently back-doored, DO NOT USE",
       "version" : "0.1",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -817,6 +898,7 @@ script_data = [
       "name" : "weabot",
       "notes" : "based on PyIB with most of the Kusaba feature set",
       "version" : "0.7.2",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -827,6 +909,7 @@ script_data = [
       "name" : "mewBBS",
       "notes" : "very, very old",
       "version" : "4.9",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -837,6 +920,7 @@ script_data = [
       "name" : "miniboard",
       "notes" : "also very old (1997!)",
       "version" : "1.1",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -847,6 +931,7 @@ script_data = [
       "name" : "arcNET",
       "notes" : "used on 4chon, 314chan and mikuchan ",
       "version" : "r32",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -857,6 +942,7 @@ script_data = [
       "name" : "Excelis",
       "notes" : "untested, has smilies and such",
       "version" : "1.6",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -867,6 +953,7 @@ script_data = [
       "name" : "Nelliel",
       "notes" : "looks to be a decent Futallaby rewrite",
       "version" : "v0.9b-r5",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -877,6 +964,7 @@ script_data = [
       "name" : "Naranai",
       "notes" : "danbooru-type image script",
       "version" : "r50",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -887,6 +975,7 @@ script_data = [
       "name" : "NitPick",
       "notes" : "image-posting, unlimited thread length?",
       "version" : "unknown",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -897,6 +986,7 @@ script_data = [
       "name" : "PerlHP-bbs",
       "notes" : "it's probably going to be better than kusaba.",
       "version" : "unknown",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -907,6 +997,7 @@ script_data = [
       "name" : "Lucid Tea",
       "notes" : "level of completion undetermined",
       "version" : "r3",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -917,6 +1008,7 @@ script_data = [
       "name" : "Shimonoseki",
       "notes" : "appears to be a bland Kusaba X rewrite (possibly insecure)",
       "version" : "48a7d5ca",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -927,6 +1019,7 @@ script_data = [
       "name" : "Hatoya",
       "notes" : "n/a",
       "version" : "n/a",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -937,6 +1030,7 @@ script_data = [
       "name" : "EZ TREE",
       "notes" : "",
       "version" : "",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -947,6 +1041,7 @@ script_data = [
       "name" : "pdfbook",
       "notes" : "",
       "version" : "",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -957,6 +1052,7 @@ script_data = [
       "name" : "sbbs",
       "notes" : "",
       "version" : "",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -967,6 +1063,7 @@ script_data = [
       "name" : "Petit BBS",
       "notes" : "",
       "version" : "",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -977,6 +1074,7 @@ script_data = [
       "name" : "banabo",
       "notes" : "",
       "version" : "",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -987,6 +1085,7 @@ script_data = [
       "name" : "koutei",
       "notes" : "",
       "version" : "",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    },
    {
@@ -997,6 +1096,7 @@ script_data = [
       "name" : "afbbs",
       "notes" : "",
       "version" : "",
+      "status" : "unknown",
       "last_checked" : "2019-08-11"
    }
 ]
