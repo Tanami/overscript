@@ -37,22 +37,23 @@ if you have any scripts you know about that aren't listed here, please email wei
 <br /><br />I am maintaining an archive at <a href="http://tanami.org/pub/software/TrueScript/">/pub/software/TrueScript/</a> and a git mirror <a href="http://git.tanami.org">here</a>
 </p>
 </div>
+<!-- it is a pretty well-known fact that modern javascript pretends to solve all templating problems but in the end the most useful code is always the hairiest.. -->
 <div id="app">
     <div id="content">
             <div class="p-4">
                 <div class="form-group">
+                    <label>Sort By:</label>
                     <div class="btn-group" role="group">
-                      <button v-if="sortMethod !== 'size'" type="button" class="btn btn-primary" @click="sortMethod = 'size'">Size</button>
-                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Size <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
+                      <button v-if="sortMethod !== 'name'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'name'">Name</button>
+                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Name <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
+
+                      <button v-if="sortMethod !== 'language'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'language'">Language</button>
+                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Language <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
+
+                      <button v-if="sortMethod !== 'author'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'author'">Author</button>
+                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Author <i :class="'fa ' + (sortToggle ? 'fa-caret-up' : 'fa-caret-down')"></i> </button>
                     </div>
                 </div>
-        
-
-                <!-- <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-primary">Left</button>
-                        <button type="button" class="btn btn-outline-primary">Middle</button>
-                        <button type="button" class="btn btn-outline-primary">Right</button>
-                    </div>  -->
             </div>
     
             <table class="table table-sm">
@@ -71,7 +72,12 @@ if you have any scripts you know about that aren't listed here, please email wei
                         <tr>
                             <td id="author"><h5>by <a :href="script.author_url">{{ script.author_name }}</a></h5></td>
                             <td id="download">
-                                <a class="btn btn-outline-primary" target="_none" :href="script.download_url">Download</a>
+                                <template v-if="script.download_url !== '#none'">
+                                    <a class="btn btn-outline-primary" target="_none" :href="script.download_url">Download</a>
+                                </template>
+                                <template v-else>
+                                    <a class="btn btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
+                                </template>
                             </td>
                             <td id="note">{{ script.notes }}</td>
                         </tr>
@@ -99,13 +105,14 @@ if you have any scripts you know about that aren't listed here, please email wei
         computed: {
             sortedScripts: function() {
                 switch(this.sortMethod) {
-                    case 'size':
-                        if (this.sortToggle) {
-                            return this.scripts.sort((a, b) => a.name.localeCompare(b.name))
-                        }
-                        else {
-                            return this.scripts.sort((a, b) => b.name.localeCompare(a.name))
-                        }
+                    case 'name':
+                        return this.scripts.sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
+                    break;
+                    case 'author':
+                        return this.scripts.sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.author) : b.name.localeCompare(a.author))
+                    break;
+                    case 'language':
+                        return this.scripts.sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.language) : b.name.localeCompare(a.language))
                     break;
                     default: 
                         return this.scripts
