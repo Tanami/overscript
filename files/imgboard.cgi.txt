@@ -1,0 +1,6685 @@
+#!/usr/bin/perl
+#
+#
+#          imgboard.cgi v1.22 (Rev.6.1c)
+#
+#		Copyright(C)	1998特報!!倶楽部
+#		 Origin Program	to-ru@big.or.jp
+#		 Updated by 	1998特報スタッフ talk@big.or.jp
+#
+#		 Support site URL http://www.big.or.jp/~talk/t-club/soft/
+#
+#
+# <改変履歴>-07/21/2003/01
+#  2003/07/21 Windows版Apacheとblatjの相性問題を修正
+#  2003/07/21 Rev.6.1aで返信欄のフォント色を指定できなくなっていた問題を修正
+#  2003/06/07 表示モード変更、削除時にPAGEを記憶して同じPAGEへ戻るように改良した
+#  2003/04/10 管理者モードの返信部分の背景色が黒の場合、文字が見えなくなる問題に対応
+#  2003/03/18 iモーションの3gp拡張子のファイルに対応
+#  2003/03/15 秒まで一致した同時投稿で親子関係がおかしくなる問題を修正
+#  2003/03/15 GUSTパスワードが自宅サーバで動かない問題を修正
+#  2003/03/15 Win環境でも投稿通知メールが出せるようにblatjに対応した
+#  2002/08/14 軽量ブラウザ「Opera6.0x」で記事に返信できない問題を修正
+#  2002/08/02 アイコンの並び順を変更できる機能を管理メニューに追加
+#  2002/06/11 EZ音声の拡張子がsmdになっていたのをpmdに修正
+#  2002/05/17 無料プロバイダ「トクトク」で管理メニューが動かない問題に対処
+#  2002/05/12 Netscape4.x(Linux版)の文字化け予防対策を追加
+#  2002/04/23 Netscape4.xの文字化け予防対策を強化
+#  2002/04/05 JSKY-スーパメールデータ対応、AUのezmovie対応部を追加
+#  2002/04/01 要望に応え、会員パスワードを複数設定できるようにした
+#  2002/02/16 削除キー式にした場合、キーをクッキーに記憶できるようにした
+#  2001/11/28 返信なしにした場合、「ワード検索」等が無効になる点を修正
+#  2001/10/03 管理メニューにWebParts(アイコン・背景画像等)の置き場を追加
+#  2001/09/27 画像ファイルの推奨サイズを注意文で表示できるようにした。
+#  2001/09/27 修正時に管理人のクッキーが記事の所有者のものになる点を修正。
+#  2001/09/20 携帯モジュールとの整合で下記機能を修正。
+#  2001/09/10 レスのついた記事を先頭へ持っていく機能の追加
+#  2001/08/20 自動URLリンクを小修正した
+#  2001/08/13 会員パス使用時、会員パスでも管理パスでも投稿OKにした
+#  2001/08/08 暑苦しい感じがするので背景を明色系に変更した（季節限定）
+#  2001/07/10 無料プロバイダートクトク(tok2)でクッキーが保存できない現象に対処
+#  2001/05/25 携帯対応モジュールの名前をimgboard_im.cgiからim.cgiと短くした。
+#  2001/05/25 iモード以外の携帯の場合も、自動的にiアクセスへ転送できるようにした
+#  2001/02/24 特報独自のIP認証によるゲストパスワード削除（強く推奨）以外に、他の
+#             掲示板で一般的に使われている「削除キー方式」を選べるようにした
+#  2001/02/24 投稿に用いた携帯の機種名を表示するようにした
+#  2001/02/20 URL自動リンク機能をバージョンアップした
+#  2001/02/18 着メロ等、各種携帯のデータに対応した
+#  2001/02/18 デフォルトの画像ファイルとしてGIF,JPEG,PNGを受け入れるようにした
+#  2000/12/30 imgsize.plが見つからないときに500エラーにならないようにした
+#  2000/05/08 新imgsize.plにネイティブ対応。(IEでリサイズ時に画質向上効果あり)
+#  2000/05/08 記事中のURLを、自動的にリンクする「自動URLリンク機能」を追加
+#  2000/01/08 使用禁止単語によるフィルタ、連続投稿リミッタなど、"荒し"対策を
+#  大幅強化(Rev.4)
+#  1999/12/01 styleタグを用いたイタズラを検出するフィルタを改良 (Rev.3a)
+#  1999/11/18 www5x.biglobe.ne.jpに対応 (Rev.3)
+#  1999/08/06 Win用WWWサーバAnHTTPdに対応(Rev.1c)
+#  1999/04/17 Mac Office98update 対策を追加(R1.21)
+#  1999/04/12 マックバイナリカッターを変更
+#  1999/02/15 Mac IE4.X対策を追加
+#  1998/09/20 リサイズ機能追加。管理者メール機能追加。
+#  1998/07/10 CGI専用ディレクトリ型プロバイダ対応	
+#  1998/06/18 95/NT製のＷＷＷサーバ対応
+#  1998/06/04 クッキー対応,Mac対策
+#  1998/05/24 SJIS化,リロード時の不具合対処	by ogo@ta2.so-net.ne.jp
+#  1998/01/24 v0.9の完成				by to-ru@big.or.jp
+#
+# <利用規定>
+#  1.(著作権について)
+#   1.1当CGIの著作権及び使用許諾権は、1998特報倶楽部（以下 当方）が占有してお
+#      ります。
+#  2.(使用許諾)
+#      ・このCGIは,当利用規定すべてに従っていただく場合に限り,個人,法人にか
+#        かわらず,自由にカスタマイズし、無償で利用していただく事ができます。
+#      ・なお、ひとつでも満たせない項目があった場合は,基本的に、その利用を許諾
+#        しません。よくご確認ください。
+#      ・項目をすべて満たした場合も、当方がその使用を不適当だと認めた場合,その
+#        使用を中止させていただく場合があります．あらかじめご了承ください．
+#
+#  2.1 使用許諾条件
+#    A.当説明タイトル部(スクリプトの1行目-9X行:特に利用規定部（スクリプト
+#      の5X行目-9X行目))および、掲示板下部の著作権表示部の改変をして
+#      いないこと
+#    B.改造および、カスタマイズしたスクリプトの無断再配布をしないこと。
+#      特に、条件A,Bを満たさない場合は,その利用を一切禁止します。
+#
+#  3.(制限事項について)
+#   3.1 改造、非改造を問わず、当方に無断で再配布することを固く禁止します。
+#   3.2 日本以外の国籍のユーザを対象にした掲示板での利用を禁止します。
+#   3.3 当著作権表示ならびに,掲示板下部の著作権表示とリンクを改変及び,削除
+#       することは固く禁止します。
+#
+#  4.(非制限事項について)
+#   4.1 改造は御自由にしていただいて構いません    （ただし3.3に注意して下さい）
+#   4.2 商用利用は御自由にしていただいて構いません（ただし3.3に注意して下さい）
+#   4.3 個人の利用、および法人の利用を許可します。  （ただし3.3に注意して下さい）
+#
+#  5.(免責事項)
+#   5.1 掲示板の管理責任は,100%その掲示板の設置者にあるものとします。当サイトは
+#       その管理責任を一切負いません。
+#   5.2 万一このCGIにより損害や不利益受けたとしても、当方は一切その責任を負う
+#       義務を持ちません．あらかじめご了承ください．
+#   5.3 当CGIに不具合、機能不足、バグなどがあった場合も、当方はその修正の義務を
+#       負わないものとします。
+#
+#  6.(その他)
+#    当利用規定は予告なく改変、追記される場合があります。あらかじめご了承ください．
+###############################################################################
+# 基本構成（初期設定はこの構成を前提に解説します）
+#
+# public_html（ホームページディレクトリ）
+# |
+# |-- cgi-bin（任意のディレクトリ705）
+#   |
+#   |--img-box(757 または 707)(画像保存用ディレクトリ）
+#   |
+#   |-- jcode_sj.pl  (755 または 705)(ライト版の日本語ライブラリ)
+#   |-- imgboard.cgi (755 または 705)(本体)
+#   |-- imgsize.pl   (755 または 705)(画像サイズ解析ライブラリ)
+#   |-- file.dat     (666 または 606)(記事データ保存用)
+#   |-- fileback.dat (666 または 606)(上記ファイルのバックアップ)
+#   |-- icon.dat     (666 または 606)(WebPartsデータ保存用)
+#
+# ・( )内は属性(パーミッッション)です。最初、括弧内の左の数字で試し,
+#  動くかどうか確認して下さい。確認がとれたら、３文字の数字の真ん中を0に変更し,
+#  動作するかチェックして下さい。どちらでも正常動作できるならば、できるだけ
+#  右の方の値を使ってください。
+#  (一般にプロバイダにおいては、真ん中の数字を0にすると、セキュリティ的により
+#  厳しくなり、他人からファイルを書換えられたりする危険性が減って安全度が上がり
+#  ます。ただし中にはCGIが動かなくなるプロバイダもありますので、この場合は
+#  左の値をご使用ください）
+#
+# ・file.dat,fileback.dat,icon.datは中身が空の同名ファイルをパソコン上で作成．
+#   ftpで転送する(同封のファイルをそのまま使っても良い)
+# ・jcode_sj.plは中身を全くいじらずにそのままアスキー転送すること。
+# ・これら４つのファイルはアスキーモード（テキスト）で転送すること。
+# ・＠nifty,wakwak,biglobe等は、上記基本構成とは異なるファイル配置や設定が必要に
+#   なります。新FAQ掲示板に情報があるので、それを参考にして下さい
+#
+###############################################################################
+
+#=======================================================================#
+#  初期設定
+#=======================================================================#
+#
+#  先頭に#のある行は読み込まれません．
+#
+#==================================#
+#        <必須設定項目>            #
+#==================================#
+#
+$admin_passwd = 'mayu85';		# 管理人による記事削除時のパスワード
+#					# (必ず変更してください)
+#
+$title 	= "PHOTO BBS@NAL-TO studio";	
+#  ↑「お気に入り or ブックマーク」保存時のタイトルになります。
+#
+#  ■<終了時戻り先ＵＲＬ>
+#
+#  掲示板の「終了ボタン」を押したときに、下記ＵＲＬへ戻ります。
+#  (URLを下記デフォルトURLから変更しますと、ページにボタンが自動的に出現)
+$back_url ='http://www.nal-to.com/index.html';
+#
+#
+#  ■<投稿画像の格納ディレクトリ>
+#
+#  投稿された画像ファイルを保存しておく場所です．整理を簡単にするため、また
+#  セキュリティ確保のために、imgboard.cgiと同じディレクトリではなく,直下に
+#  新規ディレクトリを作成し,そこにアップロードファイルを保存することを強く
+#  おすすめします．
+#  なお,場所の指定方法ですが,通常は相対パス*で指定して下さい．
+#  ---解説----
+#  相対パスとは、imgboard.cgi(以下cgiと呼ぶ)から見た相対的な位置を指定する方法
+#  です。以下の設定はcgiのあるディレクトリ直下にimg-boxという名前の新規ディレ
+#  クトリを作成し、そこを保存ディレクトリとした場合の相対パス指定例です（ピリ
+#  オドはcgiが置いてあるディレクトリを意味します。)。
+#  相対やら、絶対やら、なんか難しくてよくわからない・・という方は、このまま指
+#  定を変更しないで、指示通りの位置にimg-boxディレクトリを作ってください。
+$img_dir = './img-box';		# デフォルト位置
+#
+#  (補足事項/一部該当者のみ読んでください)
+#  あなたのプロバイダが、cgiとデータファイルを同じ場所に置くことが出来ない
+#  特殊なプロバイダ(hi-ho等）で、cgiと同じディレクトリやcgi直下に保存
+#  用ディレクトリを作れない場合、絶対パスによる指定が必要となる場合があります。
+#  この場合、５行ほど前にある$img_dirを絶対パス*指定に書換えて下さい。
+#  ---解説----
+#  絶対パスとは、そのコンピュータ上のファイルシステムの一番上の階層から
+#  そのファイルの置いてある位置までのすべての階層をちゃんと指定したもの
+#  になります。
+#  絶対パス例・・・・$img_dir = '/home/usr5/talk/photo_bbs/img-box';
+#  （注：通常はできるだけ相対パス指定をして下さい）
+#  絶対パスがわからない場合、プロバイダのユーザサポートページのＣＧＩ関連情
+#  報のコーナ等に情報がたいていありますので、これを探してください。またtelnet
+#  してシェルが使えるプロバイダの場合はpwdというunixコマンドを該当ディレクト
+#  リに移動後、入力すると現在いるディレクトリまでの絶対パスが表示されます。
+#  なお、絶対パス指定をした場合、同imgファイル保存ディレクトリのURL指定も併
+#  せて行って下さい．
+#  （注：img_url指定は一部の該当者のみ設定する項目です。通常は設定不要なので
+#    当補足事項は無視して下さい。なお、＠nifty,wakwak,biglobe等は、ここで説明
+#    したものとは異なるさらにまた別の設定が必要になります。新FAQ掲示板に情報が
+#    あるので、それを参考にして設定して下さい）
+$img_url ='http://あなたのプロバイダ/あなたのディレクトリ/img-box';
+#
+#
+#  <携帯対応>
+#  携帯(iモード,FOMA,J-PHONE,EZweb,アステルのDot-i)からアクセスがあると、
+#  下記ファイル名のCGIを探します。同じディレクトリに存在した場合は、
+#  下記CGIへユーザを転送するようにナビゲートするページを自動で出し
+#  ます。
+#  携帯ユーザをiアクセスへ自動転送する(1=yes,0=no)
+$imode_redirect=1;
+# 探すCGI名
+$imode_cgi_name= './im.cgi';
+#
+#  <掲示データ保存ファイル名>
+#
+#  テキストデータの保存用ファイルの名前です．
+#  imgboard.cgiと同じ場所に入れる場合はこのパス指定のまま.
+$file= './file.dat';
+#
+#  <WebPartsデータ保存ファイル名> (R6 NEW)
+#
+#  管理者モードで使うWebPartsデータを保存するためのファイルの名前です．
+#  imgboard.cgiと同じ場所に入れる場合はこのパス指定のまま.
+$PM{'icon_data_file'}	= './icon.dat';
+#
+#  <日本語コード変換ライブラリ>
+#
+#  imgboard.cgiと同じ場所に入れる場合は、このパス指定のまま.
+#  注:jcode_sj.plはjcode.plの機能限定スリム版です。SJISへの変換機能のみ。
+$jcode_name= 'jcode_sj.pl';
+#
+#  <画像プロパティ認識ライブラリ>
+#
+#  imgboard.cgiと同じ場所に入れる場合はこのパス指定のまま.
+$imgsize_prog="imgsize.pl";
+#
+#
+#=====================================================================#
+#  <以下,必要に応じて設定>                                             #
+#
+#  以下の設定は,すべてオプションです。
+#
+#  大抵のプロバイダの場合、特に変更しなくてもスクリプトは動きますので,
+#  一度この状態でスクリプトを動かしてみてください。
+#  1.正常に動かなかった場合,
+#  →新サポート掲示板や新FAQをみて,問題を解決してみてください。
+#
+#  2.正常に動いた場合
+#  →いろいろ細かくアレンジできるようになっていますので, 以下のオプション
+#  項目へ進み、自分流にオプションを設定し,アレンジしてみてください。
+#=======================================================================#
+#================================#
+#   <掲示板機能 基本オプション>  #
+#================================#
+#
+#  ■<転送許可画像サイズ上限>
+#
+#  ファイル投稿時、このＣＧＩは他のテキスト系ＣＧＩよりも多くのメモリリソース
+#  を必要とします。これはアップロードしたファイルの復元処理にバッファが必要な
+#  ためであり、必要なメモリ量は転送された画像サイズに比例します。非力なサーバ
+#  を使用している場合は、自然とアップロードサイズを小さくする必要があり、そう
+#  しないと処理はタイムアウトして止まりますのでご注意下さい。
+#
+#  300KB以上にはしないこと。
+#  デフォルト100ＫＢ
+$max_upload_size 	= 3000;	# 単位KB
+#
+#  ■<推奨画像サイズ表記の値を決める>(R6 NEW)
+#
+#  R6b6では、本当のリミッタとは別に「推奨サイズ」を掲示板下部の注意文に表示
+#  することができるようになりました。管理人が最も歓迎する画像のサイズを書いて
+#  と良いでしょう。なお、この値はただ表示されるだけです。
+#  (1=注意文のところに推奨サイズを出す（推奨）,0=出さない)
+$disp_rcmd_upload_size_flag 	= 0;
+#
+#  デフォルト80KB
+#  (通常ホームページ上でのJPEG画像のサイズは25－50KB程度です)
+$rcmd_upload_size 	= 80;	# 単位KB
+#
+#  ■<保存記事数>
+#
+#  この件数を超えると、古いものから記事は削除されます.(記事と画像は
+#  同時に消えます)。
+#  デフォルトは150．極端に増やすとHP容量を圧迫しますので、ご注意ください。
+#
+#  --注意点--
+#  画像データ削除時は、掲示板を用いて削除して下さい。
+#
+#  (ワンポイント)返信には画像を添付できませんが記事としては、１記事として
+#  カウントされます。したがって返信機能をオンにされる場合は、保存記事数を、
+#  従来の2-3倍にしておくと良いでしょう。
+$max_message 		= 150;	
+#
+#  ■<1ページに表示する 親メッセージ数>
+#
+#  デフォルト5
+#  １ページに表示する親メッセージの数です。IEの場合、数を多くすると、
+#   表示時に少し時間がかかりますので、5程度を推奨します
+$disp_message 		= 5;
+#
+#  ■<返信機能>(R6 NEW)
+#
+#  返信機能を使うことができます。
+#  (1=返信機能あり(推奨),0=返信機能なし)
+$PM{'use_rep'} 		= 1;
+#
+#  古い記事に最近ついた返信を見過ごさないように、返信がついた記事の
+#  スレッドを自動的に先頭へ持って行くことができるようになりました。
+#  (1=先頭へ持って行く(デフォルト),0=持っていかない)
+$PM{'res_go_up'} = 1;
+#
+#
+#==================================#
+#     <imgboard 特殊オプション>    #
+#==================================#
+#
+#  ■ <画像表示モードのユーザ選択>
+#
+#  imgboardでは、画像の表示モードをユーザ側が自由に選択できるようになってい
+#  ます。つまり、絵を直接貼り付ける、貼り付けない（リンクのみ）、アイコンサイ
+#  ズにする、固定サイズにする等の「表示モード」の選択を、アクセスするユーザ自
+#  身が自由選択できます。(ADSL/ISDN/モデム等の通信速度、環境等の条件により、最
+#  適表示モードはユーザ毎に異なりますので）。
+#  なお、一度選択した表示モード設定は、クッキーに記憶され、次回アク
+#  セスから、それが相手のデフォルトとして選択されるようになります。
+#
+#  この機能を無効化して、掲示板管理者の方で表示モードを固定したい場合は、0を
+#  指定してください。
+#  (1=ユーザ選択メニューを出す（強く推奨）,0=ユーザ選択メニューを出さない)
+$user_selected_view_mode=0;
+#
+#  ■ <画像表示モードの管理者設定>
+# 
+#  ユーザ選択に任さないで、表示モードを管理者側で固定する場合、
+#  その画像表示モードを以下の部分で決めてください。
+#
+#  画像を直接掲示板に貼り付ける、貼り付けない。
+#  (1=yes,0=no)デフォルトは1
+$show_img_on_board=1;
+#	
+#  上で1を選択した場合，その埋め込みサイズを選択。  
+#  (0=iconサイズ,1=auto,2=横固定,3=原寸サイズ,5=極端に大きな画像のみ縮小)
+$on_board_img_size=0;	# デフォルトは5
+#
+#  --注意点--
+#  埋め込みする場合は，ページのロードが遅くなりますので、１ページ当たりの発言
+#  表示個数を少なめ(5程度)にした方がいいでしょう．画像の大きさも小さ目(100KB)に
+#  制限した方が運営が経験上うまくいくようです。
+#
+#  ■ <IE用リサイズ時のサイズ微補正> R5 NEW
+#  マイクロソフトのIEからアクセスされた場合、上記選択から計算で求められた画像
+#  指定サイズをそのまま真正直に適用すると、元画像との縮尺とIEのレンダラ(画面
+#  描画プログラム)の相性により画質が極端に悪くなる場合があります（被写体の目が
+#  潰れて白目をむいて見えたり、全体に縞模様が入ったりします）。
+#  imgboardでは、それらの現象を防ぐために、imgsize側に指定値を補正するフィルタ
+#  を開発しました。以下のパラメータを0以外にすると、画質を損ないにくい既知の倍
+#  率へリサイズ値を微調整します。なお、当処理により表示画質がかなり向上しますが、
+#  先に指定した「埋め込みサイズ」から、微補正されるため、様々なサイズの画像が
+#  混在する場合は、「横サイズ固定」等にしても微妙に揃わなくなります。
+#  この点にご注意ください。
+#
+# 2=画質最優先し、imgsizeが、かなり補正することを許可する。
+# 1=画質優先し、imgsizeが、少しだけ補正することを許可する(推奨)
+# 0=指定サイズの正確さを重視して、一切補正はしない
+$CIMGSIZE{'smooze_mode'}=1;
+#
+#  ■ <マルチデータアップロード可能にする>
+#  当掲示板は、GIF,JPEG,PNG以外に様々なタイプのデータも投稿できるようにすること
+#  ができます。(動画，音声，ＬＺＨ，ＨＴＭＬ,MS_PowerPoint,WORD書類、その他)
+#  画像データの公開といった使い道以外に、例えばFTPソフトに不慣れなインター
+#  ネット初心者からのFTP代替手段に用いて情報共有手段にする等、広範な用途にお
+#  使いいただけるよう、あらかじめ設計されています。したがってあなたのアイデア
+#  次第で広範な用途に使用可能ですが、この場合、データの著作権問題に関しては
+#  十分ご注意下さい。管理責任は100%掲示板設置者の責任とさせていだだきます。
+#  なお、セキュリティ保全のため、アップロードできるデータは我々があらかじめ
+#  リストアップされたものに限られています。特定のタイプのデータを、投稿禁止
+#  したい、あるいは追加したい場合は、スクリプト中のサブルーチン
+#  (additional_content_types)内で変数をコメントアウトor追加してください．
+#  (詳細はサポート掲示板を参照)
+#  ただしcgi,shtml,asp,wsh(js,vbs)等のプログラム形式のファイルの拡張子は
+#  追加できないようになっています。
+#  (この設定はセキュリティ上、必要な処置ですので、解除しないで下さい )
+#
+#  マルチデータアップロードを
+#  (1=可能にする,0=可能にしない)デフォルトは0
+$allow_other_multimedia_data=1;	
+#
+#  ■ <保存ファイル名の指定>
+#
+#    当掲示板ではセキュリティ保全のため、自動的にファイルのリネームをします。
+#    ファイル名の重複を防ぐために、1.20以降では,時刻ペースの命名法をするように
+#    なりました。
+#
+#   ○ <元のファイル名を使用する>
+#    imgboardをバイナリファイルのアップロードツールとして使用し、ファイル共有
+#    用途に用いる場合、imgXXXX.XXXと勝手にリネームされると面倒で困る等の要望が
+#    ありました。そこで、アップロード前のパソコン上でのファイル名をそのまま使っ
+#    て保存することができる機能がimgboardにはありましたが、
+#    1.22 Rev.4以降、imgboardからは、この機能は削りました。同機能をご利用され
+#    たい場合は、姉妹スクリプト「e_FTPboard」をご利用ください。e_FTPboardでは
+#    デフォルトでオリジナルファイル名で保存でき、かつ、そのとき考慮すべきセキ
+#    ュリティ問題に関しても大幅強化されております。
+#
+#  ■ <フォーム入力項目のデータ有無チェック>
+#
+#  フォームの各入力項目の記入について、必須にするかどうかを指定できます。
+#  必須にした入力項目が空の場合、記事は登録はされません。
+#
+#  1=必須,0=省略を許可
+$CHECK{'name'}		=1;	# 名前 （デフォルト1）
+$CHECK{'email'}		=0;	# email（デフォルト1）
+$CHECK{'subject'}	=0;	# 題名 （デフォルト0）
+$CHECK{'body'}		=0;	# 本文 （デフォルト0）
+$CHECK{'img'}		=0;	# 添付画像（デフォルト0）
+$CHECK{'rmkey'}		=0;	# 削除キー（デフォルト0）# ←現在未使用
+#
+#  必須項目が入力されなかった場合は、警告を出して、ユーザに
+#  入力を促すことになりますが、そのときに出すメッセージの
+#  内容を以下で変更できます。
+#
+$CHECK_E{'name'}	=qq|名前がありません。<BR>|;
+$CHECK_E{'email'}	=qq|emailがありません。現在の設定ではemailは必須項目となっています。<BR>|;
+$CHECK_E{'subject'}	=qq|題名がありません。<BR>|;
+$CHECK_E{'body'}	=qq|本文がありません。<BR>|;
+$CHECK_E{'rmkey'}	=qq|削除キーがありません。<BR>|;
+$CHECK_E{'img'}		=qq|添付画像がありません。<BR>|;
+#
+#  以下は入力項目を増やす機能(imgboardでは６つまで入力項目を増やせます)を使っ
+#  て、項目を増やした場合用 (増やしていないユーザは設定しても関係ありません)。
+#
+#
+$CHECK{'optA'}		=0;	# 追加項目optA	（デフォルト0）
+$CHECK{'optB'}		=0;	# 追加項目optB	（デフォルト0）
+$CHECK{'optC'}		=0;	# 追加項目optC	（デフォルト0）
+$CHECK{'optD'}		=0;	# 追加項目optD	（デフォルト0）
+$CHECK{'optE'}		=0;	# 追加項目optE	（デフォルト0）
+$CHECK{'optF'}		=0;	# 追加項目optF	（デフォルト0）
+#
+$CHECK_E{'optA'}	=qq|optA がありません。<BR>|;
+$CHECK_E{'optB'}	=qq|optB がありません。<BR>|;
+$CHECK_E{'optC'}	=qq|optC がありません。<BR>|;
+$CHECK_E{'optD'}	=qq|optD がありません。<BR>|;
+$CHECK_E{'optE'}	=qq|optE がありません。<BR>|;
+$CHECK_E{'optF'}	=qq|optF がありません。<BR>|;
+#
+#
+#  ■ <時差>
+#
+#  海外サイトに設置した場合、投稿時刻が現地時刻になってしまいます。
+#  これを日本時刻に修正する場合には、以下の項目で時差を設定してください。
+#  (設定例) 時差を15時間にする場合 $gisa=15;という風に設定してください。
+#
+$gisa=0;		# 時差(h)
+#
+#  ■ <自動URLリンク>
+#
+#  記事中にURL,メールアドレス等が含まれる場合、自動的にリンクにします。
+#  (1=自動リンク(推奨),0=自動リンクしない)
+$auto_url_link=1;
+#
+#  ■ <新着表示>
+#
+#  最新投稿3記事に(new)を添えて表示します
+#  (1=表示する(デフォルト),0=表示しない)
+$PM{'disp_new_notice'} = 1;
+#
+#==================================#
+#     <セキュリティ オプション>    #
+#==================================#
+#
+#  <投稿者用パスワード>
+#
+#  投稿時にパスワードをチェックし、正しい場合だけ登録するようにできます．
+#  掲示板の完全公開運営に不安がある場合は、この機能を用いて会員制にする
+#  ことをおすすめします．パスワードは一度入力するとクッキーに記憶されま
+#  すので、次回投稿から入力は不要です。なお、1を指定すると自動的に項目が
+#  フォーム欄に出現します。
+#  (1=使用,0=使用しない)
+$use_passwd_flag=0;	
+#  会員パスワード
+@MEMBER_PASSWD=("password","","","");
+#
+#  <タグ使用許可>
+#
+#  コメント中にタグを許可するかどうかを指定できます。許可すればユーザ表現の
+#  自由度は上がりますが、タグの閉め忘れ等によりトラブルが発生する可能性が
+#  あります。なお、タグを許可する指定にしても、掲示板に対するイタズラ予防のため
+#  ActiveX,Javascript等や、危険性のあるタグ、いたずらによく使われるタグ
+# （約22種類）は自動フィルタされ、無効化されますので、あらかじめご了承くださ
+#  い。（詳細はsub form_checkを参照）  
+#  デフォルトはタグ使用可です。(1)
+#  (1=使用可能,0=使用不可)
+$use_tag=1;
+#
+#  <IMGタグ許可・非許可>
+#
+#  タグを許可した場合、特に、IMGタグの埋込み可否を以下で指定して下さい。これを
+#  許可すればアップロードデータ以外の他サイトの画像データ埋め込みが可能になり
+#  ユーザの自由度が上がります.（自分のアイコン画像やマスコット等）
+#  しかし同時に、IMGタグの埋込みによる外部サイト画像の無断リンクによる著作権侵
+#  害問題や、アダルト画像の埋込み表示イタズラ等のトラブルが発生する可能性が発生
+#  します。 当スクリプトの性格上、自サイトデータと他サイトデータの区切りが
+#  不明瞭になり、運営管理が混乱する傾向があるようですので、運営上は非許可に
+#  することを、強く推奨します。
+#  なおIMGタグを許可し、ユーザにより外部IMGが埋め込まれた場合、その画像には
+#  通常height, width指定がありませんので、ページのレイアウトまでにかかる時間
+#  が極端に長くなってしまうデメリットが生じます。許可される場合は、その点
+#  十分ご留意願います (これはネスケ,IEの仕様なので仕方ありません)。
+#  なお、$use_tagでタグ使用を許可していない場合は、この指定は関係ありません。
+#  (1=許可,0=非許可(強く推奨))
+$use_img_tag_in_comment=0;
+#
+#  <各種掲示板荒し対策> 
+#
+#  (レベル１）ホスト名による制限 (BLACK_LIST)
+#
+#  以下のパターンを名前に含むプロバイダに属するユーザから登録できないように
+#  します．悪質な掲示板荒しが頻発する場合、その対抗策としてご利用ください．
+#  *はワイルドカードです。０文字以上の任意パターンにマッチします。
+#  ?は一文字分の任意の文字にマッチします (詳細はサポート掲示板にて)
+#
+@BLACK_LIST=("rr.com","anonymizer.com","utm4*.bekkoame.or.jp","nasuinfo.or.jp",
+"123.123.123.123","123.123.123.2??",
+"ichikawa*.teleway.ne.jp","zip.com.au",
+"p*.haci.ap.so-net.ne.jp",
+"fukuoka*.try-net.or.jp","ashk0*.ppp.infoweb.ne.jp",
+"wave.home.net","202.231.144.1??",
+"agcs.com","utsunomiya-ppp-*.interq.or.jp");
+#
+# イタズラをするユーザの中には、ホスト名による制限を逃れるために、自分のホスト
+# 名情報を出さない設定にしている人がいます。これらホスト名を出さないユーザから
+# の投稿を禁止するかどうかを以下で決めて下さい。(1=禁止する,0=禁止しない(推奨))
+$no_upload_by_no_RH_user=0;	
+#
+#  (レベル２）禁止単語による制限 (BLACK_WORD)
+#
+#  特定の単語を本文に含む記事の投稿を失敗させます。前述の手段を用いても"荒し"
+#  や "宣伝広告の嵐" がどうしても収まらない場合、あるいは、ホスト名を頻繁に変
+#  えるユーザからしつこいイタズラを受けている場合に、最終手段として使ってみて
+#  ください。
+#  (1=制限する,0=制限しない(推奨))
+$PM{'no_upload_by_black_word'}=0;	
+#
+#   マッチした場合のエラーメッセージ（変更可）
+#   （排除されたことが相手にわからないように、できるだけ、
+#    無意味なものにしてください）
+$PM{'error_message_to_black_word'}="CGI error code 2244 NBW";	
+#
+@BLACK_WORD=(" Ω "," しねしね "," うんこ "," 死ね "," 制裁 "
+," ユダヤ "
+," ごみ以下 "," 呆れ "," 無修正画像 ", " すべて無修正 "
+," 雑魚 "," 罵 "," 童貞 "," 傍観者 "," fuck "
+," porn "," ウンコ "
+," 偽善者 "," わらい "," 捏造 "," adult "," teen "," stripper "
+," fetish "," pics " ," 下記URLで只今無料配布中 "
+," 素人娘 "," ビデオを大放出 ");
+#
+#  <連続投稿回数制限>
+#
+#  イタズラを防ぐために、同一ユーザからの連続投稿回数を掲示板側
+#  で制限できます。
+#  (1=制限する（デフォルト）,0=制限しない)
+$limit_upload_times_flag=1;	
+#  
+#  上で"1"にした場合、どれだけのサンプリング期間の間に最大何回までアップ
+#  ロード許可するかを決めてください。（オーバすると投稿エラーになります）
+#
+# サンプリング期間 (day,1hour,10min,2min,1minを選択可。デフォルトは2min)
+$upload_limit_type="2min";	
+# 回数。デフォルトは5回
+$upload_limit_times="5";
+#
+#  <自動バックアップ> 
+#
+#  定期的に記事を自動バックアップする機能がつきました。前回バックアップファ
+#  イルを作成した日から間隔日以上空いて、新規登録があると、そのタイミングで
+#  バックアップファイルを更新します。なお、バックアップは記事が５件以上ある
+#  場合にのみ動作します。
+#
+#  自動定期バックアップを使用#
+#  (1=使用する（デフォルト）,0=使用しない)
+$PM{'make_backup_file'}	= '1';
+#
+#  バックアップする間隔(日)
+$PM{'backup_day_interval'}  = '7';		
+#
+# バックアップファイル名(セキュリティ上の理由より、適宜変更して使うことを推奨)
+$PM{'backup_file_name'} = 'fileback.dat';
+#
+#  <管理者自動メール> sendmail
+#
+#  新規記事が登録されると、下記メールアドレスにメールで通知します。
+#  この機能を使用する場合は、以下の三つの情報をすべて確実に指定してください。
+#  これらの情報を間違えると、サーバ管理者へ迷惑をかけるので、必ず管理者に確認
+#  してから慎重に設定を行ってください。なお、この機能が使えるのはプロバイダ
+#  がUNIX系のユーザのみです。(Mac,Win不可）設定がよくわからない場合は使用し
+#  ないでください。
+# 
+$use_email =0;		# (1=yes,0=no)デフォルトは0
+#
+#  メールプログラムのパス
+# 普通のプロバイダの場合は'/usr/lib/sendmail'等になる（プロ
+# バイダにより異なるので、詳細はCGIを設置するプロバイダに聞く）。
+# 自宅サーバの場合は'D:\blatj\blatj.exe'等を設定する
+$mail_prog = '/usr/lib/sendmail';
+#
+#  管理者のメールアドレス（あなたのメールアドレス）
+$recipient = 'yourname@your_provider.ne.jp';
+#
+#  メール本文に画像のURLリンクを作るため、画像保存ディレクトリのURLを指定して下さい。
+$img_dir_url='http://yourprovider/yourname/imgboard/img-box/';
+#
+#  <ちょっとおやすみ> oyasumi
+#
+#  旅行に出かける等、しばらく掲示板をお休みしたい時は0にしてください。
+$bbs_open_flag=1;          #(1=yes,0=no)デフォルトは1
+#  おやすみ時のメッセージ(適宜変更)
+#
+$oyasumi_message=qq|
+管理者旅行中のため、しばらくお休みします。<BR>
+またのお越しをお待ちしております。
+|;
+#
+#
+# その他変数の初期化
+$PM{'flock'}		= '1';			# flockを使う
+$PM{'use_crypt'}	= '1';			# 暗号化を用いる
+#
+#===============================================#
+#     <外部の設定ファイルのロード(1.21以降)>    #
+#===============================================#
+#
+# カスタマイズしたHTMLや設定したパラメータ等を外部からロードします。
+# バージョンアップによる引越しやカスタマイズが楽になります。
+#
+# 外部設定ファイルを使う(1=yes,0=no)
+$load_ext_config	=0;
+#
+# （一例）マスコットアイコン付き掲示板に変更できる外部設定ファイル
+$ext_config_name	="set_icon624.cgi";# 設定ファイル名（拡張子は必ず cgiに）
+#
+#
+#=========================================#
+#     <ＨＴＭＬ詳細設定項目オプション>    #
+#=========================================#
+#
+#==========================#
+# HTML全体のデザイン
+#==========================#
+#
+#  <BODY内の要素 >
+#
+$PM{'body_bgcolor'}	="#000055";		# 全体の背景色
+$PM{'body_text'}	="#ffffff";		# 基本フォント色
+$PM{'body_link'}	="#aaaaaa";		# リンク色
+$PM{'body_vlink'}	="#ff0000";		# 既アクセスリンク色
+$PM{'body_background'}	="";			# 背景画像名
+#
+#  (ワンポイント)一般の掲示板の背景色は明色系が多いのですが、画像掲示板の
+#   場合は、濃い暗めの背景色を選んだ方が写真や画像が見やすくなります
+#
+# (注意)返信欄の基本フォント色は、「返信欄のデザイン」の部分で指定します
+#
+#==========================#
+# 掲示板最上部のデザイン
+#==========================#
+#
+#  <最上部テキストタイトル >
+#  <最上部画像タイトル >
+#  <最上部埋め込みバナー >
+#
+#    <ＨＴＭＬ抜粋>以下のsub top_htmlで直接HTMLで指定してください。
+#    (抜き出すと逆に編集しにくくなるというケースもあるようですので)
+#
+#==========================#
+# フォーム入力部のデザイン
+#==========================#
+#
+#  <フォーム入力部を掲示板上に表示>
+$form_disp_on_board	=0;		# (1=yes,0=no)デフォルトは1
+#
+#--注 上記数値を0にして入力フォームを別ウィンドにすると、内部処理の
+#     関係で表示が少々遅くなります。できるだけ1のままに。
+#
+#  < TABLE(表)の形状 >
+#   
+$table_bgcolor		="";		# フォーム部分の背景色
+$table_background_image="";		# フォーム部分の背景画像
+$table_border		="0";		# フォーム部分の枠の高さ
+$table_cellspacing	="1";		# フォーム部分の枠の幅
+$table_cellpadding	="0";		# フォーム部分の枠のマージン
+#
+# < フォーム内のフォント色とサイズ >
+#
+$font_option		="color=#90FF90 size=+0";# 下記以外の部分
+$font_option2		="color=#9E8857 size=+0";# "画像選択"と"題名"
+#
+# < 必要/省略可の自動表示のフォント色とサイズ >
+#
+#  "フォーム入力項目のデータ有無チェック"での設定に従い、
+#  必要/省略可の自動表示を、フォーム欄の脇に自動表示することができます
+#
+$auto_disp_omit_frag	="1";			# 自動表示する(yes=1,no=0)
+$f_param		="color=#555555 size=-1";	# フォント色とサイズ
+#
+# < フォーム欄の背景色 >
+#
+$ie_bg			="bgcolor=#3CB371";	# 欄の基本背景色(IE用)
+$ie_bg2			="bgcolor=DEB887";	# "画像選択"  欄
+$ie_bg3			="bgcolor=DEB887";	# "画像の題名"欄
+#
+#
+# < フォーム欄の(題名)をクッキーに記憶させない >
+#
+#  R5.2以降、デフォルトでは題名を記憶しないに設定にしましたが、
+#  これを記憶する設定にしたい方は以下のフラグを0にしてください。
+#
+$no_cookie_for_subject=1;
+#
+#==========================#
+# 記事部のデザイン
+#==========================#
+#
+# <ＨＴＭＬ抜粋>以下で直接指定してください。
+#
+#==========================#
+# 返信欄のデザイン
+#==========================#
+#
+# < 返信欄の背景色/背景画像の指定 >
+#
+#  返信欄の背景色/背景画像をここで指定できます
+$res_table_sitei="bgcolor=#F0E0D6";
+#
+#  (ワンポイント)
+#   背景画像を指定する場合の書き方「$res_table_sitei="bgcolor=#F0E0D6";」
+#   背景画像を指定する場合の書き方「$res_table_sitei="background=res_haikei.gif";」
+#
+#  返信欄のフォント基本色
+$res_base_font_color="color=#808080";
+#
+#
+#==========================#
+# ＨＴＭＬ--下部のデザイン
+#==========================#
+#
+#  フリーのCGIサイト等で掲示板下部へのバナー広告を義務付けられている
+#  場合は、ここにHTMLソースを書いてください。挿入ポイントは削除ボタン
+#  の直上になります。なお、バナーには必ずHeight,Widthを追加指定してく
+#  ださい
+#
+$html_for_bottom_banner=qq|
+<!--
+下部にバナー広告を入れる場合は、上下の「コメントアウトタグ」を外して、
+ここにHTMLソ\ー\スを書いてください。下記はFreeWebの例です。
+<A HREF="http://www.freeweb.ne.jp/cgi-bin/changebanner.cgi?no=1&action=href"><IMG SRC="http://www.freeweb.ne.jp/cgi-bin/changebanner.cgi?no=1" WIDTH=468 HEIGHT=60 ALT="Please visit our sponsors."></A>
+<A HREF="http://www.try-net.or.jp/">
+<IMG SRC="http://www.freeweb.ne.jp/ad/trynet.gif" width=90 height=34 alt="TRY-NET" border=0></A>
+<A HREF="http://www.freeweb.ne.jp/">
+<IMG SRC="http://www.freeweb.ne.jp/ad/freeweb_s.gif" width=90 height=34 alt="freeweb" border=0></A>
+<BR>
+-->
+|;
+#
+#==========================#
+# その他のデザイン
+#==========================#
+#
+# <ＨＴＭＬ抜粋>以下で直接指定してください。
+#
+#  ===================<ＨＴＭＬ抜粋>==========================================
+#
+#  ユーザサイドでＨＴＭＬを変更しやすいように,スクリプト中のＨＴＭＬ定義部分を
+#  プログラムから以下に抜き出し列挙してあります．それぞれ,print<<HTML_END;行の
+#  次の行からHTML_END記号の前行までは、通常ＨＴＭＬとして編集可能なので,ワード
+#  パット(Win系) Jedit(Mac系)等のエディタでご自由に書き換えて、カスタマイズして
+#  ください．ただし先頭に$がついているもの($body_bgcolor等)は変数なので、消す
+#  場合は十分注意してください．
+#  なお、当スクリプトはSJISコードを用いているため,「表示,申す,機能」等の特定の
+#  文字がインターネット経由で見ると化けてしまう現象があります。この手の漢字や
+#  文字を使用して文字化けが発生した場合は、文字化けした文字の前後に\マークを
+#  入れて区切れば文字化けは出なくなります。なお、この場合、\はPerlでは文字区
+#  切り記号として働き、Web上には表示されません。
+#
+#=====================================#
+#     <ＨＴＭＬ--画面最上部>          #
+#=====================================#
+#
+#  ＨＴＭＬヘッダ,ボディ指定．タイトル等画面最上部のＨＴＭＬです
+#
+#  print<<HTML_END;の次行から"HTML_END"のある行までは、通常のＨＴＭＬ
+#  として編集可能です． 
+sub top_html{
+
+print<<HTML_END;
+<HTML lang="ja">
+<HEAD><TITLE>$title</TITLE>
+<STYLE>
+<!--
+select { 
+background-color:#8B0000;
+font-size:12px;
+font-family : MS UI GOTHIC ; 
+color:#FFFFFF
+}
+textarea,input { 
+
+background-color:#FFF0F5;
+font-size:12px;
+color:#603050
+}
+-->
+</STYLE>
+</HEAD>
+<BODY BGCOLOR="$PM{'body_bgcolor'}" BACKGROUND="$PM{'body_background'}" TEXT="$PM{'body_text'}" LINK="$PM{'body_link'}" VLINK="$PM{'body_vlink'}">$body_tag_f
+
+<!-- <BASEFONT SIZE="3"> -->
+<!-- 基本フォントサイズ指定(使用する場合は上記コメントアウトを外す) -->
+
+<!-- 掲示板最上部タイトルエリア・・画像や絵を入れることができます -->$PM{'INS_POINT_TOP01'}
+<!-- (アドバイス)画像やカウンタを入れる場合はheight,widthを指定するとレイアウトが非常に早くなります -->
+
+<CENTER>$PM{'INS_POINT_TOP02'}
+<!-- バナーや、トップ位置の画像はここへHTMLを書いてください -->
+
+</CENTER>
+
+<UL>
+ <H3>PHOTO BBS @ NAL-TO studio </H3>
+ 返信＆新型imgsize.pl対応版（リサイズ時の画質が向上しています）
+</UL>
+HTML_END
+}
+#
+#=====================================#
+#     <ＨＴＭＬ--アンカーリンク部分>  #
+#=====================================#
+#
+#  フォームの下にある[ワード検索]、[携帯対応]、[管理等]のアンカーリンクを
+#  作る部分のＨＴＭＬです。
+#
+#  (ワンポイント) 他にリンク等を追加したい場合はここへリンクを
+#   追加すると収まりが良いでしょう。
+#
+sub link_top_html{
+
+print<<HTML_END;
+<DIV align=right>
+$cm_out_exit_h [<a href="$back_url">トップに戻る</a>] $cm_out_exit_f
+[<a href="$cgi_name?mode=search_menu&amode=$FORM{'amode'}&p1=$FORM{'p1'}&p2=$FORM{'p2'}$GETURLADDP{'WS'}&page=$FORM{'page'}">ワード検索</a>]
+[<a href="$cgi_name?mode=keitai_menu&amode=$FORM{'amode'}&p1=$FORM{'p1'}&p2=$FORM{'p2'}&page=$FORM{'page'}">携帯対応</a>]
+[<a href="$cgi_name?mode=disp_admin_check_menu&amode=$FORM{'amode'}&p1=$FORM{'p1'}&p2=$FORM{'p2'}&page=$FORM{'page'}">管理</a>]
+&nbsp
+</DIV>
+HTML_END
+}
+#
+#=====================================#
+#     <ＨＴＭＬ--画面中央の説明>      #
+#=====================================#
+#
+#  真ん中の説明部分のＨＴＭＬです．
+#
+#  (ワンポイント)
+# 「パソコン」の部分に「\」が入っているのは文字化け防止のためです。
+#  文字化けする場合はこの例のようにテキストの間に「\」を入れると良い
+#  でしょう。
+#
+sub middle_A_html{
+  local($mes_01);
+  if($allow_other_multimedia_data==1){
+	$html_mA01="ファイル";
+  }else{
+	$html_mA01="画像";
+  }
+  if($disp_rcmd_upload_size_flag==1){
+	$mes_01=qq| 推奨<B>$rcmd_upload_size KB</B>以下\/|;
+  }
+
+print<<HTML_END;
+<HR>
+<!--掲示板中央部の説明部分A-->
+<font size=-1>
+ <UL>
+  <LI>あなたのパ\ソ\コ\ン上にある$html_mA01を,直接ＢＢＳ上にアップロードできます．($mes_01最大<B>$max_upload_size KB</B>まで)
+  <!--IE3ユーザには、アドオンの説明が自動でここに入ります-->$explain_upload_add_on
+  <LI>名前、e-mail $gvar_middle_01 は一度登録すると記憶されますので次回から入力省略できます
+  <!-- URL、メールアドレス等の注意が自動で入ります -->$auto_url_message
+  <LI>著作権上問題があるものはアップロードしないでください
+  <!--タグ使用上の注意が自動で入ります-->$tag_siyou_tyuui
+</UL>
+</font>
+HTML_END
+}
+
+sub middle_B_html{
+print<<HTML_END;
+<font size=-1>
+<UL>
+<!--掲示板中央部の説明部分B-->
+  <LI>新しい記事から表\示\。最高<B>$max_message</B>件の記事が記録され、
+      それを超えると古い記事から削除されます</LI>
+  <LI>１回の表\示\で<B> $disp_message </B>件を越える場合、
+       最下部のボタンを押すことで次の画面を表\示</LI>
+  <LI>クリックすると元の画像が新フレームに表\示されます</LI>
+  </UL>
+</font>
+<HR>
+HTML_END
+}
+#
+#=====================================#
+#     <ＨＴＭＬ--投稿記事部分>        #
+#=====================================#
+#
+#  imgboardではユーザが「表示モード」を選択できるようになっています。
+#  そのため、テキストリンク、アイコンサイズ、固定サイズ、原寸などの
+#  それぞれの「表示モード」により個別の記事部レイアウトを変更しなけ
+#  ればなりませんが、それぞれ非常に良く似てますので、ここでは基本レイ
+#  アウト２パターン(画像が小さい場合の基本レイアウト/画像が大きい場合
+#  の基本レイアウト)を定め、それの一部分($html_block_A)をすり替える
+#  ことにより、全「表示モード」をカバーするものとします。レイアウトを
+#  自分で変更したい場合は以上の点を理解した上で、編集してください。
+#
+#  1.レイアウトパターン１/ 画像が小さい記事系のレイアウト
+# （----テキスト記事、テキストリンク表示、アイコンサイズ表示用----）
+#
+#  (注)レイアウト中の $html_block_Aには後述のブロックが代入されます。
+#
+sub kiji_base_html{
+
+print<<HTML_END;
+<!--記事レイアウト テキスト記事、テキストリンク\表\示、アイコンサイズ\表\示用-->
+<FONT SIZE="+1" COLOR="#FF0000"><B>$tmp_subject</B></FONT>
+$icon_html
+ 名前：<FONT COLOR="#00FF00"><B>$mail_a_start $tmp_name $mail_a_end</B></FONT>
+$tmp_date $auto_user_IP $disp_seq_no $disp_re
+$tmp_url_link
+<BLOCKQUOTE><!-- body_start -->
+	$tmp_body <!-- $ddd -->
+</BLOCKQUOTE>
+$html_block_A
+$keitai_env_link
+HTML_END
+}
+#
+#  テキスト、テキストリンク、アイコンサイズ、各表示モードに
+#  より以下のＨＴＭＬが上記レイアウトのhtml_block_Aに代入されます。
+#  以下でその代入ブロックを編集できます。
+#
+sub set_html_block{
+# 変数の準備
+$img_dsize="$IMG_PARAMETERS{'dsize'}";
+#
+#  1.1テキスト/テキストリンクモード時用の $html_block_A
+$textlink_html_block=qq|
+<BLOCKQUOTE> $data_type： 
+ <A HREF="$tmp_img_location" TARGET="top">
+  $tmp_imgtitle
+ </A>-$img_dsize 
+</BLOCKQUOTE>
+|;
+#  1.2アイコンサイズモード時用の $html_block_A
+$icon_html_block=qq|
+<BLOCKQUOTE> 画　像： 
+ <A HREF="$tmp_img_location" TARGET="top">
+  <img src="$tmp_img_location" $w_set $h_set border="0">
+   $tmp_imgtitle
+ </A>-$img_dsize 
+</BLOCKQUOTE>
+|;
+}
+#
+#   2.レイアウトパターン2/ 画像がメインな記事系レイアウト
+#  (------横固定サイズ表示＆オート＆オリジナルサイズ表示用--------）
+sub kiji_base2_html{
+
+  local($ttmp_img_location)="$tmp_img_location";
+  if($tmp_snl_location ne ""){
+   $ttmp_img_location="$tmp_snl_location";
+  }
+
+print<<HTML_END;
+<!--記事レイアウト 横固定サイズ＆オート＆オリジナルサイズ用-->
+画像タイトル：<A HREF="$tmp_img_location" TARGET="top">$tmp_imgtitle
+<IMG SRC="$ttmp_img_location" BORDER="0" $size_sitei ALIGN="LEFT" HSPACE="12">
+</A>-$img_dsize<BR>
+<BR>
+<FONT SIZE="+1" COLOR="#FF0000"><B>$tmp_subject</B></FONT>
+$icon_html 名前：<FONT COLOR="#00FF00"><B>$mail_a_start $tmp_name $mail_a_end</B></FONT>
+$tmp_date $auto_user_IP $disp_seq_no $disp_re
+$tmp_url_link
+<BLOCKQUOTE><!-- body_start -->
+$tmp_body
+</BLOCKQUOTE>
+$keitai_env_link
+HTML_END
+}
+#
+#   3.レイアウトパターン3/ 返信記事レイアウト
+sub kiji_rep_html{
+
+	# 旧外部ファイルとの互換部分(指定がない場合はpinkにする)
+	$res_base_font_color="color=pink" if($res_base_font_color eq "");
+
+print<<HTML_END;
+<!--返信用 ↓全体のフォントはここで指定 -->
+<font $res_base_font_color>
+<FONT SIZE="+1" COLOR="#FF0000"><B>$tmp_subject</B></FONT>
+$icon_html 名前：<FONT COLOR="#00FF00"><B>$mail_a_start $tmp_name $mail_a_end</B></FONT>
+$tmp_date $auto_user_IP $disp_seq_no 
+$tmp_url_link
+<BLOCKQUOTE><!-- body_start -->
+	$tmp_body
+</BLOCKQUOTE>
+$keitai_env_link</font>
+HTML_END
+}
+#=========================================#
+#     <ＨＴＭＬ--入力フォーム部>          #
+#=========================================#
+#
+#  記事入力フォーム部のＨＴＭＬ．入力項目を増やしたり、減らしたりしたい
+#  場合はここを変更してください。だだし、変更によりＣＧＩがうまく動かな
+#  くなる可能性がありますので,ここは変更する時は十分注意してください．
+#  なお、URL等の項目を追加したいなど、よくある希望に対しては、外部設定
+#  ファイルというカスタマイズした設定ファイルを使うことにより、より簡単
+#  に実現できますので、自分でカスタマイズするよりも、それを使った方が楽
+#  でしょう。なお、同ファイルはサポートサイトの方で配布しています。  
+#
+sub form_html{
+&ext_config_form_pre if($EXTSUB{'form_pre'} == 1 );
+&auto_omit_disp;
+$COOKIE{'subject'}="" if($no_cookie_for_subject ==1);
+
+print<<HTML_END;
+<!-- フォーム入力部・・・ここはあまり変更しない方がいいでしょう -->
+<FORM ACTION="$cgi_name" METHOD="POST" ENCTYPE="multipart/form-data">
+<INPUT TYPE="HIDDEN" NAME="bbsaction" VALUE="post">
+<INPUT TYPE="HIDDEN" NAME="page" VALUE="$FORM{'page'}">
+<INPUT TYPE="HIDDEN" NAME="view_mode" VALUE="$COOKIE{'view_mode'}">
+<INPUT TYPE="HIDDEN" NAME="blood" VALUE="$FORM{'blood'}">
+<INPUT TYPE="HIDDEN" NAME="parent" VALUE="$FORM{'parent'}">
+<INPUT TYPE="HIDDEN" NAME="prebbsaction" VALUE="$FORM{'bbsaction'}">
+<INPUT TYPE="HIDDEN" NAME="amode" VALUE="$FORM{'amode'}">
+<INPUT TYPE="HIDDEN" NAME="p1" VALUE="$FORM{'p1'}">
+<INPUT TYPE="HIDDEN" NAME="p2" VALUE="$FORM{'p2'}">
+<INPUT TYPE="HIDDEN" NAME="target" VALUE="$FORM{'target'}">
+<INPUT TYPE="HIDDEN" NAME="target_no" VALUE="$FORM{'target_no'}">
+$POSTADDP{'UPLOADFORM'}<!-- 将来拡張用 -->
+<UL>
+<TABLE BORDER="$table_border" CELLSPACING="$table_cellspacing" CELLPADDING="$table_cellpadding" bgcolor="$table_bgcolor" background="$table_background_image">
+<!-- 投稿用パスワード。会員制にするときに使用 -->
+<!-- ＄cm_out_xx_xは設定モードにより、自動的にＨＴＭＬコメントアウト記号＜！ーー等が代入されます -->
+$cm_out_pw_h
+<TR $ie_bg >
+ <TD ALIGN=CENTER><font $font_option>会員パスワード： </font></TD>
+ <TD colspan=2><INPUT TYPE="PASSWORD" NAME="entry_passwd" SIZE=15 VALUE="$COOKIE{'entry_passwd'}" MAXLENGTH="20">*必要 $POSTADDP{'MEMBERPASS'}</TD>
+</TR>
+$cm_out_pw_f
+<TR $ie_bg>
+ <TD ALIGN=RIGHT><font $font_option>おなまえ： </font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="name" SIZE=35 VALUE="$COOKIE{'name'}" MAXLENGTH="40"> $DISP_OMIT{'name'}</TD>
+</TR>
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>e-mail： </font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="email" VALUE="$COOKIE{'email'}" SIZE=35 MAXLENGTH="50"> $DISP_OMIT{'email'}</TD>
+</TR>
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>題名： </font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="subject" VALUE="$COOKIE{'subject'}" SIZE=35 MAXLENGTH="60"> $DISP_OMIT{'subject'}</TD>
+</TR>$PM{'INS_POINT_FORM01'}<!-- ←将来拡張用 -->
+
+HTML_END
+&ext_config_form_opt if($EXTSUB{'form_opt'} == 1 );# 外部設定ファイルによる将来拡張用
+print<<HTML_END;
+
+<!-- 予\備の入力項目パラメータ・入力項目を増やしたい場合に使用 -->
+<!-- なお、ここで有効化した項目のデータは、記事部分のHTML(kiji_base_html/kiji_base2_html)内に、$OPTDATA{'optA'}等の記号を書くと、書いた位置に代入され、表\示されます -->
+
+<!-- 項目A入力欄ここから 使用時は下の＜！--を取る -->
+<!--
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>入力データA  $DISP_OMIT{'optA'}</font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="optA" VALUE="$COOKIE{'optA'}" SIZE=55 MAXLENGTH=100></TD>
+</TR>
+-->
+<!-- 項目A入力欄ここまで 使用時は上の--＞を取る -->
+<!-- 項目B入力欄ここから 使用時は下の＜！--を取る -->
+<!--
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>入力データB $DISP_OMIT{'optB'}</font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="optB" VALUE="$COOKIE{'optB'}" SIZE=32 MAXLENGTH=100></TD>
+</TR>
+-->
+<!-- 項目B入力欄ここまで 使用時は上の--＞を取る -->
+
+<!-- 項目C入力欄ここから 使用時は下の＜！--を取る -->
+<!--
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>入力データC $DISP_OMIT{'optC'}</font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="optC" VALUE="$COOKIE{'optC'}" SIZE=32 MAXLENGTH=100></TD>
+</TR>
+-->
+<!-- 項目C入力欄ここまで 使用時は上の--＞を取る -->
+
+<!-- もっと増やしたい場合は、D,E,F....と同様に追加して増やしてください -->
+
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>本文：</font></TD>
+ <TD colspan=2>
+<TEXTAREA NAME="body" COLS=76 ROWS=7 WRAP=SOFT>$COOKIE{'body'}</TEXTAREA>$DISP_OMIT{'body'}</TD>
+</TR>
+
+$cm_out_img_h
+<TR $ie_bg2 >
+ <TD ALIGN=RIGHT><font $font_option2 >画像選択 </font></TD>
+ <TD colspan=2><INPUT TYPE="FILE" NAME="img" VALUE="" SIZE=30>←ファイルを選択 $DISP_OMIT{'img'}</TD>
+</TR>
+<TR $ie_bg3 >
+ <TD ALIGN=RIGHT NOWRAP><font $font_option2 > &nbsp&nbsp画像の題名 </font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="imgtitle" SIZE=30 MAXLENGTH=60><font $f_param>*省略可</font></TD>
+</TR>
+$cm_out_img_f
+HTML_END
+
+if($use_guest_passwd=='-1'){
+ $rmkey_default_checked="CHECKED" if($COOKIE{'rmkeym'} eq "on");
+
+ if($FORM{'bbsaction'} ne "edit_form"){
+print<<HTML_END;
+<!-- 削除キー -->
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>削除キー </font></TD>
+ <TD><INPUT TYPE="PASSWORD" NAME="rmkey" VALUE="$COOKIE{'rmkey'}" SIZE=4 MAXLENGTH=16>
+  $DISP_OMIT{'rmkey'} 自分で記事を削除時に使用。数字で4ケタ以内</TD>
+ <TD ALIGN=LEFT>
+ <INPUT TYPE="CHECKBOX" NAME="rmkeym" $rmkey_default_checked>キーを記憶</TD>
+</TR>
+HTML_END
+ }else{
+print<<HTML_END;
+<!-- 削除キー -->
+<INPUT TYPE="HIDDEN" NAME="rmkey" VALUE="$COOKIE{'rmkey'}">
+<INPUT TYPE="HIDDEN" NAME="rmkeym" VALUE="$COOKIE{'rmkeym'}">
+HTML_END
+ }
+}
+
+print<<HTML_END;
+<TR >
+ <TD>
+ </TD>
+ <TD><INPUT TYPE="SUBMIT" VALUE=" 投稿する "><INPUT TYPE="RESET" VALUE="中止">
+ </TD>
+ </FORM>
+ <TD align=center></TD>
+</TR>
+</TABLE>
+</UL>
+HTML_END
+}
+#
+#
+#
+#------------ＨＴＭＬ抜粋ここまで------------#
+# cfg_end
+
+
+    #=================================================================#
+    #     以上でユーザカスタマイズ部分である初期設定は終わりです      #
+    #     以下はプログラムになります．                                #
+    #=================================================================#
+
+
+#=======================================================================#
+# メインルーチン
+#=======================================================================#
+
+&init_valiables;			# 初期化
+
+&check_open;				# 開店確認
+
+&read_input;				# フォームの内容とクッキーを読み込む
+
+&ext_config_amode if($EXTSUB{'amode'}==1);# 外部設定による将来拡張用
+
+&amode_done;				# 管理者画面の処理
+
+&ext_config_bbsaction if($EXTSUB{'bbsaction'}==1);# 外部設定による将来拡張用
+
+if($FORM{'bbsaction'} eq 'post'){		# モードが投稿モードの場合
+	&check_post_browser_type;		# ブラウザチェック
+	&check_entry_passwd;			# 会員チェック
+	&protect_from_BBS_cracker;		# 荒し対策
+
+	&read_cookie;				# クッキーを読込む
+	&limit_upload_times;			# 連続投稿回数チェック
+
+
+	if($FORM{'prebbsaction'} eq 'edit_form'){# 置換モードの場合
+		&replace_data("$FORM{'target'}","$file");# 修正処理
+	}else{
+		&check_double_post("$FORM{'email'}","2","1");# 2重投稿チェック
+		&post_data("$file");		# 投稿処理
+		&set_cookies;			# クッキーをセット
+	}
+
+	&send_mail;				# 管理者へメール	
+	&jump_html;				# パラメータクリア用ＨＴＭＬ
+	exit;					# 終了
+
+}elsif($FORM{'bbsaction'} eq 'remove'){	# モードが削除モードの場合
+
+	if($FORM{'passwd'} eq $admin_passwd){
+		$remove_mode="admin";		# 削除モード
+		&remove_data("$file");		# 削除処理
+		&jump_html;			# パラメータクリア用ＨＴＭＬ
+		exit;				# 終了
+	}elsif(($FORM{'passwd'} eq $guest_passwd)&&($use_guest_passwd ==1)){
+		$remove_mode="guest";		# 削除モード
+		&remove_data("$file");		# 削除処理
+		&jump_html;			# パラメータクリア用ＨＴＭＬ
+		exit;				# 終了
+	}elsif($use_guest_passwd =='-1'){
+		$remove_mode="rmkey";		# 削除モード
+		&remove_data("$file");		# 削除処理
+		&jump_html;			# パラメータクリア用ＨＴＭＬ
+		exit;				# 終了
+	}else{
+		&error("パスワードが違います．削除を中止しました．");
+	}
+
+}elsif($FORM{'bbsaction'} eq 'pf_change'){# モードがプロファイル変更の場合
+	&set_cookies;				# クッキーをセット
+	&jump_html;				# パラメータクリア用ＨＴＭＬ
+	exit;					# 終了
+
+}elsif($FORM{'bbsaction'} eq 'page_change'){# モードがページ変更の場合
+	&read_cookie;				# クッキーを読込む
+
+}elsif($FORM{'bbsaction'} eq 'disp_form_only'){# フォームウィンド表示の場合
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	&top_html;
+	&output_form_html;			# 入力フォームを表示
+	print "</BODY></HTML>\n";
+	exit;
+}elsif($FORM{'bbsaction'} eq 'disp_rep_form'){# 返信用ウィンド表示の場合
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	&top_html;
+	print "<UL><H2>記事NO. $FORM{'parent'}に返信をします</H2>\n";
+	print "[<a href=\"$cgi_name?amode=$FORM{'amode'}&p1=$FORM{'p1'}
+&p2=$FORM{'p2'}&page=$FORM{'page'}\">返信しないで戻る</a>]</UL>\n";
+	&output_form_html;			# 入力フォームを表示
+	&protect_from_BBS_cracker if($PM{'no_disp_for_cracker'}==1);# 荒し対策
+    	&output_html("$file");			# 掲示板を表示
+	exit;
+
+# 配布版では未使用
+}elsif($FORM{'bbsaction'} eq 'remove_select'){	# 削除記事の選択
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	$title=qq| 削除確認 |; 
+	&top_html;
+	&output_remove_select_html;		# 削除パス確認画面を出す
+	print "</BODY></HTML>\n";
+	exit;
+
+}elsif($FORM{'bbsaction'} eq 'edit_form'){	# 記事編集画面
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	$title=qq| 修正フォーム |; 
+
+	&edit_top_html;
+	&load_target_kiji("$FORM{'target'}","$file");
+
+	if($FORM{'amode'} eq "icon_edit"){
+	 &output_wp_upload_form;		# WP入力フォームを表示
+	}else{
+	 &output_form_html;			# 入力フォームを表示
+	}
+
+	print "</BODY></HTML>\n";
+	exit;
+
+}
+
+# アクションが何も指定されていない時は、表示となる
+# 各モードにより表示画面の種類を分岐させて表示させる
+
+  &ext_config_mode if($EXTSUB{'mode'}==1);	# 外部設定による将来拡張用
+
+  if($FORM{'mode'} eq "disp_admin_check_menu"){
+	# 管理者確認メニュー表示
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	&output_admin_check_HTML;
+	exit;
+  }elsif($FORM{'mode'} eq "disp_icon_list"){
+	# アイコン一覧を表示
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	&output_icon_list_HTML;
+	exit;
+  }elsif($FORM{'mode'} eq "disp_admin_menu"){
+	# 設定変更メニューを表示
+	if(&check_passwd("$FORM{'apasswd'}","$admin_passwd","0")==1){
+		&set_admin_cookies; # 管理者パスを一時記憶
+		print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+		&output_admin_menu_HTML;
+	}else{
+		&error("パスワードが違います．処理を中止しました．","","1");
+	}
+	exit;
+  }elsif($FORM{'mode'} eq "search_menu"){
+	# ワード検索メニュー表示
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	&output_search_menu_HTML;
+	if($FORM{'SearchWords'} ne ""){
+	    &protect_from_BBS_cracker if($PM{'no_disp_for_cracker'}==1);# 荒し対策
+    	    &output_html("$file");		# 掲示板を表示
+ 	    exit;				# 終了
+	}else{
+		print " 検索ワードが何もありませんでした．入力してください \n";
+	}
+	&output_search_menu_HTML2;
+	exit;
+  }elsif($FORM{'mode'} eq "keitai_menu"){
+	# 携帯対応メニューを表示
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	&output_keitai_menu_HTML;
+	exit;
+  }else{
+    # モードが指定されてない場合,掲示板を表示
+	&protect_from_BBS_cracker if($no_disp_for_cracker==1);	# 荒し対策
+
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	# HTMLヘッダ,ボディ．（書換えは初期設定の所で行う）
+	&top_html;
+	$COOKIE{'body'}="";
+	&output_form_html;					# フォームを表示
+	&output_html("$file");					# 掲示板を表示
+	exit;
+  }
+
+exit;
+
+#=======================================================================#
+# サブルーチン
+#=======================================================================#
+
+#================#
+# 初期化
+#================#
+
+sub init_valiables{
+
+	$vip_n			="11020609";
+	$imgboard_ver		="2001101501";
+	$EXTCFG{'ext_config_ver'}="100";
+	$script_end_flag	="99"; 
+	$HTTP_USER_AGENT	=$ENV{'HTTP_USER_AGENT'};
+	$REMOTE_HOST		=$ENV{'REMOTE_HOST'};
+	$SERVER_NAME		=$ENV{'SERVER_NAME'};
+
+	undef $tok2_cookie;
+
+	if(int($])<5){
+		&error(" 設定エラー。スクリプトの１行目でパスの指定されたPerlのバージョン $] は古すぎます。imgboard1.22R5以降ではjcode.plのバージョンの関係でPerl5以上が必要です。Perl5以上のパスを探してそれに変更するか、Perl4でも動くR5\(for Perl4\)とjcode_sj.plを特報倶楽部にて入手してください。 ");
+	}
+
+	&check_browser_type;	# ブラウザチェック
+	&check_RH;		# Apache1.3.x対策
+	&check_ISP;		# プロバイダをチェックして、アドバイスを出す
+	&check_imode;		# iモードからのアクセスなら指定URLへ飛ばす
+	eval "&check_script_end;";
+	# ダウンロードミスによる尻切れスクリプトを検出
+
+	$cgi_name=&get_script_name;
+	#========= 以下はマイナーオプションです ( 0=no,1=yes)==========#
+
+	# ブラックリスト関連の追加設定
+	$no_disp_for_cracker	=0;	# リスト上のサイトには掲示板を見せることも禁止する。
+	$use_ext_blacklist	=1;	# 外部にblacklist.txt,blkword.txt
+					# があれば,そのリストをロードする
+
+	# ゲストパスワード機能（PPP対応-IP認証型）
+	# 投稿者自身が記事を削除できる機能です。詳細はサポート掲示板を参照してください。
+	#
+	$use_guest_passwd	=1;	# ゲストパスワード機能を使用
+	# （-1 削除キー式にする,0使用しない（この場合は管理者のみ削除可能）、1ゲストパスワードを使用する(強く推奨)）
+	$guest_passwd		='guest';	# 記事削除時の ゲストパスワード(変更は必要ありません)
+	# IPが完全一致しなくても、同じサブネットからのアクセスは同一人物とみなし、削除を許可する
+	$gp_allow_subnet	=1;
+
+
+	# その他
+	$no_disp_RH_in_HTML_sorce=0;	# HTMLソースにリモホを表示しない
+	# -1=常時IP表示,0=HTMLソースのみIP表示,1=IP完全非表示
+	$auto_ip_if_danger_datatype=1;	# 危険なデータタイプの時は、投稿者のIPを自動表示する
+	$use_ip_privacy_filter=1;	# プライバシー保護のためIPアドレスの一部を伏せ字に
+	$allow_mac_msie_bin_upload_f='0';# IE4.XデータをMacbinaryのまま保存(def=0)
+	$use_sjis_header_for_Netscape4X ='0';# Netscape4.X文字化け対策(def=0)
+	$force_www_server_os_to='';	 # 未使用パラメータ(指定しないこと) 
+
+#------------------ 以下はプログラム -----------------------------	
+	undef $call_from_imgboard_flag;
+	$call_from_imgboard_flag=1;
+
+	require "$imgsize_prog" if(-e "$imgsize_prog");
+
+	if(($load_ext_config == 1)&&(-e "$ext_config_name")){
+		require "$ext_config_name";
+		if($EXTCFG{'ext_config_ver'} < 2001101500 ){
+			&error(" 外部設定ファイルのバージョン $ext_config_nameは古過ぎるため使えません。最新版をご入手いただくか、読み込まない設定にしてください。");
+		}
+		if($imgboard_ver < $EXTCFG{'support_imgboard_ver'} ){
+			&error(" この外部設定ファイル($EXTCFG{'ext_config_ver'}-imgboard $EXTCFG{'support_imgboard_ver'}以降用)はこのimgboard(バージョン$imgboard_ver)では使用できません。最新版の外部設定ファイルをご入手いただくか、読み込まない設定にしてください。");
+		}
+
+
+	}
+
+	if(($jcode_name ne '')&&(-e "$jcode_name")){
+	    require "$jcode_name";
+	    eval &jcode'init('tokuho_check');
+	    # 成功
+	    if($@ eq ""){
+		    $jcode_sj_version =&jcode'init('tokuho_check');
+		    if($jcode_sj_version < 2001070701 ){
+			&error(" 管理者設定のエラー。処理を中止しました。<BR>
+			jcode_sj.plのバージョン $jcode_sj_version は古過ぎます。
+			最新版をご利用ください。");
+	    	    }
+	    }else{
+	    # 失敗
+		&error(" 管理者設定のエラー。処理を中止しました。<BR>
+			jcode_sj.plは古過ぎるか、あるいはマッチしていないタイプの物です。
+			最新版をご利用ください。");
+	    }
+	}else{
+	}
+
+	if($script_end_flag == '99'){
+	    &error(" CGI設定エラー スクリプトの尻切れを検出！<BR>imgboardは、スクリプト末尾を見つけることが
+			できませんでした。ダウンロード、ＦＴＰアップロード時の時間切れ等により、スクリプトの後半が
+			尻切れ状態になっている恐れがあります。スクリプトのサイズを再確認し,問題があれば、やり直してみてください ");
+	}
+}
+
+#================#
+# 開店確認
+#================#
+
+sub check_open{
+	&error("$oyasumi_message") if($bbs_open_flag !=1);
+}
+
+#=====================#
+# 入力データを読む
+#=====================#
+
+sub read_input{
+
+	# 変数の初期化
+	local($name);
+	undef $img_data_exists;
+	undef @NEWFNAMES;
+	undef $jcode_eval_check_flag;
+	$mac_ie4_flag='0';
+
+	# リロード＆GETでかつ返信なしの場合は以下の処理をスキップ
+	if($ENV{'CONTENT_LENGTH'}==0){	# リロード時 & GETの場合
+		&read_cookie;		# クッキーのロード
+		if($PM{'use_rep'}==1){	# 返信ありの場合
+					# ウィンド描画のためにGET受け入れ
+		}else{			# 返信なしの場合
+#			return	if($form_disp_on_board==1);
+		}
+	}
+
+	# データの取得＆転送データのサイズをチェック
+    	$ENV{'REQUEST_METHOD'} =~ tr/a-z/A-Z/;
+
+	if(($ENV{'SERVER_SOFTWARE'}=~ /BlackJumboDog/i)&&($allow_other_multimedia_data==1)){
+	  # 自宅サーバは他人に迷惑をかけないので、規制を緩くする
+	  if($max_upload_size > 12000){$max_upload_size='12000';}# 変更禁止
+	}elsif(($ENV{'SERVER_SOFTWARE'}=~ /AnWeb/i)&&($allow_other_multimedia_data==1)){
+	  # 自宅サーバは他人に迷惑をかけないので、規制を緩くする
+	  if($max_upload_size > 12000){$max_upload_size='12000';}# 変更禁止
+	}else{
+	  if($max_upload_size > 3000){$max_upload_size='3000';}# 変更禁止
+	}
+
+		$max_content_length	=($max_upload_size + 1)*1000;
+		$max_content_limit	="$max_upload_size";
+
+	if($ENV{'REQUEST_METHOD'} eq "POST"){
+
+		# OSの種別を判別
+		$www_server_os =&check_www_server_os;
+
+		if($www_server_os=~ /win/i){
+			binmode(STDIN);
+		}
+
+		if($ENV{'CONTENT_LENGTH'} > 10000000){
+		# Unixは正常。Win は下記メッセージを出さずに終了するようだ
+			&error(" データ容量が大きすぎます。$max_content_limit KB以下にしてください。p ");
+			exit;
+		}
+
+		# 2000/02/02 変更
+		read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
+
+		if($ENV{'CONTENT_LENGTH'} > $max_content_length){
+			&error(" データ容量が大きすぎます。$max_content_limit KB以下にしてください。r ");
+			exit;
+		}
+
+   	 }elsif($ENV{'REQUEST_METHOD'} eq 'GET'){
+		$buffer = $ENV{'QUERY_STRING'};
+	 }else{
+		return 0; 
+	 }
+
+	# 日付関連
+
+	# 時差ー入力パラメータをチェック
+	if(($gisa=~ /^(\d+)$/)&&($gisa != 0)){
+		$gisa=$gisa;
+	}else{
+		$gisa=0;
+	}
+
+	($sec,$min,$hour,$mday,$mon,$year,$wday,$yday) = localtime(time + $gisa*60*60);
+
+	$year += 1900;				# 2000年対策
+
+	$month = $mon + 1;
+	if ($month < 10) { $month = "0$month"; }
+	if ($mday  < 10) { $mday  = "0$mday";  }
+	if ($sec   < 10) { $sec =  "0$sec";    }
+	if ($min   < 10) { $min =  "0$min";    }
+	if ($hour  < 10) { $hour = "0$hour";   }
+
+	$unq_id="$year"."$month"."$mday"."$hour"."$min"."$sec";
+
+	# -----フォームのデコード処理------#
+
+	# 非マルチパート時のフォーム処理
+	# 削除,ページ変更時等
+	if($ENV{'CONTENT_TYPE'} !~ /multipart\/form-data/){
+    		@pairs = split(/&/,$buffer);
+    		foreach $pair(@pairs){
+    			($name,$value) = split(/=/,$pair);
+    			$value =~ tr/+/ /;
+    			$value =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C", hex($1))/eg;
+    			&jcode'convert(*value, 'sjis','','z');	# sjisに変換
+    			$FORM{$name} = $value;
+    		}
+
+	# マルチパート時のフォーム処理
+	# 記事投稿用のフォーム
+	}else{
+		# METHODのチェック	
+		&error(" multipart\/form-dataを使うときは METHODをPOSTにしてください。 ") if($ENV{'REQUEST_METHOD'} ne "POST");
+
+		# multipart/form-dataの場合の処理
+		$buffer =~ /^(.+)\r\n/;
+		$boundary = $1;
+		@pairs = split(/$boundary/, $buffer);
+		foreach $pair(@pairs){
+			$check_count++;
+                        $pair=~ s/\r\n$/\r\nD_End/;
+			@vars = split(/\r\n/, $pair);
+			$vars = @vars;
+
+			#---サポート用----#
+			if(($check_count=='7')&&($FORM{'email'} eq "mt1")){&error(" デバックモードall-$vars,vars0- $vars[0]<BR>,1-$vars[1]<BR>\n,2-$vars[2]<BR>\n,3-$vars[3]<BR>\n,4-$vars[4]<BR>\n,5-$vars[5]<BR>\n,6-$vars[6]\n<BR>,7-$vars[7]\n. <BR>SAL $vip_n<BR>,Perl ver $] <BR>@vars test ");}
+			#-----------------#
+
+			if(($vars > 4)&&($vars[1] =~ /name\=\"(.+)\"\;\sfilename\=\"(.+)\"/)){
+
+				# ファイルアップロードの処理
+				$name  = $1;
+				$fname = $2;
+				$content_type = $vars[2];
+
+				# --- サポート用 2 ----#
+				if($FORM{'email'} eq "mt2"){&error("デバックモードall-$vars,name $name fname $fname content_type $content_type ");}
+				#-----------------#
+
+				# Mac IE4 検出フラグ
+				if(($HTTP_USER_AGENT =~ /MAC/i)&&($HTTP_USER_AGENT =~ /MSIE\s(4|5|6|7)\./i)){
+					$mac_ie4_flag='1';
+				}
+
+                      		# 特例処理（マイムが不明な場合）
+
+				if(($fname ne "")&&($content_type eq "")){
+
+# 以下の３ケースが想定される．
+# ケース１）Macユーザがファイル名に拡張子のないファイルをアップロード
+# ケース２）Mac,Win,Unixユーザがブラウザの知らない(Plug-inのない)データをアップロード
+
+# この場合はデータのヘッダ部分のテキスト解析からの自動判別を試みる（GIF,JPEG,PNG）．
+# 失敗したら拡張子が存在するかどうかをチェック
+# 存在したら後の拡張子による判断に任せる．
+# 存在しない場合警告を出し終了．
+
+					# データヘッダから画像の種類を自動判別
+					if($vars[3] =~ /^GIF8/i){
+						$check_m .=" ヘッダー分析の結果４はGIF <BR>";
+						$content_type="image/gif";
+					}elsif($vars[3] =~ /^(.+)JFIF/i){
+						$check_m .=" ヘッダー分析の結果４はJPEG <BR>";
+						$content_type="image/jpeg";
+					}elsif($vars[3] =~ /^\x89PNG/i){
+						$check_m .=" ヘッダー分析の結果４はPNG <BR>";
+						$content_type="image/png";
+					# 拡張子らしき物がついている場合
+					}elsif($fname=~ /\.(\w){1,4}$/){
+						$content_type="unknown";#後の拡張子による判断に任せる
+					}else{
+						if($HTTP_USER_AGENT =~ /MAC/i){
+							&error(" アップロードエラー。アップロードデータの属性が判断できません。<BR>\nあなたがMacユーザの場合,アップロード対象のファイル名に拡張子(gif.jpeg.png等)が<BR>\nついてない可\能\性があります。<BR>\nファイル名に適切な拡張子をつけてください。<BR><!--fname,$fname,Mime_types,$content_types,Mes.$check_m-->");	
+						}else{
+							&error(" アップロードエラー。アップロードデータの属性が判断できません。<BR>\nファイル名に拡張子(gif.jpeg.ppt等)が<BR>\nついてない可\能\性があります。<BR>\nファイル名に適切な拡張子をつけてください。<BR><!--fname,$fname,Mime_types,$content_types,Mes.$check_m-->");	
+						}
+					}
+
+					# マイムタイプより、拡張子を作る
+					$ext = &content_type_check($content_type);
+
+					# 画像データのみを抽出
+					# ($vars[3]に実体,4=D_End $vars 5)
+					foreach($i=3; $i<$vars;$i++){
+						if($data eq ''){
+							$data = $vars[$i];
+						}else{
+							$data .= "\r\n$vars[$i]";
+						}
+					}
+					$data=~ s/\r\nD_End$//;
+				# 通常のアップロードの場合（マイムデータが通知された場合）
+				}else{
+
+					# Mac版MSIE4.x対策ここから
+					if(($mac_ie4_flag == '1')&&($content_type =~ /application\/x-macbinary/i)){
+
+					# Mac IE4.xの場合はブラウザから通知されるcontent_typeを信用できない。
+					# GIFもJPEGもPNGも128バイトヘッダの付いたマックバイナリ形式にエンコードされてしまう。
+					# 従ってデータ全体からヘッダを検索しデータの中身の判別を行う必要がある
+
+
+						if($fname=~ /\.gif$/i){
+						# 拡張子がgifならGIF（判別スキップ）
+							$gif_checked_f=1;
+
+						}elsif($vars[4] =~ /GIF8/i){
+						# 拡張子がない場合はヘッダを検索
+							$gif_checked_f=1;
+						}
+
+						if($gif_checked_f == 1){
+							$check_m .="ヘッダー分析の結果４はGIF<BR>";
+							$content_type="image/gif";
+						}elsif($vars[4] =~ /^(.+)JFIF/i){
+							$check_m .="ヘッダー分析の結果４はJPEG<BR>";
+							$content_type="image/jpeg";
+						}elsif($vars[4] =~ /^\x89PNG/){
+							$check_m .="ヘッダー分析の結果４はPNG<BR>";
+							$content_type="image/png";
+						}elsif($fname=~ /\.lzh$/i){
+							$content_type="compressed/lha";
+				#		# 拡張子らしき物がついている場合
+				#		}elsif($fname=~ /\.(\w){1,4}$/){
+				#			$content_type="unknown";# 後の拡張子による判断に任せる
+						}else{
+							&error(" Mac版IE4.X以降は仕様が特殊なため、GIF・JPEG・PNG以外のアップロードはできません。<BR>その他の形式のファイルのアップロードには、Netscape2.0以降をご利用ください <BR><!--fname,$fname,Mime_types,$content_types,Mes.$check_m-->");
+                        			}
+					}
+
+                         	       # マイムタイプより、拡張子を作る
+					$ext = &content_type_check("$content_type");
+
+					# 画像データのみを抽出
+                        	        #($vars[4]に実体,5=D_End,$vars 6)
+					foreach($i=4; $i<$vars; $i++){
+						if($data eq ''){
+							$data = $vars[$i];
+						}else{
+							$data .= "\r\n$vars[$i]";
+						}
+					}
+					$data=~ s/\r\nD_End$//;
+                        	}
+
+
+				# Mac版 MSIE4.x用フィルタ実行部
+			#	$allow_mac_msie_bin_upload_f='0';
+				if($mac_ie4_flag == '1'){
+
+					if(($content_type=~ /application\/x-macbinary/i)&&($allow_other_multimedia_data == 1)&&($allow_mac_msie_bin_upload_f ==1)){
+						$ext ='macbin.bin';
+					}elsif($ext=~ /gif$/i){
+						if($data!~ /^GIF8/){
+							($gomi,$data,$gomi2)=split(/GIF8/,$data);
+							$data ="GIF8"."$data";
+						}
+					}elsif($ext=~ /png$/i){
+						if($data!~ /^\x89PNG/){
+							($gomi,$data,$gomi2)=split(/\x89PNG/,$data);
+							$data ="\x89PNG"."$data";
+						}
+					}elsif($ext =~ /jpe?g/i){
+						if($data=~ /^\xff\xd8/){
+							# Office98 for Mac修正プログラムをインストールしIE4.xのバグが
+							# フィックスされた人にはなにもしないでOK
+						}else{
+
+							$HEADER_BYTES = 128;
+							$macbin_dsize=length($data);
+
+							if($macbin_dsize > 128){
+								$data = substr($data, $HEADER_BYTES);
+								if($data!~ /^\xff\xd8/){
+									# ヘッダが切っても出てこない場合、警告を出し登録中止
+									&error(" MacIE4.Xはアップロードに不適です。Netscape2.0以降をご利用ください ");
+								}
+							}else{
+								&error(" MacIE4.Xはアップロードに不適です。Netscape2.0以降をご利用ください ");
+							}
+						}
+					}elsif(($ext=~ /lzh$/i)&&($allow_other_multimedia_data == 1)){
+						$HEADER_BYTES = 128;
+						$macbin_dsize=length($data);
+
+						if($macbin_dsize > 128){
+							$data = substr($data, $HEADER_BYTES);
+						}else{
+							&error(" MacIE4.Xはアップロードに不適です。Netscape2.0以降をご利用ください ");
+						}
+					}else{
+					    &error(" Macの場合、IE4.Xでアップロードできるのは画像ファイル（GIF・PNG・JPEG）のみです。<BR>それ以外の形式のアップロードは、Netscape2.0以降をご利用ください ");
+					}
+
+				}
+				# Mac版MSIE4.x フィルタここまで
+
+				$img_dir = '.' if($img_dir eq '');
+
+				# 画像保存ディレクトリの確認
+				if($img_dir=~ /^http\:\/\//i){
+					&error(" img_dirの指定が間違えています。<BR> ディレクトリとＵＲＬは別の概念です。ディレクトリ指定が、httpで始まることはありません。<BR> 設定を変更してください。");
+				}
+				if(-d "$img_dir"){
+				}else{
+					&error(" 画像データ保存用ディレクトリ\"$img_dir\"が見つかりません．<BR>指定ディレクトリ\"$img_dir\"が存在しない可\能\性があります<BR>画像保存用ディレクトリのパス設定をご確認ください．");
+				}
+
+				# パスを消して、ファイル名のみを残す。
+				#95/NTからのアップロードに対応
+				$fname=~ s/^(.*)\\//;
+				# UNIX からのアップロードに対応
+				$fname=~ s/^(.*)\///;
+
+				#&error("ファイル名 $fname");
+
+				$use_orig_name=0;		# オリジナルファイル名保存機能削除			
+								# 今後は e_FTPboardでのみサポート
+				if($use_orig_name==1){				
+				#	&use_orig_name;
+				}else{
+				# 時刻でファイル名を付けるオプション。
+				# ファイル名のコンフリクトを防ぐ
+
+					$date_count="19981204201523";
+					$date_count="$year"."$month"."$mday"."$hour"."$min"."$sec";
+
+
+					# ファイル名が重なる場合変更する
+					if( -e "$img_dir/img$date_count\.$ext"){
+						$date_count++;
+						$unq_id++;
+					}elsif( -e "$img_dir/img$date_count\.$ext"){
+						$date_count++;
+						$unq_id++;
+					}elsif( -e "$img_dir/img$date_count\.$ext"){
+						&error(" ファイル名決定処理中にエラーが発生しました。時刻ベースmode ");
+					}
+
+					$new_fname = "img$date_count\.$ext";
+				}
+
+				# 複数アップロード対応用
+				push(@NEWFNAMES, $new_fname);
+
+				open(OUT, ">$img_dir/$new_fname")|| &error(" 画像データを$img_dirに保存中にエラーが起きました．<BR>指定ディレクトリ\"$img_dir\"に書込み許可がない可\能\性があります.<BR>ディレクトリのパーミション設定を確認してみてください．");
+				# IIS,PWS(NT/95)対策
+				if($www_server_os=~ /win/i){
+					binmode(OUT);
+				}
+				  eval "flock(OUT,2);" if($PM{'flock'} == 1 );
+				  print OUT $data;
+				  eval "flock(OUT,8);" if($PM{'flock'} == 1 );
+				close(OUT);
+
+				# テンポラリアップロードデータの存在確認フラグ
+				# 後処理で,登録中断エラー発生時に画像ファイルを削除するために使用。
+				# 削除はsub errorルーチン内で行う。
+				$img_data_exists=1;
+	
+			}elsif(($vars > 3) && ($vars[1] =~ /name\=\"(\S+)\"/)){
+                                # 画像データ以外のフォームの処理
+                                #&error("varsデータ<BR>$vars $1-$vars[3] test");	
+				# その他のフォームデータの処理
+				$name =$1;
+				$value = "$vars[3]";
+
+				# テキストエリアに関する処理
+				if($vars > 5){
+					$value .= "\r\n";
+					foreach($i=4; $i<$vars; $i++){
+						$value .= "$vars[$i]\r\n";
+					}
+					$value=~ s/\r\nD_End\r\n$//;
+					$value=~ s/D_End//g;
+					#$value=~ s/\r/CR/g;
+					#$value=~ s/\n/LF/g;
+
+				}
+
+				# sjisに変換 (imgboard1.22 Rev.3)
+				# jcode_sj.pl関連の設定ミスをトラップして検出
+				# (一度成功すればスキップして高速化)
+				if($jcode_eval_check_flag != '1'){
+					eval "&jcode'convert(*value, 'sjis','','z');";
+					if($@ eq ""){
+					    $jcode_eval_check_flag=1;
+				 	    # 成功
+					}else{
+				 	    # 失敗
+	    					&error(" CGI設定エラー 何らかの理由で日本語ライブラリ「 $jcode_name 」の読み込みに失敗しました。<BR> jcode_sj.pl等の名前が正しく指定されていないか、あるいは指定パス「 $jcode_name 」に該当ファイルが存在しないか、あるいはパーミッションが正しくないものと思われます ");
+					}
+		    		}else{
+					&jcode'convert(*value, 'sjis','','z');
+		    		}
+				$FORM{$name} = $value;		# valueを返す
+
+			}
+		}
+	}
+}
+
+#=========================#
+# 記事データの追加
+#=========================#
+
+sub post_data{
+
+	local($tmp_file)	= $_[0];# 処理するログファイル名
+
+	undef @HEAD_MESSAGE;
+	undef @MESSAGE;
+	undef @NEW_MESSAGE;
+	local($old_seq_no,$new_seq_no,$tmp_mes_line,$mes_counter);
+	local($img_data_size_num);
+
+  	if($ENV{'REQUEST_METHOD'} ne 'POST'){
+		&error(" セキュリティ警告 <BR> GETによる記事投稿はＮＧです ");
+	}
+
+	&form_check;
+
+	if($error_message ne ''){
+		&rm_tmp_uploaded_files;
+		&set_cookies;		# クッキーをセット(120Rev5以降)
+		&error($error_message);
+		exit;
+	}
+
+	# 記事の日付表示（変更可能)
+	$date_data = "\[$year/$month/$mday,$hour:$min:$sec\]";
+
+        if(($img_location ne '')&&($imgtitle eq '')){
+	# タイトルがない場合はファイル名がタイトル
+		$imgtitle="$img_location";
+	}
+	# 投稿画像の容量を計算
+	if($img_location ne ''){
+		$content_length="$ENV{'CONTENT_LENGTH'}";
+		$content_length="$content_length"-800;
+		$content_length_kb=int($content_length/1024);
+
+		# R7 new Webでゲットしたファイルにサイズに差換え
+		if($web_get_file_size > 0){
+			$content_length_kb=int($web_get_file_size*10/1024);
+			$content_length_kb=($content_length_kb / 10);
+		}
+
+		if(("$content_length" > 0)&&("$content_length_kb"==0)){
+	        	$img_data_size=1;
+		}else{
+        		$img_data_size="$content_length_kb";
+		}
+		if($FORM{'amode'} eq "post_webparts"){
+		 if($img_data_size > 52){
+			&error(" エラー容量オーバー。パーツ画像は50KB以下にしてください。<BR>	");	
+		 }
+		}
+		$img_data_size_num="$img_data_size";
+		$img_data_size="($img_data_size KB)";
+	}
+
+	# imgsizeのバージョンをチェック
+	if($imgsize_lib_flag ==1){
+		unless($imgsize_version >=20010301){
+			&error(" 管理者設定のエラー。処理を中止しました。<BR>
+			imgsize.plのバージョン $imgsize_version は古過ぎます。最新版をご利用ください。");
+		}
+	}
+
+	# 投稿画像のプロパティを取得
+	&check_uploaded_img_property;
+	sub check_uploaded_img_property{
+	if((-e "$img_location")&&($imgsize_lib_flag== 1 )){	
+		&imgsize("$img_location");
+		if(($IMGSIZE{'result'} ==1)&&($img_data_exists==1)){
+			$img_type	="$IMGSIZE{'type'}";
+			$img_width	="$IMGSIZE{'width'}";
+			$img_height	="$IMGSIZE{'height'}";
+			$img_hw_racio	="$IMGSIZE{'hw_racio'}";
+		}
+		undef %IMGSIZE;
+	}
+	}
+
+	# セパレータとして問題あるものを、事前に置換
+	$subject=&Enc_EQ("$subject");
+
+	undef $tmp_data;
+
+	foreach $p_key(keys %FORM){
+		if($p_key=~ /opt_data_(.+)/){
+			$tmp_data=&Enc_EQ($FORM{$p_key});
+			# 書き出しデータは従来互換が必要
+			$opt_data.="opt_data_"."$1"."\="."$tmp_data"."\;";
+			undef $tmp_data;
+		}elsif($p_key=~ /^opt(.{1,2})$/){
+			$tmp_data=&Enc_EQ($FORM{$p_key});
+			$opt_data.="opt_data_"."$1"."\="."$tmp_data"."\;";
+			undef $tmp_data;
+		}
+	}
+
+	if(-e "$tmp_file"){
+	}else{		# コメント保存ファイルがない場合,自動作成を試みる
+		open(NEWFILE,">$tmp_file")||&error(" 設定エラー．データ保存用ファイル\$tmp_file\"が見つかりません．自動作成を試みましたができませんでした。処理は中断されました．");
+		close(NEWFILE);
+ 	}
+
+	# 準備完了
+
+	# メッセージを読み込む
+	open(IN, "$tmp_file")|| &error(" 設定エラー．データ保存用ファイル\"$tmp_file\"が見つかりません．処理は中断されました．");
+
+	   eval "flock(IN,1);" if($PM{'flock'} == 1 );
+	   while(<IN>){
+
+		# HEADER保存 (将来への拡張もここで対応)
+		if($_ =~ /^\#?\,param_/i){
+
+			# (#でコメントアウトしたものを含む)
+			if($_ =~ /^\,param_seq_no(\s*)=(\s*)(\d+)(\s*)/i){
+				# 連番を取得する
+				$old_seq_no="$3";
+			}elsif($_ =~ /^\,param_last_backup_date(\s*)=(\s*)(\d+)(\s*)/i){
+				# 最終更新日を取得する
+				$HEAD_MESSAGE{'last_backup_date'}="$3";
+			}elsif($_ =~ /^\,param_last_bloods(\s*)=(\s*)([^\;]*)(\;+)(\s*)/i){
+				# 最新の記事の親を取得する
+				$HEAD_MESSAGE{'last_bloods'}="$3";
+				$HEAD_MESSAGE{'last_bloods'}=&Dec_EQ("$HEAD_MESSAGE{'last_bloods'}");
+			}else{
+				push(@HEAD_MESSAGE, $_);
+			}
+
+		}
+
+		# 記事をバッファに入れる
+		if($_ =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)/){
+			$tmp_mes_line="$_";
+			chop($tmp_mes_line);
+			push(@MESSAGE, $tmp_mes_line);
+			$all_message++;
+		}
+	   }
+
+	eval "flock(IN,8);" if($PM{'flock'} == 1 );
+	close(IN);
+
+
+	# 連番処理
+	if($old_seq_no eq ""){# ない場合は作る
+		$old_seq_no='0';
+	}
+	$new_seq_no=$old_seq_no+1;
+
+	# WebPartsがオーバーしないように警告する
+	if($limit_wp_max_message ne ""){
+	  if(($limit_wp_max_message-1) < $all_message){
+	    &error(" エラー。imgboardでは、Webパーツは最大 $limit_wp_max_message までしか保存できません。<P>それ以上のパーツやアイコンを保存したい場合は、姉妹スクリプト eFTPboard(シェアウェア2500円)をご利用ください。なお、入手ご希望の方はtalk\@big.or.jpまでメールにてご連絡ください ");
+	  }
+	}
+
+        # 暗号化
+	if(($rmkey ne "no_key")&&($rmkey ne "")){
+		$rmkey		= &make_pass("$rmkey");
+	}
+
+	# SNLとして存在するデータのリストを作る
+	foreach (@SNL_MADE_DATA){
+#		$existing_snl_type_list.="$_"."\/";
+	}
+
+	# 輸入URLでタブと;をエスケープ
+	$img_import_url=~ s/\t//g;
+	$img_import_url=~ s/\;//g;
+	$img_import_url=~ s/\s+$//g;
+
+	# 新しいメッセージを作る（imgboard1.22新形式）
+	$new_message = "$subject\t$name\t$email\t$date_data\t$body<\!--opt\:$opt_data-->\t$img_location\t$imgtitle<\!--dsize=$img_data_size;type=$img_type;width=$img_width;height=$img_height;hw_racio=$img_hw_racio;size=$img_data_size_num;-->\t$new_seq_no\t$FORM{'blood'}\t$rmkey\t$unq_id\t";
+
+
+	# レスの付いた記事を上へ持って行くために、親スレッドリストへ追加する
+	&update_bloods_list;
+
+	# 記事データを追加する
+	if($FORM{'parent'} eq ""){
+	# 親記事の場合
+		unshift(@MESSAGE, $new_message);
+		$all_message++;	# 記事数は一つ増
+
+
+	}else{
+	# 子記事の場合
+		# 記事データを探索する
+
+		$mes_counter=1;
+		$last_child_number=0;
+
+		foreach(@MESSAGE){
+			if($_ =~ /$FORM{'blood'}/){
+				$last_child_number=$mes_counter;
+			}
+			$mes_counter++;
+		}
+
+		# 記事データを追加する
+		$mes_counter=1;
+
+		foreach(@MESSAGE){
+			push(@NEW_MESSAGE, $_);
+			if($mes_counter==$last_child_number){
+				push(@NEW_MESSAGE, $new_message);
+				$all_message++;	# 記事数は一つ増
+			}
+			$mes_counter++;
+		}
+		@MESSAGE=@NEW_MESSAGE;
+
+	}
+
+	# 古い画像を削除
+
+	if($all_message > $max_message){
+		for($i=$max_message; $i<$all_message; $i++){
+			if($MESSAGE[$i] =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+
+				local($remove_file) 		= $6;
+				local($remove_imgtitle) 	= $7;
+				local($tmp_unq_id)  		= $11;
+
+				if($remove_file ne '' && -e $remove_file){
+					unlink($remove_file);
+					# メタファイルも削除する
+					&rm_meta_file("$remove_file");
+
+					# 携帯用ファイルも削除する
+					if($remove_file=~ /\.(jpe?g|gif|png|bmp|mng|noa)$/i){
+					  # SNLのパスを調べる
+					  if($remove_imgtitle ne ''){
+					    &parse_img_param($remove_imgtitle);
+					  }
+					  &rm_snl_file("$tmp_unq_id","$IMG_PARAMETERS{'snl_dir'}","$IMG_PARAMETERS{'exist_snl_type'}");
+					}
+
+
+				}
+			}
+
+		}
+	}
+
+	# 新しいファイルとして出力
+	if($all_message > $max_message){
+		$repost_message = $max_message;
+	}else{
+		$repost_message = $all_message;
+	}
+
+	if($PM{'make_backup_file'}== 1 ){
+ 	 &make_backup_file; # バックアップファイル自動作成
+	}
+
+	# 書き出し処理
+	open(OUT, "> $tmp_file")|| &check_file_open_error("$tmp_file");
+	eval "flock(OUT,2);" if($PM{'flock'} == 1 );
+
+		$HEAD_MESSAGE{'last_bloods'}=&Enc_EQ("$HEAD_MESSAGE{'last_bloods'}");
+
+		# HEAD部分
+		print OUT "\,param_seq_no=$new_seq_no\n";
+		print OUT "\,param_last_backup_date=$HEAD_MESSAGE{'last_backup_date'};\n";
+		print OUT "\,param_last_bloods=$HEAD_MESSAGE{'last_bloods'};\n";
+		foreach(@HEAD_MESSAGE){
+			print OUT "$_"; 
+		}
+
+		# 記事部分
+		for($i=0; $i<$repost_message; $i++){
+			print OUT "$MESSAGE[$i]\n";
+		}
+
+
+	eval "flock(OUT,8);" if($PM{'flock'} == 1 );
+	close(OUT);
+}
+
+sub check_file_open_error{
+
+  local($tmp_ffile)= $_[0];	# メッセージを引数として取得
+  unless(-e "$tmp_ffile"){
+	&error(" 設定エラー．データ用保存ファイル\"$tmp_ffile\"にデータを書込むことができませんでした．\"$tmp_ffile\"という名前のファイルが正しい位置に見つからないためです。パスの設定を再確認してみてください。投稿処理は中断されました．");
+  }
+
+  unless(-w "$tmp_ffile"){
+	&error(" 設定エラー．データ用保存ファイル\"$tmp_ffile\"にデータを書込むことができませんでした．$tmp_ffileに対する書込み許可がないためだと思われます．パーミションの設定を再確認してみてください。投稿処理は中断されました．");
+  }
+  if($ENV{'OS'}=~ /Windows_NT/i){
+	&error(" 設定エラー．データ用保存ファイル\"$tmp_ffile\"にデータを書込むことができませんでした．IISでNTFSファイルシステムを利用されている場合は、ディレクトリのアクセス許可の設定を再確認してみてください。投稿処理は中断されました．");
+  }
+  &error(" 設定エラー．データ用保存ファイル\"$tmp_ffile\"にデータを書込むことができませんでした．パーミションの設定を再確認してみてください。投稿処理は中断されました．");
+}
+#
+# 最近の記事とその血統(スレッド)を記憶するサブサブルーチン
+# imgboardR6のログにおいては、最新の５記事分の記事ＩＤと
+# 親の血統(スレッド)をパラメータとして覚えておくことにする。
+#
+sub update_bloods_list{
+
+	local ($b_new_list);
+
+#	return if($HEAD_MESSAGE{'last_bloods'} eq "");
+
+	# 親記事追加の場合,親ー親で追加する
+	if($FORM{'parent'} eq ""){	
+		  return if($unq_id eq "");
+		  $b_new_list="$unq_id-$unq_id"."\,"."$HEAD_MESSAGE{'last_bloods'}";
+	}else{ 			
+	# 子記事の場合、子ー親で追加する
+	  return if($unq_id eq "");
+	  return if($FORM{'blood'} eq "");
+	  $b_new_list="$unq_id-$FORM{'blood'}"."\,"."$HEAD_MESSAGE{'last_bloods'}";
+	}
+
+	# ５つ以上になれば、６つ目以降は捨てる
+	if($b_new_list=~ /^(\,*)([\d|\-]*)\,([\d|\-]*)\,([\d|\-]*)\,([\d|\-]*)\,([\d|\-]*)(.*)/){
+		$b_new_list="$2"."\,"."$3"."\,"."$4"."\,"."$5"."\,"."$6"."\,";
+	}
+
+	$HEAD_MESSAGE{'last_bloods'}=$b_new_list;	
+}
+#
+#
+#===================================#
+#  自動バックアップ作成処理(R6 new)
+#===================================#
+# 2001.07(ver.0.7)
+# 万一のサーバのファイル出力中ダウンや投稿によるログ消失事故に
+# 備えて、$PM{'backup_day_interval'}で指定された間隔日でfile.datの
+# 自動バックアップを作る機能を追加する。
+#
+# 2001.07 空ファイルのバックアップによるファイル消去を防止
+sub make_backup_file{
+
+# sub post_data内で呼ばれる
+# $HEAD_MESSAGE{'last_backup_date'}に最終バックアップ日時が
+# unq_id と同じ形式で入っている。
+# $PM{'backup_day_interval'}  でバックアップ間隔を設定し
+# $PM{'backup_file_name'} にバックアップファイル名を指定し、作っておくこと
+
+	local($do_backup_flag);
+	local($today_day_count);
+	local($tmp_day_count);
+
+	# 設定されてないときは処理しない（互換性）
+	if(($PM{'backup_day_interval'} eq "")||($PM{'backup_file_name'} eq "")){
+	  return;
+	}
+
+	# 記事が5件以下の場合は、処理しない
+	#（空ファイルのバックアップによる、バックアップファイル消滅を防ぐ）
+	if($all_message < 6 ){
+	  return;
+	}
+
+
+	# 初回用
+	if($HEAD_MESSAGE{'last_backup_date'} eq ""){
+	  $HEAD_MESSAGE{'last_backup_date'}='20001112020459';
+	}
+	if($HEAD_MESSAGE{'last_backup_date'}=~ /^(20..)(..)(..)(..)(..)(..)$/){
+		$tmp_day_count=$1*365+$2*31+$3;
+		if($unq_id=~ /^(....)(..)(..)......$/){
+			$today_day_count=$1*365+$2*30+$3;
+			if($today_day_count-$tmp_day_count > $PM{'backup_day_interval'}){
+			  $do_backup_flag=1;
+			}
+		}
+	}
+
+	# このフラグが1ならバックアップを作る
+	if($do_backup_flag ==1){
+#&error("$unq_id-$HEAD_MESSAGE{'last_backup_date'}");
+		if(-e "$PM{'backup_file_name'}"){
+		   $HEAD_MESSAGE{'last_backup_date'}=$unq_id;# 最終バックアップ日を更新
+
+#		   &write_file_data("$PM{'backup_file_name'}");
+
+# 上のsub write_file_dataの代用（R5.2用の互換部分）================
+	# 書き出し処理
+	open(OUT, "> $PM{'backup_file_name'}")|| &check_file_open_error("$PM{'backup_file_name'}");
+	eval "flock(OUT,2);" if($PM{'flock'} == 1 );
+
+		$HEAD_MESSAGE{'last_bloods'}=&Enc_EQ("$HEAD_MESSAGE{'last_bloods'}");
+
+		# HEAD部分
+		print OUT "\,param_seq_no=$new_seq_no\n";
+		print OUT "\,param_last_backup_date=$HEAD_MESSAGE{'last_backup_date'};\n";
+		print OUT "\,param_last_bloods=$HEAD_MESSAGE{'last_bloods'};\n";
+		foreach(@HEAD_MESSAGE){
+			print OUT "$_"; 
+		}
+
+		# 記事部分
+		for($i=0; $i<$repost_message; $i++){
+			print OUT "$MESSAGE[$i]\n";
+		}
+
+
+	eval "flock(OUT,8);" if($PM{'flock'} == 1 );
+	close(OUT);
+# ==========================================================
+		}else{
+	   	&error(" 設定エラー。投稿処理は中断されました。記事バックアップデータ保存用ファイル\"$PM{'backup_file_name'}\"にデータを書込むことができませんでした．<BR>\"$PM{'backup_file_name'}\"という名前のファイルが正しい位置に見つからないためです。ファイルをまだ作っていない人は、$PM{'file'}をコピーして$PM{'backup_file_name'}という名前にして、同じディレクトリに置き、パーミッションを６０６等にして下さい。置いたけど、またこのエラーが出た人は、パスの設定を再確認してみてください。");
+		}
+	}
+}
+#
+#=================================#
+#  記事データの削除 (メイン部)
+#=================================#
+#
+sub remove_data{
+
+	local($tmp_file)	= $_[0];# 処理するログファイル名
+
+	@remove_list=@_;# 引数 削除リスト(新モード 今は未使用)
+	$tmpnum=0;
+	local($tmp_blood_name)=0;
+	local($killed_blood_name);# 消された親記事の血統を一時記憶
+	undef @HEAD_MESSAGE;
+
+	# ■セキュリティチェック
+ 	if($ENV{'REQUEST_METHOD'} eq 'GET'){
+	  &error(" エラー。いたずら防止のため、GETメ\ソ\ッドでは、削除できない仕様になっています ");
+	}
+
+	# ■複数の削除指定を受け取り、配列にする
+	# rmid旧連番S新固有IDをチェックボックスからもらう
+	# R4形式を@old_remove_list R6形式を@remove_listへ入れること
+
+	foreach $form(sort keys %FORM){
+	   if($form =~ /^rmid/){
+		if($FORM{"$form"} == 1){
+			($tmp_old_rmid,$tmp_new_rmid)	=split(/S/,$form);
+			$tmp_old_rmid =~ s/rmid//g;
+			push(@old_remove_list, $tmp_old_rmid);
+			push(@remove_list, $tmp_new_rmid);
+		}
+	   }
+	}
+
+	$remove_article_number= @remove_list;	# 削除予定数
+
+	# データを読み込みながら、削除するものはスキップし、最後に書き出す。
+	open(IN, "$tmp_file")|| &error(" 設定エラー．データ保存用ファイル\"$tmp_file\"が見つかりません．処理は中断されました．");
+	eval "flock(IN,1);" if($PM{'flock'} == 1 );
+	while(<IN>){
+
+		if($_ =~ /^\,param_last_bloods(\s*)=(\s*)([^\;]*)(\;+)(\s*)/i){
+				# 最新スレッドリストを取得する
+				$HEAD_MESSAGE{'last_bloods'}="$3";
+				$HEAD_MESSAGE{'last_bloods'}=&Dec_EQ("$HEAD_MESSAGE{'last_bloods'}");
+		}elsif($_ =~ /^\#?\,param_/i){
+			# HEADERを保存する(#でコメントアウトしたものを含む)
+			push(@HEAD_MESSAGE, $_);
+			next;
+		}
+
+		if($_ =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+
+
+			$tmpnum++;
+			undef @LDATA;
+
+			$tmpdata 	= $_;	# 全体データを保存
+			chop($tmpdata);		# 改行コードを除く
+			@LDATA 	= split(/\t/,"$_");	# 切断して配列に入れる
+			$tmp_body	= $LDATA[4];	# check_guest_passwdへ渡す
+			$tmpimg  	= $LDATA[5];	# 画像
+			$tmp_imgtitle 	= $LDATA[6];
+			$tmp_seq_no  	= $LDATA[7];	# 連番
+			$tmp_blood_name	= $LDATA[8];	# 親の血統ID(子供のみ持つ)
+			$tmp_rmkey	= $LDATA[9];	# 削除キー
+			$tmp_unq_id	= $LDATA[10];	# 固有ID(時刻ベース)
+
+			$flag_remove	= 0;
+			undef $host_flag;
+			undef $allow_remove_flag;
+
+			# 親が消えた場合は子記事は問答無用で全部消す
+			if($killed_blood_name ne ""){
+				if($killed_blood_name eq "$tmp_blood_name"){
+				# 正規に消えた親と血統が一致した場合、子も消す
+				# （@TMPMESSAGEへ保存しないで次のループへ行く）
+
+				  # 子記事の画像データを消す
+				  if($tmpimg ne ""){ # 子記事に添付画像があれば
+				    # 画像ファイルを削除する
+				    if(-e $tmpimg){
+					unlink($tmpimg);
+					# メタファイルも削除する
+					&rm_meta_file("$tmpimg");
+
+					# 携帯用ファイルも削除する
+					if($tmpimg=~ /\.(jpe?g|gif|png|bmp|mng|noa)$/i){
+					  # SNLのパスを調べる
+					  if($tmp_imgtitle ne ''){
+					    &parse_img_param($tmp_imgtitle);
+					  }
+					  &rm_snl_file("$tmp_unq_id","$IMG_PARAMETERS{'snl_dir'}","$IMG_PARAMETERS{'exist_snl_type'}");
+					}
+
+				    }
+				  }
+				# 記事が削除されたらスレッドリストから削除する
+				  $HEAD_MESSAGE{'last_bloods'}=~ s/$tmp_unq_id\-(\d+)\,//gi;	
+
+				  # 親なしの子記事の削除に成功
+				  next;
+				}
+			}
+
+			undef @do_remove_list; # 初期化する
+
+			# ここで新旧の指定の違いを吸収する
+			if($tmp_unq_id ne ""){	
+			# R6形式のログの場合
+			# 固有IDで消す(より安全)
+				$tmp_rm_num="$tmp_unq_id";
+				@do_remove_list=@remove_list;
+			}else{
+			# R4以前の旧形式のログの場合
+			# ページ中の連番で消す
+				$tmp_rm_num="$tmpnum";
+				@do_remove_list=@old_remove_list;
+			}
+
+			# この行が削除リストにあるか検索
+			foreach $tmp_list(@do_remove_list){
+
+				if($tmp_rm_num == $tmp_list){
+
+				  if($remove_mode eq "guest"){
+				    # ゲストパスワードをチェック
+					&check_guest_passwd;
+				  }elsif($remove_mode eq "rmkey"){
+				    # 削除キーをチェック
+					&check_rmkey("$tmp_rmkey");
+				  }else{
+					$allow_remove_flag=1;
+				  }
+
+				  if($allow_remove_flag ==1){
+
+					$flag_remove = 1;
+					# 子記事に添付画像があれば
+					if($tmpimg ne ""){ 
+					  # 画像ファイルを削除
+					  if(-e $tmpimg){
+						unlink($tmpimg);
+						# メタファイルも削除する
+						&rm_meta_file("$tmpimg");
+
+						# 携帯用ファイルも削除する
+						if($tmpimg=~ /\.(jpe?g|gif|png|bmp|mng|noa)$/i){
+						  # SNLのパスを調べる
+						  if($tmp_imgtitle ne ''){
+						    &parse_img_param($tmp_imgtitle);
+						  }
+						  &rm_snl_file("$tmp_unq_id","$IMG_PARAMETERS{'snl_dir'}","$IMG_PARAMETERS{'exist_snl_type'}");
+						}
+					  }
+					}
+				  }
+				}
+			}
+			# 結果の処理
+			if($flag_remove == 0){
+				# 削除に失敗したときは、バッファに入れて保存、記事を残す
+				push(@TMPMESSAGE, $tmpdata);
+			}else{
+				# 削除に成功
+
+				# 記事が削除されたらスレッドリストから削除する
+				$HEAD_MESSAGE{'last_bloods'}=~ s/$tmp_unq_id\-(\d+)\,//gi;	
+
+				if($tmp_blood_name eq ""){ # 親の場合
+			# 親だった場合は、その血統を記憶しておく
+			# 消された親の血統を持つ子は後のループで全部消える
+					$killed_blood_name="$tmp_unq_id";
+				}else{ # 子の場合
+			# 子記事単独消去（親は残る）の場合、ここを通る
+			# 特になにもしない
+					$killed_blood_name="";
+				}
+			}
+		} #End of if
+	} #End of While
+	eval "flock(IN,8);" if($PM{'flock'} == 1 );
+	close(IN);
+
+
+	# データを書き込む
+	open(OUT, "> $tmp_file")|| &error("設定エラー．テキストデータ保存用ファイル\"$tmp_file\"にデータを書込むことができません．<BR>おそらくファイルに対して書込み許可がないためだと思われます．処理は中断されました．");
+	eval "flock(OUT,2);" if($PM{'flock'} == 1 );
+
+	$HEAD_MESSAGE{'last_bloods'}=&Enc_EQ("$HEAD_MESSAGE{'last_bloods'}");
+	print OUT "\,param_last_bloods=$HEAD_MESSAGE{'last_bloods'};\n";
+
+	foreach(@HEAD_MESSAGE){		# HEAD部分
+		print OUT "$_"; 
+	}
+	foreach(@TMPMESSAGE){		# 記事部分
+		print OUT "$_\n"; 
+	}
+	eval "flock(OUT,8);" if($PM{'flock'} == 1 );
+	close(OUT);
+
+}
+#
+#====================================#
+# 親スレッド新着順UIDリストを取得する
+#====================================#
+# $HEAD_MESSAGE{'last_bloods'}を入力として
+# @NEW_BLOODS として親スレッド新着順UIDリストを出す
+# @RECENT_MESSAGE_UID として最近の記事の新着順UIDリストを出す
+#（@RECENT_MESSAGE_UIDは副産物。今は(new)表示に使っている）
+sub output_new_bloods_list{
+
+	undef @NEW_BLOODS;
+	undef @RECENT_MESSAGE_UID;
+
+	local (@SEP_FAMILY);
+	local ($b_child,$b_parent,$already_find_flag);
+
+	return if($HEAD_MESSAGE{'last_bloods'} eq "");
+
+	# 子（親）ー親のペアに分解する
+	@SEP_FAMILY=split(/\,/,$HEAD_MESSAGE{'last_bloods'});
+
+	for($numb=0;$numb < scalar(@SEP_FAMILY) ;$numb++){
+	  ($b_child,$b_parent)=split(/\-/,$SEP_FAMILY[$numb]);
+	  if($b_parent ne ""){
+		$already_find_flag=0;
+		# 既に親リストにあれば追加しない
+		foreach(@NEW_BLOODS){
+		  if($_ eq "$b_parent"){
+			$already_find_flag=1;
+		  }
+		}
+		if($already_find_flag == 0){
+		 push(@NEW_BLOODS, $b_parent);
+		}
+	  }
+	  if($b_child ne ""){
+		 push(@RECENT_MESSAGE_UID, $b_child);
+	  }
+	}
+	return(scalar(@NEW_BLOODS));
+}
+
+#==================================================#
+#  記事データの削除 (ゲストパスワードチェック部)
+#==================================================#
+sub check_guest_passwd{
+
+# ゲストパスワード機能を有効にすると,投稿者 ,削除者 のIPが一致する場合
+# ゲストパスワードで記事の削除ができる。
+# チェックlを行い,条件を満たせば$allow_remove_flag=1となる。
+
+	# 投稿者のホスト名を取得
+	if($tmp_body=~ /user：\s([^>]*)(\s*)--/){
+		$tmp_user_IP="$1";
+		$tmp_user_IP=&tiny_decode("$tmp_user_IP"); #2002.02
+
+		#PPP&DHCP対策
+		# リモートホストが数字のみの場合
+		if($tmp_user_IP=~ /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/){
+			#$gp_allow_subnet=1にすると,完全一致しなくても
+			# 同一サブネットなら削除できる。 (PPP,DHCP対策)
+			if($gp_allow_subnet==1){
+				$kkk=" 部分一致 ";
+				$tmp_user_IP="$1.$2.$3";
+			}else{
+				$kkk=" 完全一致 ";
+				$tmp_user_IP="$1.$2.$3.$4";
+			}
+			$host_flag=1;
+		# リモートホストがホスト名の場合
+		}elsif($tmp_user_IP=~ /(\w+)\.(\w+)$/){
+			@DOMAINS = split(/\./,$tmp_user_IP);	# ブロックに分割
+			$block_number= @DOMAINS;		# ブロック数を取得
+			if($block_number ==0){$block_number=20; }
+				undef $tmp_user_IP;
+			if($gp_allow_subnet == 0 ){
+				$kkk=" 完全一致 ";
+				$bc_start=0;
+				$tmp_user_IP=$DOMAINS[$bc_start];
+			}else{
+				$kkk=" 部分一致 ";
+				$bc_start=1;
+				$tmp_user_IP="."."$DOMAINS[$bc_start]";
+			}
+			for($i="$bc_start"+1; $i< $block_number;$i++){
+				$tmp_user_IP .= "."."$DOMAINS[$i]";
+			}
+			$host_flag=1;
+		}elsif($tmp_user_IP=~ /^(\w+)$/){
+			$tmp_user_IP="$1";
+			$host_flag=1;
+		}
+			$host_flag=1;
+	}else{
+	   	$tmp_user_IP="No IP info";
+		$host_flag=0;
+	}
+	# 記事登録者と guest削除者のREMOTE_HOSTが一致すると削除できる
+	$tmp_user_IP	=~ s/\./\\./g;
+	if(($host_flag==1)&&($REMOTE_HOST=~ /$tmp_user_IP/)){
+		$allow_remove_flag=1;
+	}else{
+		$skipped_guest_remove++;	# ゲスト権限で削除失敗した記事の数
+		if($remove_article_number=='1'){
+			&error(" ゲストパスワードによる削除は,投稿者 ,削除者 のIPが $kkk する場合のみ有効です<!-- b $bc_start \n $block_number \n P-IP $tmp_user_IP \n RH- $REMOTE_HOST-->");
+		# すべての削除指定がゲスト権限で削除できないものだった場合のみ,エラーを出す
+		# 削除可能,不可能なものがどちらもある場合はエラーを出さないで,処理を最後まで進める
+		}elsif($remove_article_number == "$skipped_guest_remove"){
+			&error(" ゲストパスワードによる削除は,投稿者 ,削除者 のIPが $kkk する場合のみ有効です<!-- b $bc_start \n $block_number \n P-IP $tmp_user_IP \n RH- $REMOTE_HOST-->");
+		}
+	}
+}
+
+#==================================================#
+#  記事データの削除 (削除キー部)
+#==================================================#
+# 2001.02(暗号化対応) 
+sub check_rmkey{
+
+# 削除キー機能を有効にすると,削除キーが一致する場合、記事の削除ができる。
+# ゲストパスワードとの同時使用はできない。削除キーが設定されてない場合は、
+# 記事の削除ができる。チェックを行い,条件を満たせば$allow_remove_flag=1となる。
+
+	local($ttmp_rmkey) = @_;	# 記事中に埋め込まれた削除キー
+	# フォームで入力された削除キー（暗号化前）
+	local($tmp_form_rmkey)=$FORM{'passwd'};	
+
+	# フォームで入力された削除キー（暗号化したもの）
+	local($cpt_form_rmkey);	
+	$cpt_form_rmkey=&make_pass($tmp_form_rmkey);
+
+	if(($ttmp_rmkey eq "")||($ttmp_rmkey eq "no_key")){
+		# 削除キーがログにない古い記事の場合、削除を不許可
+		# 削除キーがログにない記事の場合、削除を不許可
+		$skipped_rmkey_remove++;	# 削除失敗した記事の数
+
+		if($remove_article_number=='1'){
+			&error(" パスワードが違います．削除を中止しました ");
+		}elsif($remove_article_number == "$skipped_rmkey_remove"){
+			&error(" パスワードが違います．削除を中止しました ");
+		}
+		return;
+	}else{
+		# 削除キーがログに存在する場合
+		if($tmp_form_rmkey eq ""){
+			&error(" 削除キーが入力されていません。削除できませんでした。<BR>この記事には投稿者により、削除キーが設定されています。記事投稿時に用いた削除キーを入力してください。なお、削除キーを忘失した場合は、掲示板管理者に頼んで削除してもらってください ");
+		}elsif($tmp_form_rmkey eq "$ttmp_rmkey"){
+			$allow_remove_flag=1;
+		}elsif($cpt_form_rmkey eq "$ttmp_rmkey"){
+			$allow_remove_flag=1;
+		}else{
+			$FORM{'passwd'}="****(←セキュリティ対策のため非表\示\)" if($FORM{'passwd'}=~ /ZzZ/);
+			&error(" 入力された削除キー「$FORM{'passwd'}」が違います。削除できませんでした。<BR>この記事には投稿者により、削除キーが設定されています。記事投稿時に用いた削除キーを入力してください。なお、削除キーを忘失した場合は、掲示板管理者に頼んで削除してもらってください ");
+		}
+	}
+
+}
+
+#=====================#
+# クッキーを読む
+#=====================#
+
+sub read_cookie{
+
+	local($ttt_cookie)=$ENV{'HTTP_COOKIE'};
+
+	# URLデコードをする(2002.08.12)
+	$ttt_cookie=~ s/%([0-9A-Fa-f][0-9A-Fa-f])/pack("C", hex($1))/eg;
+
+    		@pairs = split(/\;/,$ttt_cookie);
+    		foreach $pair(@pairs){
+    			local($name,$value) = split(/\=/,$pair);
+			# エンコードしたセパレータ＝を戻す．	
+			$name		=~ s/Enc_eq/\=/g;
+			$value	=~ s/Enc_eq/\=/g;
+			$name 	=~ s/ //g;
+    			$COOKIES{$name} = $value;
+    		}
+		foreach ( split(/\,/,$COOKIES{'imgboard121'})){
+    			local($name,$value) = split(/\:/);
+			$value=&Dec_EQ($value);
+    			$COOKIE{$name} = $value;
+		}
+		foreach ( split(/\,/,$COOKIES{'imgboardad121'})){
+    			local($name,$value) = split(/\:/);
+			$value=&Dec_EQ($value);
+    			$COOKIEAD{$name} = $value;
+		}
+}
+
+#========================#
+# クッキーを書く(R6aVer)
+#========================#
+
+sub set_cookies{
+
+	undef $set_value;
+
+	# セパレータと区別できなくなる＝を事前にEnc_eqに置換
+
+	$FORM{'utc'}=$new_utc_set;	# 連続投稿カウンタ
+
+	# 削除キーの記憶、非記憶
+	$FORM{'rmkey'}=&make_pass("$FORM{'rmkey'}");	# 暗号化
+	$FORM{'rmkey'}="" if($FORM{'rmkeym'} ne "on");	# Clear	
+
+	&CEnc_EQ('subject');
+	&CEnc_EQ('name');
+	&CEnc_EQ('email');
+	&CEnc_EQ('view_mode');
+	&CEnc_EQ('optA');
+	&CEnc_EQ('optB');
+	&CEnc_EQ('optC');
+	&CEnc_EQ('optD');
+	&CEnc_EQ('optE');
+	&CEnc_EQ('optF');
+	&CEnc_EQ('imgtitle');
+	&CEnc_EQ('utc');
+	&CEnc_EQ('entry_passwd');
+	&CEnc_EQ('rmkey');
+	&CEnc_EQ('rmkeym');
+
+	foreach $p_key(keys %T_COOKIE){
+		# パスワードはXXXpasswdというNAMEにする
+		# これは暗号化される
+		if($p_key=~ /_passwd$/){
+			$T_COOKIE{$p_key}=&make_pass("$T_COOKIE{$p_key}");
+		}
+		$set_value.="$p_key"."\:"."$T_COOKIE{$p_key}"."\,";
+	}
+	$set_value.="end\:end";
+
+	&set_cookie("imgboard121","$set_value");
+}
+
+#=================================#
+# クッキーを書く(管理メニュー用)
+#=================================#
+
+sub set_admin_cookies{
+
+	undef $set_value;
+
+	# セパレータと区別できなくなる＝を事前にEnc_eqに置換
+	&CEnc_EQ('apasswd');
+
+	foreach $p_key(keys %T_COOKIE){
+		# パスワードはXXXpasswdというNAMEにする
+		# これは暗号化される
+		if($p_key=~ /passwd$/){
+			$T_COOKIE{$p_key}=&make_pass("$T_COOKIE{$p_key}");
+		}
+		$set_value.="$p_key"."\:"."$T_COOKIE{$p_key}"."\,";
+	}
+	$set_value.="end\:end";
+
+	&set_cookie("imgboardad121","$set_value");
+}
+
+# 繰り返し
+sub CEnc_EQ{
+	local($p_name)=$_[0];
+	$T_COOKIE{$p_name}	=$FORM{$p_name};
+	$T_COOKIE{$p_name}=&Enc_EQ($T_COOKIE{$p_name});
+	return("$T_COOKIE{$p_name}");
+}
+
+sub Enc_EQ{
+	# セパレータと区別できなくなる文字を事前に置換
+	local($tmp_data)=@_;
+	$tmp_data	=~ s/\=/Enc_eq/g;
+	$tmp_data	=~ s/\:/Enc_cln/g;
+	$tmp_data	=~ s/\;/Enc_scln/g;
+	$tmp_data	=~ s/\,/Enc_km/g;
+	return($tmp_data);
+}
+
+sub Dec_EQ{
+	# セパレータと区別できなくなる文字を復元
+	local($tmp_data)=@_;
+	$tmp_data	=~ s/Enc_eq/\=/g;
+	$tmp_data	=~ s/Enc_cln/\:/g;
+	$tmp_data	=~ s/Enc_scln/\;/g;
+	$tmp_data	=~ s/Enc_km/\,/g;
+	return($tmp_data);
+}
+
+sub set_cookie{
+
+	#Copyright(C) to-ru@big.or.jp (1.20以降 2000年対応 NEWバージョン)
+        local($name,$value) = @_;
+        local($sec,$min,$hour,$mday,$mon,$year,$wday,$date);
+        local($days) = 900;      # Expire Date(有効期間。デフォルト180日)
+
+        ($sec,$min,$hour,$mday,$mon,$year,$wday) 
+                        = (localtime(time+$days*24*60*60))[0,1,2,3,4,5,6];
+        $sec   = "0$sec"  if($sec  < 10);
+        $min   = "0$min"  if($min  < 10);
+        $hour  = "0$hour" if($hour < 10);
+        $mday  = "0$mday" if($mday < 10);
+        $year += 1900;
+        $wday  = ("Sun","Mon","Tue","Wed","Thu","Fri","Sat")[$wday];
+        $mon   = ("Jan","Feb","Mar","Apr","May","Jun",
+                  "Jul","Aug","Sep","Oct","Nov","Dec")[$mon];
+        $date = "$wday, $mday\-$mon\-$year $hour:$min:$sec GMT";
+
+	# 2002.08.12 Opera対策で日本語をURLエンコードすることにした
+	$value =~ s/(\W)/sprintf("%%%02X", unpack("C", $1))/eg;
+        print "Set-Cookie: $name=$value; expires=$date\n";      # クッキー出力
+#&error("Set-Cookie: $name=$value; expires=$date\n");
+
+	# tok2対応
+	# http://www26.tok2.com/home/wingstar/toktokcgi.htmlの情報より
+	if($SERVER_NAME=~ /tok2\.com/){
+	  $tok2_cookie="$name=$value; expires=$date\n";
+	}
+}
+
+#=========================#
+# Content-type のチェック
+#=========================#
+sub content_type_check{
+
+	local($content_type) = @_;
+
+# 画像
+	$ext{'image/jpg'}	= 'jpg'; 
+	$ext{'image/jpeg'}	= 'jpg'; 	# for NN
+	$ext{'image/pjpg'}	= 'jpg';
+	$ext{'image/pjpeg'}	= 'jpg';	# for IE
+	$ext{'image/gif'}	= 'gif';	# for NN&IE
+
+	$ext{'image/x-png'}	= 'png';	# for PNG  file
+	$ext{'image/png'}	= 'png';	# for PNG  file
+
+	# gif,jpeg以外に以下のタイプのデータも投稿できるようにするには
+	# 初期設定にて$allow_other_multimedia_dataを1にしてください．
+	if($allow_other_multimedia_data ==1){
+		&additional_content_types;
+	}
+	# imgタグで埋め込み可能なタイプ
+	foreach(keys %ext){
+		if($content_type =~ /$_/ig){
+			return $ext{$_};
+		}
+	}
+	# imgタグで埋め込むと危険なタイプ
+	foreach(keys %ext2){
+		if($content_type =~ /$_/ig){
+			return $ext2{$_};
+		}
+	}
+        # これでも駄目なら拡張子から判断
+	 if($fname=~ /\.gif$/i){return 'gif';}
+	 if($fname=~ /\.jpe?g$/i){return 'jpg';}
+
+	# gif,jpeg以外に以下のタイプのデータも投稿できるようにするには
+	# 初期設定にて$allow_other_multimedia_dataを1にしてください．
+        if($allow_other_multimedia_data ==1){
+         # (自分でリストをさらに追加する場合の注意)
+         # cgi,asp,pl,sh,exe.shtml,js,jse,vbs,vbe,hta,wsh,xlm等の拡張子はセキ
+	 # ュリティ上危険なので絶対追加しないこと（特にWindowsユーザ）
+
+	# IMAGE
+	 if($fname=~ /\.png$/i){return 'png';}	# PNG      形式
+	 if($fname=~ /\.bmp$/i){return 'bmp';}	# Win BMP  形式
+	 if($fname=~ /\.pict$/i){return 'pict';}# Mac PICT 形式
+	 if($fname=~ /\.pdf$/i){return 'pdf';}	# Adobe PDF形式
+
+	# 次の三つの形式は圧縮率が低く、インターネットに不向きな画像形式なので、
+	# デフォルト設定ではアップロードを許可しない。
+#	 if($fname=~ /\.tiff?$/i){return 'tif';}# TIFF形式
+#	 if($fname=~ /\.tga$/i){return 'tga';}	# TARGA形式
+#	 if($fname=~ /\.psd$/i){return 'psd';}	# PhotoShop形式
+
+	# MS_OFFICE
+	 if($fname=~ /\.ppt$/i){return 'ppt';}	# PowerPoint
+	 if($fname=~ /\.rtf$/i){return 'rtf';}	# Word98
+	 if($fname=~ /\.doc$/i){return 'doc';}	# Word
+	 if($fname=~ /\.xls$/i){return 'xls';}	# 表計算(excel)
+	 if($fname=~ /\.csv$/i){return 'csv';}	# データベース
+	 if($fname=~ /\.mdz$/i){return 'mdz';}	# MS Access Data
+	 if($fname=~ /\.mht$/i){return 'mht';}	# MS Web 単一アーカイブ
+	# Archive
+	 if($fname=~ /\.lzh$/i){return 'lzh';}	# LHA
+	 if($fname=~ /\.sea\.hqx$/i){return 'sea.hqx';}
+	 if($fname=~ /\.hqx$/i){return 'hqx';}	# Binhex 形式(Mac)
+	 if($fname=~ /\.sea$/i){return 'sea';}	# SfuffIt形式(Mac)
+	 if($fname=~ /\.sit$/i){return 'sit';}	# SfuffIt形式(Mac)
+	 if($fname=~ /\.cpt$/i){return 'cpt';}	# CompactPro形式(Mac)
+	 if($fname=~ /\.zip$/i){return 'zip';}	# ZIP
+	 if($fname=~ /\.tar$/i){return 'tar';}	# Tar File
+	 if($fname=~ /\.tar\.z$/i){return 'tar.Z';}
+	 if($fname=~ /\.tar\.gz$/i){return 'tar.gz';}
+	 if($fname=~ /\.url$/i){return 'url';}	# インターネットショートカット
+	 if($fname=~ /\.mov$/i){return 'mov';}
+	 if($fname=~ /\.rar$/i){return 'rar';}	# RARファイル
+	 if($fname=~ /\.arj$/i){return 'arj';}	# ARJファイル
+	 if($fname=~ /\.cab$/i){return 'cab';}	# CABファイル
+	# Mac Application
+	 if($fname=~ /\.cwj$/i){return 'cwj';}  # クラリスワークス
+	 if($fname=~ /\.pm6$/i){return 'pm6';}	# PageMaker6ファイル
+	 if($fname=~ /\.dxf$/i){return 'dxf';}	# AutoCAD 3Dファイル
+	 if($fname=~ /\.art$/i){return 'art';}	# ART ファイル
+
+	# Japanese Application
+	 if($fname=~ /\.oas$/i){return 'oas';}	# 富士通オアシスファイル
+
+	# WindowsMedia
+	 if($fname=~ /\.wma?$/i){return 'wma';}	# Windows Media Audio
+	 if($fname=~ /\.asf$/i){return 'asf';}	# Windows Media (ASF形式)
+	 if($fname=~ /\.asx$/i){return 'asx';}	# Windows Media (ASF形式 Redirecter)
+	 if($fname=~ /\.wmv$/i){return 'wmv';}	# Windows Media オーディオ/ビデオ ファイル
+
+	# Real Audio
+	 if($fname=~ /\.ra$/i) {return 'ra';}	# Real Audioファイル
+	 if($fname=~ /\.ram$/i){return 'ram';}	# Real Audioファイル
+	 if($fname=~ /\.rm$/i) {return 'rm';}	# Real Audioファイル
+	 if($fname=~ /\.rmm$/i){return 'rmm';}	# Real Audioファイル
+	 if($fname=~ /\.rmj$/i){return 'rmj';}	# Real Audioファイル
+#	 if($fname=~ /\.rmx$/i){return 'rmx';}	# Real Audio METAファイル
+
+	# HS
+	 if($fname=~ /\.sdp$/i) {return 'sdp';}	# SDP ファイル
+	 if($fname=~ /\.vod$/i) {return 'vod';}	# VOD ファイル
+	 if($fname=~ /\.smil$/i){return 'smil';}# SMIL ファイル
+	 if($fname=~ /\.nsmil$/i){return 'nsmil';}# NSMIL ファイル
+
+	# Other Audio
+	 if($fname=~ /\.at3$/i){return 'at3';}	# ATRAC3 ファイル
+	 if($fname=~ /\.lav$/i){return 'lav';}	# Liquid Audioファイル
+
+	# 携帯（Jフォン）2002.04 スーパーメール& Vシリーズ対応
+	 if($fname=~ /\.mng$/i){return 'mng';}	# PNG アニメーション
+	 if($fname=~ /\.noa$/i){return 'noa';}	# ムービーファイル(Nancy)
+	 if($fname=~ /\.vcf$/i){return 'vcf';}	# vCard（アドレス帳）
+	 if($fname=~ /\.vcs$/i){return 'vcs';}	# vCalendar（スケジュール帳）
+	 if($fname=~ /\.vmg$/i){return 'vmg';}	# vMessage（メールデータ）
+	 if($fname=~ /\.vbm$/i){return 'vbm';}	# vBookmark（ブックマークデータ）
+	 if($fname=~ /\.vnt$/i){return 'vnt';}	# vNote（定型文・メモ帳）
+	# 携帯（EZ new）
+	 if($fname=~ /\.amc$/i){return 'amc';}	# ezmovie
+
+	# 携帯（FOMA) new
+	 if($fname=~ /\.mp3$/i){return 'mp3';}	# MP3データ
+	 if($fname=~ /\.mp4$/i){return 'mp4';}	# MP4データ(iモーション)
+	 if($fname=~ /\.3gp$/i){return '3gp';}	# MP4データ(iモーション)
+	 if($fname=~ /\.3gpp$/i){return '3gpp';}# MP4データ(iモーション)
+	 if($fname=~ /\.3gp4$/i){return '3gp4';}# MP4データ(iモーション)
+
+	# 携帯（Jフォン）R5d new
+
+	 if($fname=~ /\.smd$/i){return 'smd';}	# Jスカイメロディ
+	 if($fname=~ /\.mmf$/i){return 'mmf';}	# Jスカイメロディ
+	 if($fname=~ /\.pmd$/i){return 'pmd';}	# EZ音声/きゃらメロ
+	 if($fname=~ /\.qcp$/i){return 'qcp';}	# EZ音声/きゃらメロ
+	 if($fname=~ /\.mld$/i){return 'mld';}	# iメロディ
+	 if($fname=~ /\.als$/i){return 'als';}	# H\"(DDI-P)着メロ
+	 if($fname=~ /\.dxm$/i){return 'dxm';}	# H\"(DDI-P)FeelSound
+	 if($fname=~ /\.mel$/i){return 'mel';}	# ドットi音声
+	 if($fname=~ /\.sml$/i){return 'sml';}	# ドットi音声
+
+	 # その他細かい物は削除。今後は e_FTPboardをご利用ください。
+
+if($www_server_os!~ /win/i){
+# 以下のファイルはイントラネット専用です。
+# WWWサーバがWindowでかつ外部公開サーバの時は
+# 下記の二つのファイルのコメントアウトを絶対に外さないこと
+#	 if($fname=~ /\.exe$/i){return 'exe';}   # 実行ファイル
+#	 if($fname=~ /\.dll$/i){return 'dll';}   # DLLファイル
+	 if($fname=~ /\.ini$/i){return 'ini';}   # iniファイル
+}
+	 if($fname=~ /\.avi$/i){return 'avi';}
+	 if($fname=~ /\.mpg$/i){return 'mpg';}
+	 if($fname=~ /\.wrl$/i){return 'wrl';}
+	 if($fname=~ /\.midi?$/i){return 'mid';}
+	 if($fname=~ /\.kar$/i){return 'kar';}
+	 if($fname=~ /\.wav$/i){return 'wav';}
+	 if($fname=~ /\.txt$/i){return 'txt';}
+	 if($fname=~ /\.html?$/i){return 'html';}
+	 if($fname=~ /\.dcr$/i){return 'dcr';}
+	 if($fname=~ /\.spl$/i){return 'spl';}
+	 if($fname=~ /\.swf$/i){return 'swf';}
+
+	 # 拡張子がtxtと違うけど、プレインテキスト属性だとブラウザが判断したデータ
+	 # をここで救う
+ 	 if($content_type =~ /text\/plain/i){
+		return 'txt';
+	 }
+
+        } #end of allow_other_multimedia_data == OK
+
+	$unknown_data_exit=1;
+
+# データタイプ不明の場合の最終判断
+	if($unknown_data_exit==1){
+		&error(" このタイプのデータはアップロードできません．");
+	}else{
+		return 'dat';
+	}
+}
+
+#==========================#
+# Content-type の自動補完
+#==========================#
+sub additional_content_types{
+
+# 拡張子がないファイルがアップロードされた場合、ブラウザから通知された
+# マイムタイプから拡張子を決定します。Macユーザからの拡張子なしファイル
+# のアップロードに対応するための部分です。
+
+# 画像系（その他）
+#	$ext{'image/x-png'}	= 'png';	# for PNG  file
+#	$ext{'image/png'}	= 'png';	# for PNG  file
+	$ext{'image/pict'}	= 'pict';	# for PICT file
+	$ext{'image/bmp'}	= 'bmp';	# for BMP  file
+	$ext2{'application/pdf'}= 'pdf';	# for PDF  file
+	$ext2{'director'}= 'dcr';		# for Director
+	$ext2{'x-shockwave-flash'}= 'swf';	# for Shockwave_flash
+	$ext2{'futuresplash'}= 'spl';		# for FutureSplash
+	$ext2{'postscript'}= 'ps';		# for PostScript
+
+# アーカイブ系
+	$ext2{'mac-binhex40'}= 'hqx';		# for BinHex(Mac)
+	$ext2{'stuffit'}= 'bin';		# for Binary(Mac)
+	$ext2{'application/zip'}= 'zip';	# for ZIP   (Win)
+	$ext2{'x-zip'}= 'zip';			# for ZIP   (Win)
+	$ext2{'compressed/lha'}= 'lzh';		# for LZH   (Win)
+	$ext2{'x-tar'}= 'tar';			# for TAR   (Unix)
+
+# 3D & ビデオ系
+	$ext2{'x-world/x-vrml'}	= 'wrl';	# for 3D-VRML file
+	$ext2{'video/quicktime'}	= 'mov';# for QuickTime  file
+	$ext2{'video/(.*)mpeg'}	= 'mpeg';	# for MPEG file
+	$ext2{'video/(.*)msvideo'}= 'avi';	# for AVI  file
+	$ext2{'video/(.*)-asf'}= 'asf';		# for NetShow file
+	$ext2{'video/avi'}= 'avi';		# for AVI  file
+	$ext2{'application/x-ntt-vod(.*)'}= 'nsmil';# for VOD Script file
+	$ext2{'video/x-ms-wvx'}= 'wvx';    # Windows Media オーディオ/ビデオ ショートカット
+	$ext2{'video/x-ms-wmv'}= 'wmv';    # Windows Media オーディオ/ビデオ ファイル
+	$ext2{'video/x-noa'}= 'noa';		# ムービー写メール
+	$ext2{'video/3gpp'}	= '3gp';	# for i-Motion file
+
+# JSKY スーパーメール対応
+	$ext2{'audio/x-smd'}	= 'smd';	# for SMD
+	$ext2{'application/x-smaf'}= 'mmf';	# for MMF
+	$ext2{'video/x-mng'}	= 'mng';	# for Animation file
+	$ext2{'video/mng'}	= 'mng';	# for Animation file
+	$ext2{'text/x-vbookmark'}= 'vbm';	# for vBookMark file
+	$ext2{'text/x-vcalender'}= 'vcs';	# for vCalendar file(謎？)
+	$ext2{'text/x-vcalendar'}= 'vcs';	# for vCalendar file
+	$ext2{'text/x-vmessage'}= 'vmg';	# for vMessage file
+
+# 会社で仕事に役立ち系
+	$ext2{'text/html'}= 'html';	 	# HTMLテキスト
+#	$ext2{'text/plain'}= 'txt'; 		# テキスト
+	$ext2{'msword'}= 'doc';			# MS_WORD
+	$ext2{'excel'}= 'xls';			# MS_Excel
+	$ext2{'powerpoint'}= 'ppt';			# MS_PowerPoint
+#	NIMDA対策で外すことにした(2001.09/21)
+#	$ext2{'message/rfc822'}= 'eml';		# Outlook Express メイル
+
+# 音楽系
+	$ext2{'audio/mpeg'}= 'mp3';			# for MPEG Audio
+	$ext2{'audio/x-mpegurl'}= 'm3u';		# for MPEG Audio
+	$ext2{'audio/x-wav'}= 'wav';		# for WAV Audio
+	$ext2{'audio/(.+)mid'}= 'mid';		# for MIDI file
+	$ext2{'audio/(.+)aiff'}= 'aiff';	# for AIFF file
+	$ext2{'audio/basic'}= 'au';	        # for Sun Audio
+	$ext2{'audio/(.+)realaudio'}= 'ram';    # for Real Audio
+	$ext2{'audio/x-ms-wax'}= 'wax';    # WindowsMedia Audioショートカット
+	$ext2{'audio/x-ms-wma'}= 'wma';    # WindowsMedia Audioファイル
+}
+
+#=========================#
+# html出力
+#=========================#
+
+#====================================#
+# フォーム部分のＨＴＭＬを出力する
+#====================================#
+
+sub output_form_html{
+
+	# 表示モード以外ならフォームを出さない
+	if($FORM{'mode'} ne ""){
+		return;
+	}
+
+	# 修正記事選択画面ならフォームを出さない
+	if(($FORM{'amode'} eq "select_edit")&&($FORM{'bbsaction'} ne "edit_form")){
+		return;
+	}
+
+	# 代入する変数を準備
+
+	# 表示モード・デフォルト選択値
+	if($COOKIE{'view_mode'} ne ""){
+		&select_default_view_mode;
+	}
+	# フォーム欄の色
+	if($HTTP_USER_AGENT =~ /IE/i){
+		$bgcolor_ie="bgcolor=GRAY";
+	}
+
+   #==================================================#
+   # 同一ウィンド表示時（デフォルト）の掲示板の先頭
+   #==================================================#
+
+	if(($form_disp_on_board ==1)||($FORM{'bbsaction'} eq 'disp_form_only')||($FORM{'bbsaction'} eq 'disp_rep_form')||($FORM{'bbsaction'} eq 'edit_form')){
+
+		# 前処理（埋込みデータを加工）
+
+		# 会員パスワード設定をしてない場合、項目は出さない。
+		if($use_passwd_flag != 1){
+			$cm_out_pw_h='<!--';
+			$cm_out_pw_f='-->';
+		}
+
+		if($auto_url_link==1){
+		  $auto_url_message="<LI>記事中のURL、メアド等は自動でリンク化されます\n";
+		}
+
+		# タグを許可する場合、注意書きを追加しミスを予防する。
+		if($use_tag == 1){
+			$tag_siyou_tyuui='<LI>タグ使用可。使用する場合、閉じ忘れにご注意ください</LI>';
+		}
+
+		# IE3ユーザには、アップロードアドオンを説明
+		if($HTTP_USER_AGENT=~ /MSIE 3.0/i){
+			$explain_upload_add_on='<LI>IE3.0xの場合、IE3.02a+<a href=http://www.microsoft.com/ie_intl/ja/download/ie3add.htm>ファイルアップロード・アドオン</a>が必要です。</LI>';
+		}
+
+		# 返信・編集フォーム時は画像アップロードさせない
+		if(($FORM{'bbsaction'} eq 'disp_rep_form')||($FORM{'bbsaction'} eq 'edit_form')){
+			$cm_out_img_h='<!--';
+			$cm_out_img_f='-->';
+		}
+
+
+		# 初期設定を変更してない場合、終了ボタンは出さない。
+		if(($form_disp_on_board==0)||($back_url eq 'http://あなたのプロバイダ/あなたのディレクトリ/index.html')){
+			$cm_out_exit_h='<!--';
+			$cm_out_exit_f='-->';
+		}
+
+	# 入力フォーム部form_htmlのHTMLを出力（書換えは初期設定の所で行う）
+	&form_html;
+
+	# 修正ウィンドの時は以下を出さない
+	return if($FORM{'bbsaction'} eq "edit_form");
+	
+	if($FORM{'bbsaction'} eq 'disp_rep_form'){
+
+print<<HTML_END;
+<HR>
+<!--掲示板中央部の説明部分A-->
+<font size=-1>
+ <UL>
+   <LI>名前、e-mail $gvar_middle_01 は一度登録すると記憶されますので次回から入力省略できます
+  <!--タグ使用上の注意が自動で入ります-->$tag_siyou_tyuui
+</UL>
+</font>
+HTML_END
+
+	}else{
+
+		# アンカーリンク部分を出力（書換えは初期設定の所で行う）
+		&link_top_html if($form_disp_on_board ==1);
+
+		# 入力フォーム下の説明部分を出力（書換えは初期設定の所で行う）
+		&middle_A_html;
+	}
+
+	&middle_B_html if($form_disp_on_board ==1);
+
+   #================================#
+   # 別ウィンド表示時の掲示板の先頭
+   #================================#
+
+	}else{
+		#初期設定を変更してない場合、終了ボタンは出さない。
+		if($back_url eq 'http://あなたのプロバイダ/あなたのディレクトリ/index.html'){
+			$cm_out_exit_h='<!--';
+			$cm_out_exit_f='-->';
+		}
+
+	&middle_B_html if($form_disp_on_board ==0);
+
+	# アンカーリンク部分を出力（書換えは初期設定の所で行う）
+	&link_top_html;
+
+print<<EOF;
+
+<TABLE border="1" cellspacing="0" cellpadding="0">
+<TR bgcolor=gray>
+ <FORM METHOD=GET ACTION="$back_url">
+ <TD>
+  <FONT SIZE=-1>
+   $cm_out_exit_h<INPUT TYPE=SUBMIT VALUE="トップページへ戻る">$cm_out_exit_f
+  </FONT>
+ </TD>
+</FORM>
+EOF
+
+print<<EOF;
+<FORM>
+ <TD>
+  <FONT SIZE=-1>
+   <INPUT TYPE="button" VALUE="投稿フォーム"
+onClick="input_form=window.open('$cgi_name?bbsaction=disp_form_only&page=$disp_page&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=$FORM{'amode'}','form_window','toolbar=no,status=yes,menubar=yes,scrollbars=yes,resizable=yes,close=yes,width=730,height=400');">
+  </FONT>
+ </TD>
+</FORM>
+
+<NOSCRIPT>
+<!-- Javascript非対応ブラウザ用 -->
+<FORM action="$cgi_name" method=GET TARGET="form_window">
+<INPUT TYPE=HIDDEN NAME="bbsaction" VALUE="disp_form_only">
+<INPUT TYPE=HIDDEN NAME="page" VALUE="$disp_page">
+
+ <TD>
+  <FONT SIZE=-1>
+   <INPUT TYPE=SUBMIT VALUE="投稿フォーム(Javascript 非対応ブラウザ用)">
+  </FONT>
+ </TD>
+</FORM>
+</NOSCRIPT>
+
+</TR>
+</TABLE>
+<BR>
+
+EOF
+	}
+   #============================================#
+   # 別ウィンド表示時の掲示板の先頭ここまで
+   #============================================#
+
+}
+
+#====================================#
+# 記事部分のＨＴＭＬを出力する
+#====================================#
+
+sub output_html{
+
+	local($tmp_file)	= $_[0];# 処理するログファイル名
+
+        # cgi_wrap使用プロバイダ対策
+	# 古いプロバイダの中にはcgi_wrapを使っているプロバイダがあります。
+	# 相対パス指定を使用する場合、下記の数値を1にして、そのイメージ
+	# 保存ディレクトリのURLを$img_urlで指定することにより、掲示板を
+	# 使用する事ができます。それ以外の人は必ず0に指定してください。
+	# なお、1を指定した場合は$img_urlの設定が必須になります。   
+
+	$using_cgi_wrap=0;#(デフォルト0)
+
+	# メッセージを読み込む
+	# 読込みながらページ生成に必要な情報を作る
+
+	undef	@HEAD_MESSAGE;
+	undef	@GOUP_MESSAGE;	  # 上へ持って行くメッセージ(ただ抜いたもの)
+	undef	@LATEST_MESSAGE;  # 上へ持って行くメッセージ(ソート後)
+	undef	@RECENT_MESSAGE_UID;  # 最近登録されたメッセージ
+
+#$PM{'res_go_up'} = 1;
+
+	undef	@MESSAGE;
+	undef	$all_message;
+	local($tmp_parent);
+
+
+	undef	@PAGE_START;	# ページスタートの記事番号情報を保存する配列
+	undef	@PAGE_END;	# ページエンド  の記事番号情報を保存する配列
+	undef	$page_parent_counter;	# 親記事を数える
+	$total_counter="0";		# 親＋子の記事を数える
+
+	# 検索用変数
+	local($search_words)	= $FORM{'SearchWords'};
+	local($match_mode)	= $FORM{'MatchMode'};	# 検索タイプ(AND OR)
+	local($match_flag);
+
+	# 返信記事を作成する場合は検索機能を流用する
+	# 親記事の血統を持つ記事を表示する
+	if($FORM{'bbsaction'} eq 'disp_rep_form'){
+		$search_words		="$FORM{'blood'}";
+		$match_mode		="AND";
+	}
+
+	# ループに入る前にチェック＆下処理をしておく
+	if(($FORM{'mode'} eq "search_menu")||($FORM{'bbsaction'} eq 'disp_rep_form')){
+	    if($search_words eq ""){
+		&error(" 検索ワードが入力されていません ");
+	    }else{
+		$search_words =~ s/　/ /g;
+		@tmp_search_words = split(/\s+/, $search_words);
+	    }
+	}
+
+	open(READ, "$tmp_file");
+	eval "flock(READ,1);" if($PM{'flock'} == 1 );
+
+	push(@PAGE_START,0);
+
+	# 条件に一致するものを@MESSAGEに入れる
+	while(<READ>){
+
+		# HEADER保存 (将来への拡張もここで対応)
+		if($_ =~ /^\#?\,param_/i){
+
+			if($_ =~ /^\,param_last_update(\s*)=(\s*)(\d+)(\s*)/i){
+				# 最終更新日を取得する
+				$HEAD_MESSAGE{'last_update'}="$3";
+			}elsif($_ =~ /^\,param_last_bloods(\s*)=(\s*)([^\;]*)(\;+)(\s*)/i){
+				# 最新記事のスレッドのリストを取得する
+				$HEAD_MESSAGE{'last_bloods'}="$3";
+				$HEAD_MESSAGE{'last_bloods'}=&Dec_EQ("$HEAD_MESSAGE{'last_bloods'}");
+				&output_new_bloods_list;
+			}else{
+				push(@HEAD_MESSAGE, $_);
+			}
+
+		}
+# Debug
+#	&error("nw @NEW_BLOODS");
+
+		if($_ =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+			undef $match_flag;
+
+			# 検索時
+			if(($FORM{'mode'} eq "search_menu")||($FORM{'bbsaction'} eq 'disp_rep_form')){
+
+			  $tmp_line_data=$_;	# 検索するラインを保存
+
+			  foreach $tmp_search_word(@tmp_search_words) {
+#&error("$tmp_search_word");
+
+				$tmp_enc_search_word=&Enc_EQ("$tmp_search_word");
+
+if(($tmp_search_word =~/http/)&&($tmp_line_data =~/http/)){
+#&error("tmp_search_word-$tmp_search_word-tmp_line_data-$tmp_line_data");
+}
+				if (index($tmp_line_data,$tmp_search_word) >= 0) {
+					$match_flag=1;
+					if($match_mode eq 'OR') {
+				 	last;
+					}
+				}elsif (index($tmp_line_data,$tmp_enc_search_word) >= 0) {
+					$match_flag=1;
+					if($match_mode eq 'OR') {
+				 	last;
+					}
+				}else{
+					if ($match_mode eq 'AND') {
+				  	$match_flag=0;
+				  	last;
+					}
+				}
+			}
+			  if($match_flag ==1){	
+				push(@MESSAGE, $_);
+				$all_message++;
+			  }else{
+				next;
+			  }
+			# 非検索時
+			}else{
+				# レスのついた記事を上へ持って行くために
+				# @MESSAGEへ入れずに、@GOUP_MESSAGEへ
+				if($PM{'res_go_up'} == 1){
+					undef $tp_match_flag;
+					local($tp_loop_counter)=0;
+					foreach $tmp_parent(@NEW_BLOODS){
+					  # 3スレッドまで上へ持って行く
+					  # それ以上にすると負荷が上がるのでやめる
+					  last if($tp_loop_counter >= 3);
+					  if(($tmp_parent eq "$9")||($tmp_parent eq "$11")){
+						$tp_match_flag = 1;
+						last;# 検出したら抜ける
+					  }
+					  $tp_loop_counter++;
+					}
+					if($tp_match_flag == 1){
+					  push(@GOUP_MESSAGE, $_);
+					  $all_message++;
+					}else{
+					  push(@MESSAGE, $_);
+				  	  $all_message++;
+					}
+				}else{
+				  push(@MESSAGE, $_);
+				  $all_message++;
+				}
+			}
+
+		}
+	}
+	eval "flock(READ,8);" if($PM{'flock'} == 1 );
+	close(READ);
+
+# Debug
+#	&error("gup @GOUP_MESSAGE");
+
+	# レスのついた記事を上へ持って行くために、
+	# @MESSAGEの先端に足す
+	# 高速化、低負荷化のために、リストに入れてから、ソートする
+
+	if($PM{'res_go_up'} == 1){
+	  # 検索とレスの場合は足さない
+	  if(($FORM{'mode'} ne "search_menu")&&($FORM{'bbsaction'} ne 'disp_rep_form')){
+	      local($tmp_goup_line);
+	      $tp_loop_counter=0;
+	      foreach $tmp_parent(@NEW_BLOODS){
+		  # 3スレッドまで上へ持って行く
+		  last if($tp_loop_counter >= 3);
+	       foreach $tmp_goup_line(@GOUP_MESSAGE){
+		if($tmp_goup_line =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+		  if(($tmp_parent eq "$9")||($tmp_parent eq "$11")){
+			push(@LATEST_MESSAGE,$tmp_goup_line);
+		  }
+	        }
+	       }
+		$tp_loop_counter++;
+	      }
+		# @MESSAGEの先端に足す
+		unshift(@MESSAGE,@LATEST_MESSAGE);
+# Debug
+#	&error("mes @MESSAGE");
+#	&error("latest @LATEST_MESSAGE");
+	  }
+	}
+
+
+	# ページ情報を作る
+	foreach(@MESSAGE){
+
+		if($_ =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+
+			# 記事閲覧、ページ生成に必要な情報(@PAGE_START)を用意する
+			if($9 ne ""){
+#				$child_kiji_flag="1";	# 子記事確認用フラグ
+			}else{
+				$page_parent_counter++;
+			}
+			if($page_parent_counter > $disp_message){
+				push(@PAGE_START,$total_counter);
+				push(@PAGE_END,$total_counter-1);
+				$page_parent_counter=1;
+			}
+			$total_counter++;
+		}
+	}
+
+	push(@PAGE_END,$total_counter);
+	
+#&error("start @PAGE_START end @PAGE_END");
+
+	# ページを決める
+	$total_page=@PAGE_START;
+
+	if($FORM{'page'} > 0){
+		if($FORM{'page'} > $total_page){
+			$disp_page = $total_page;
+		}else{
+			$disp_page = $FORM{'page'};
+		}
+	}else{
+		$disp_page = 1;
+	}
+	$next_page 	= $disp_page + 1;
+	$pre_page 	= $disp_page - 1;
+
+	&output_kiji_html;
+
+   #====================================#
+   # 記事部分のＨＴＭＬを出力する
+   #====================================#
+
+sub output_kiji_html{
+
+
+	# ユーザプロファイル指定部分のＨＴＭＬ（書換えはsub form_usr_profile_htmlの所で行う）
+	if($user_selected_view_mode==1){
+		&form_user_profile_html;
+	}
+
+	if($FORM{'mode'} eq "search_menu"){
+	  print"<CENTER>\n";
+	  print"$total_counter件の記事がヒットしました \n";
+	  print"</CENTER>\n";
+	}elsif($FORM{'bbsaction'} eq 'disp_rep_form'){
+	  print"<UL>\n";
+	  print" ↓以下の記事スレッドに、フォームの内容が追加されます ";
+	  print"</UL>\n";
+	}
+
+	# 外部ファイル用の処理をロード（将来拡張用）
+	if($EXTSUB{'kiji_pre_loop'} == 1){
+		 &ext_config_kiji_pre_loop;
+	}
+
+	# 管理者モード解除用のリンクを出す
+	if($FORM{'amode'} ne ""){
+	  print qq| <P><CENTER>\n|;
+	  print qq| <TABLE bgcolor=yellow><TR><TD><B>---- 現在、掲示板は管理者モード$amode_done_mes01です -----</B></TD><TD><A HREF="$cgi_name?page=$FORM{'page'}&p1=$FORM{'p1'}&p2=$FORM{'p2'}"> [管理者モード終了] </a></TD><TR></TABLE> \n|;
+	  print qq| </CENTER>\n|;
+	}
+
+	# 記事削除指定用のフォーム開始部
+	print"<!-- 記事削除指定用のフォーム開始部 -->\n";
+	print"<FORM ACTION=\"$cgi_name\" METHOD =\"POST\">\n";
+	print"<INPUT TYPE=HIDDEN NAME=\"page\" VALUE=$disp_page>\n";
+	print"<INPUT TYPE=HIDDEN NAME=\"amode\" VALUE=$FORM{'amode'}>\n";
+	print"<INPUT TYPE=HIDDEN NAME=\"p1\" VALUE=$FORM{'p1'}>\n";
+	print"<INPUT TYPE=HIDDEN NAME=\"p2\" VALUE=$FORM{'p2'}>\n";
+	print"$POSTADDP{'REMOVEFORM'}<!-- 拡張用 -->\n";
+	print"<!-- 以降記事部です -->\n";
+
+
+	# 記事部 inu
+	for($i=$PAGE_START[$disp_page-1];$i<=$PAGE_END[$disp_page-1];$i++){
+		if($MESSAGE[$i]	=~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+
+			# パラメータの準備
+			undef $child_kiji_flag;	# 子記事確認用フラグ
+			undef $old_kiji_flag;	# 旧形式確認用フラグ
+
+			undef $tmp_seq_no;
+			undef $tmp_blood_name;
+			undef $tmp_rmkey;
+			undef $tmp_unq_id;
+			undef $tmp_snl_location;
+
+			undef $new_kiji_flag; # 最近の記事フラグ
+
+			$tmp_subject		= $1;
+			$tmp_name		= $2;
+			$tmp_email		= $3;
+			$tmp_date		= $4;
+			$tmp_body		= $5;
+			$tmp_img_location	= $6;
+			$tmp_imgtitle		= $7;
+			$tmp_seq_no		= $8;	# 連番
+			$tmp_blood_name		= $9;	# 親の血統ID(子供のみ持つ)
+			$tmp_rmkey		= $10;	# 削除キー
+			$tmp_unq_id		= $11;	# 固有ID(時刻ベース)
+			$new_p1			= $12;
+			$new_p2			= $13;
+
+			$tmp_rm_number		= $i+1;
+
+			# 準備
+
+ 			if($tmp_unq_id eq ""){
+				$old_kiji_flag="1";	# 旧形式確認用フラグ
+			}
+
+			if($tmp_blood_name ne ""){
+				$child_kiji_flag="1";	# 子記事確認用フラグ
+			}else{
+#				$parent_counter++
+			}
+
+# Debug
+# &error("rmid @RECENT_MESSAGE_UID");
+
+			# 最新投稿記事にはフラグを立てる
+ 			if($PM{'disp_new_notice'}==1){
+			    $tp_loop_counter=0;
+			    foreach $recent_uid(@RECENT_MESSAGE_UID){
+ 			     last if($tp_loop_counter >= 3 );
+ 			     if($recent_uid == $tmp_unq_id ){
+				$new_kiji_flag="1";	# 最近の記事フラグ
+				last;
+			     }
+			     $tp_loop_counter++;
+			    }
+			}
+
+			$tmp_subject=&Dec_EQ("$tmp_subject");
+
+			undef %IMG_PARAMETERS;
+
+			# imgtitleから情報を抜き出す
+			if($tmp_imgtitle ne ""){
+				$tmp_imgtitle=&parse_img_param("$tmp_imgtitle");
+			}
+
+			# 予備入力項目パラメータを復元
+			# bodyの中に、コメントアウト形式でデータは隠し保存されている
+			# 書式<!--opt:パラメータ名=値;パラメータ名2=値2・・・-->
+			#<!--opt:と-->を除きパラメータ部を抽出する処理
+			if($tmp_body ne ''){
+				($tmp_body,$opt_form_data)	=split(/<\!--opt:/,$tmp_body);
+				$opt_form_data			=~ s/-->//g;
+			}
+			#パラメータ$opt_form_dataが追加されている場合．
+
+		        undef %OPTDATA;		# 新R6
+		        undef %OPT_FORM_DATA;	# 旧R5互換用
+
+			if($opt_form_data ne ''){
+				foreach ( split(/;/,$opt_form_data)){
+					local($name,$value) = split(/\=/);
+					$value=&Dec_EQ("$value");
+					if($name=~ /^opt_data_(.+)$/){
+					  $OPTDATA{"opt$1"}	= $value;
+					  $OPT_FORM_DATA{"opt$1"}= $value;# 旧R5互換用
+					# 徐々にこちらへシフト
+					}elsif($name=~ /^opt(.+)$/){
+					  $OPTDATA{"$name"}	= $value;
+					  $OPT_FORM_DATA{"$name"}= $value;# 旧R5互換用
+					}
+				}
+			}
+
+			# 相手のホスト名を変数$user_IP に代入
+			# （なりすまし防止などの事情で相手のＩＰを表示したい場合はこの変数を使って下さい）
+			if($tmp_body=~ /user：\s([^>]*)(\s*)--/){
+			    $user_IP="$1";
+			    $user_IP=&tiny_decode("$user_IP"); #2002.02
+
+			    # $user_IP情報をプライバシー保護のため、一部マスクして隠す
+			    if($use_ip_privacy_filter==1){
+			       &user_IP_privacy_filter;
+			    }
+			}else{
+			    $user_IP="No IP info";
+			}
+
+			if($no_disp_RH_in_HTML_sorce==1){
+				$tmp_body=~ s/user：\s([^>]*)(\s*)--/user： na --/g;
+			}else{
+			    $tmp_body=~ s/user：\s([^>]*)(\s*)--/user： $user_IP--/g;
+			}
+
+
+			# disp_mode(表示モード)を決定
+
+			undef $disp_mode;
+
+			&check_mode;
+
+			# テキストリンク用ＨＴＭＬ指定部に代入する$data_typeを選択
+
+			$disp_ip_flag=0;
+			undef $data_type;
+
+			if($tmp_img_location ne ""){
+			  if($tmp_img_location=~ /\.gif$|\.jpe?g$|\.png$/i){
+				$data_type=" 画　像 ";
+			  }elsif($tmp_img_location=~ /\.aiff?$|\.aifc$|\.snd$|\.au$|\.midi?$|\.wav$/i){
+				$data_type=" 音　声 ";
+			  }elsif($tmp_img_location=~ /\.ram?$|\.rmm?$|\.rmj$/i){
+				$data_type=" 音　声 (RealPlayer) ";
+			  }elsif($tmp_img_location=~ /(.*)\.(mp3)$|(.*)\.(mp4)$/i){
+				$data_type=" 音　声 ($2) ";
+			  }elsif($tmp_img_location=~ /\.wma?$/i){
+				$data_type=" 音　声 (Windows Media Audio) ";
+			  }elsif($tmp_img_location=~ /\.at3$/i){
+				$data_type=" 音　声 (ATRAC3形式) ";
+			  }elsif($tmp_img_location=~ /\.lav$/i){
+				$data_type=" 音　声 (Liquid Audio) ";
+			  }elsif($tmp_img_location=~ /\.te?xt$|\.html?$/i){
+				$data_type=" テキスト ";
+			  }elsif($tmp_img_location=~ /\.pac$/i){
+				$data_type=" おやつ ";
+			  }elsif($tmp_img_location=~ /\.oas$/i){
+				$data_type=" オアシス文書 ";
+			  }elsif($tmp_img_location=~ /(.*)\.(zip)$|(.*)\.(tar)$|(.*)\.(rar)$|(.*)\.(arj)$|(.*)\.(tar.g?z)$/i){
+				$data_type=" 圧縮デ\ータ($2形式) ";
+
+			# 携帯 2002.04.05 update
+
+			  }elsif($tmp_img_location=~ /\.vcs$/i){
+				$data_type=" デ\ータ [JSKY-Vスケジュール帳]";
+			  }elsif($tmp_img_location=~ /\.vcf$/i){
+				$data_type=" デ\ータ [JSKY-Vアドレス帳]";
+			  }elsif($tmp_img_location=~ /\.vmg$/i){
+				$data_type=" デ\ータ [JSKY-Vメール]";
+			  }elsif($tmp_img_location=~ /\.vbm$/i){
+				$data_type=" デ\ータ [JSKY-Vブックマーク]";
+			  }elsif($tmp_img_location=~ /\.vnt$/i){
+				$data_type=" デ\ータ [JSKY-V定型文・メモ帳]";
+			  }elsif($tmp_img_location=~ /\.mng$/i){
+				$data_type=" 動　画 [JSKY-Animation]";
+			  }elsif($tmp_img_location=~ /\.noa$/i){
+#				$data_type=" 動　画 [Nancy形式]";
+				$data_type=" 動　画 [Nancy形式(<a href=http://www.nancy.ne.jp/pocketnancy/playerdownload.html target=_blank>PC再生</a>)]";
+
+			  }elsif($tmp_img_location=~ /\.amc$/i){
+#				$data_type=" 動　画 [ezmovie形式]";
+				$data_type=" 動　画 [ezmovie形式(<a href=http://www.au.kddi.com/ezfactory/tec/spec/ezmovie_lite.html target=_blank>PC再生</a>)]";
+			  }elsif($tmp_img_location=~ /\.3gp/i){
+#				$data_type=" 動　画 (iモーション or QuickTime圧縮 ) ";
+				$data_type=" 動　画 [iモーション or QuickTime圧縮 (<a href=http://www.pluto.dti.ne.jp/~moons/sigmarion/foma/imotion/pl4/pl4_1.html target=_blank>PC再生</a>)] ";
+			  }elsif($tmp_img_location=~ /\.vod$|\.nsmil$/i){
+				$data_type=" 動　画 [VOD スクリプト]";
+			  }elsif($tmp_img_location=~ /\.smd$|\.mmf$/i){
+				$data_type=" 音　声 [Jスカイメロディ]";
+			  }elsif($tmp_img_location=~ /\.pmd$|\.qcp$/i){
+				$data_type=" 音　声 [EZ音声/きゃらメロ]";
+			  }elsif($tmp_img_location=~ /\.mld$/i){
+				$data_type=" 音　声 [iメロディ]";
+			  }elsif($tmp_img_location=~ /\.als$/i){
+				$data_type=" 音　声 [H\"(DDI-P)着メロ]";
+			  }elsif($tmp_img_location=~ /\.dxm$/i){
+				$data_type=" 音　声 [H\"(DDI-P)FeelSound]";
+			  }elsif($tmp_img_location=~ /\.mel$|\.sml$/i){
+				$data_type=" 音　声 [ドットi音声]";
+			  }elsif($tmp_img_location=~ /\.hdml$/i){
+				$data_type=" EZweb/H\"等WAP系HDML 書類 ";
+ 			  }else{
+				$disp_ip_flag=1;
+				$data_type=" データ ";
+			  }
+			}
+
+			#危険度の高いデータの場合はIPを自動表示する
+			undef $auto_user_IP;
+			if(($auto_ip_if_danger_datatype==1)&&($disp_ip_flag ==1)){
+				$auto_user_IP="（"."$user_IP"."）";
+			}elsif($no_disp_RH_in_HTML_sorce=='-1'){
+				$auto_user_IP="（"."$user_IP"."）";
+			}else{
+				$auto_user_IP="";
+			}
+
+			if($tmp_img_location ne ''){
+				# 画像タイトルがない場合,画像名をタイトルに
+				$tmp_imgtitle = $tmp_img_location if $tmp_imgtitle eq '';
+				$tmp_imgtitle =~ s/^(.*)\///;	# パスを消去して名前のみにする
+	
+			}
+
+			undef $ddd;	#デバッグ用パラメータ
+
+			# 画像のサイズ変更
+			if(($tmp_img_location!~ /\.dat$/)&&($tmp_img_location=~ /\.gif$|\.jpe?g$|\.png$|\.bmp$/i)){
+				&check_img;
+		       }
+
+			#=============================================================#
+			# CGI別ディレクトリサイト、cgiwrapサイト対策(imgboard1.22 Rev.3)
+			#=============================================================#
+
+			# 互換性のため
+			if($SERVER_NAME eq ""){
+				$SERVER_NAME		=$ENV{'SERVER_NAME'};
+			}
+
+			if($SERVER_NAME=~ /\.www5(.?)\.biglobe/){
+				$using_cgi_wrap=1;
+			}
+			if($SERVER_NAME=~ /\.arena\.ne\.jp/){
+				$using_cgi_wrap=1;
+			}
+			if($SERVER_NAME=~ /\.interq\.or\.jp/){
+				$using_cgi_wrap=1;
+			}
+
+			if(($tmp_img_location =~ /^\/(.+)\/(.+)$/)||($using_cgi_wrap==1)){
+				# 絶対パス指定の場合はURL指定に変更
+				if($using_cgi_wrap==1){
+					$tmp_img_location=~ s/^(.+)\///g;
+			    	}else{
+					$tmp_img_location=~ s/^\/(.+)\///g;
+			    	}
+
+				$tmp_img_location="$img_url/$tmp_img_location";
+			}
+
+
+			# 自動URLリンクをする
+			if($auto_url_link==1){
+				$tmp_body=&set_auto_url_link($tmp_body);
+			}
+
+			# メールアドレスがある場合のみリンクにする
+			if(($tmp_email ne " no_email")&&($tmp_email!~ /^(\s+)$/)){
+			  $mail_a_start	="<A HREF=\"mailto:$tmp_email\">";
+			  $mail_a_end	="</A>";
+			}else{
+			  $mail_a_start	="";
+			  $mail_a_end	="";
+			}
+
+			# HTMLブロックの初期化
+			undef $html_block_A;
+			undef $size_sitei;
+	
+			undef $disp_seq_no;	
+
+			# 携帯からの投稿の場合、種類を表示する
+			undef $keitai_env_link;
+			if($OPTDATA{'optKeitaiFlag'} ne ""){
+#	  		  $keitai_env_link=qq|<BR>$OPTDATA{'optKeitaiFlag'}：$OPTDATA{'optKeitaiMachineType'}|;
+# 2003.04 変更してみた
+	  		  $keitai_env_link=qq|$OPTDATA{'optKeitaiFlag'}：$OPTDATA{'optKeitaiMachineType'}|;
+			}
+
+			if($tmp_seq_no ne ""){
+				$disp_seq_no="No\."."$tmp_seq_no";
+			}
+
+			# html_block_Aに代入する要素を呼び出し（変更は初期設定でおこなう）
+			&set_html_block;
+
+			# 外部ファイル用の処理をロード
+			# アイコン付き掲示板等に対応
+			if($EXTSUB{'kiji'} == 1){
+			 &ext_config_kiji;
+			}
+
+			# 準備終わり
+
+	#------------------------------------------------------------------#
+	# 記事部分のＨＴＭＬ(編集は初期設定部でおこなってください)
+	# １．テキスト記事・・・・・&kiji_base_html;
+	#
+	# ２．画像のある記事の場合(３種類から選択)
+
+	undef $disp_re;
+
+	if($child_kiji_flag == '1' ){	# 子の場合
+		$disp_re="";
+
+		if($FORM{'mode'} eq "search_menu"){
+		  print"<BR CLEAR=\"left\">\n";
+		}
+
+		print"<TABLE border=0 $tmp_res_table_width>\n";
+		print"<TR><TD NOWRAP ALIGN=RIGHT VALIGN=TOP $tmp_td_width>&gt&gt</TD><TD $res_table_sitei>\n";
+
+	}else{				# 親の場合
+
+		# 幅を指定する
+		$tmp_td_width="";
+		$tmp_res_table_width="";
+
+		if(($disp_mode eq "text_only")||($disp_mode eq "img_icon")||($disp_mode eq "img_text_link")){
+			$tmp_res_table_width="width=\"98%\"";
+			$tmp_td_width=qq|WIDTH="7%"|;
+		}
+
+		if(($PM{'use_rep'} == 1)&&($FORM{'bbsaction'} ne 'disp_rep_form')&&($FORM{'amode'} ne 'select_edit')&&($FORM{'amode'} ne 'show_ip')){
+		  $disp_re=qq|<a href="$cgi_name?bbsaction=disp_rep_form&amode=$FORM{'amode'}&page=$disp_page&blood=$tmp_unq_id&parent=$tmp_seq_no">返信</a>|;
+		}
+		print"<BR CLEAR=\"left\">\n";
+		print"<HR>\n";
+	}
+
+	$disp_re="" if($old_kiji_flag == '1');# 旧形式なら返信リンクを出さない
+
+	if($FORM{'bbsaction'} ne 'disp_rep_form'){
+#	print"<INPUT TYPE=\"CHECKBOX\" NAME=\"rm_number_$tmp_rm_number\" VALUE=\"1\">\n";
+	# R6 new
+	# 旧連番 S 新固有IDを送る(Sはセパレータ)
+	$mes_rmid="rmid"."$tmp_rm_number"."S"."$tmp_unq_id";
+	$disp_rm_cbox=qq|<INPUT TYPE="CHECKBOX" NAME="$mes_rmid" VALUE="1">\n|;
+	print "$disp_rm_cbox";
+	 if($new_kiji_flag ==1){
+	  print "<font color=red size=-1>(new)</font>";
+	 }
+	}
+
+	print" <!--$disp_mode-->\n";
+
+	# 子記事
+	if($child_kiji_flag == '1' ){
+		# 返信記事（書換えは初期設定の所で行う）
+		&kiji_rep_html;
+		print"</TD></TR></TABLE>\n";
+	# 親記事
+	}else{
+
+	  if($disp_mode eq "text_only"){
+		# テキスト記事（書換えは初期設定の所で行う）
+		&kiji_base_html;
+	  }elsif($disp_mode eq "img_icon"){
+		# アイコン貼付け（書換えは初期設定の所で行う）
+		$html_block_A="$icon_html_block";
+		&kiji_base_html;
+	  }elsif($disp_mode eq "img_auto"){
+		# オートリサイズ貼付け（書換えは初期設定の所で行う）
+		$size_sitei="$w_set $h_set";
+		&kiji_base2_html;
+	  }elsif($disp_mode eq "img_w_static"){
+		# 横固定サイズ貼付け（書換えは初期設定の所で行う）
+		$size_sitei="$w_set $h_set";
+		&kiji_base2_html;
+ 	  }elsif($disp_mode eq "img_h_static"){
+ 		# 縦固定サイズ貼付け（書換えは初期設定の所で行う）
+ 		$size_sitei="$w_set $h_set";
+ 		$html_block_A="$icon_html_block";
+ 		&kiji_base_html;
+	  }elsif($disp_mode eq "img_original"){
+		# 元サイズ貼付け（書換えは初期設定の所で行う）
+		$size_sitei="$w_set $h_set";
+		if($FORM{'amode'} eq "remove_webparts"){
+			&kiji_base_icon_html;
+		}else{
+			&kiji_base2_html;
+		}
+	  }elsif($disp_mode eq "img_limit_max"){
+		# 最大サイズ制限貼付け（書換えは初期設定の所で行う）
+		$size_sitei="$w_set $h_set";
+		&kiji_base2_html;
+	  }elsif($disp_mode eq "img_text_link"){
+		# 画像はリンク
+		$html_block_A="$textlink_html_block";	#（書換えは初期設定の所で行う）
+		&kiji_base_html;
+	  }else{
+		# テキスト記事（書換えは初期設定の所で行う）
+		&kiji_base_html;
+	  }
+
+	}
+# 返信に入るためのリンク
+if($FORM{'amode'} eq "select_edit"){
+
+print<<HTML_END;
+<BR>[<a href="$cgi_name?bbsaction=edit_form&target=$tmp_unq_id&target_no=$tmp_seq_no&p1=$FORM{'p1'}&p2=$FORM{'p2'}&page=$FORM{'page'}&amode=select_edit">\↑上記の記事を修\正\</a>]
+HTML_END
+
+}	
+	}
+	}# forループの終了
+
+	# 返信のときの参考記事用のＨＴＭＬ下部
+	if($FORM{'bbsaction'} eq 'disp_rep_form'){
+print<<HTML_END;
+	<BR CLEAR="left">
+	</FORM>
+	<HR>
+	[<a href="$cgi_name?amode=$FORM{'amode'}&page=$FORM{'page'}">返信しないで戻る</a>]
+	</BODY></HTML>
+HTML_END
+	exit;
+	}
+
+	# フッターを表示
+
+	# 下部にバナー広告を義務付けられている場合は、設定部の$html_for_bottom_bannerにHTMLソースを書いてください    
+
+
+ 	$dd_guest_passwd="$guest_passwd";
+
+print<<HTML_END;
+	<BR CLEAR="left">
+	<HR>
+	$html_for_bottom_banner
+	<INPUT TYPE="HIDDEN" NAME="bbsaction" VALUE="remove">
+	<font size=-1>
+	削除方法 <BR>
+	◆管理人： 削除対象の左欄をチェック（複数指定可）、専用パスワードを下欄に入力し、「削除」を押す <BR>
+HTML_END
+
+	if($use_guest_passwd =='1'){
+
+print<<HTML_END;
+	◆投稿者： 投稿に用いたパ\ソ\コ\ンでアクセスし、自分の記事の左欄をチェック、そのまま「削除」を押す（パスワード不要!!）<BR>
+HTML_END
+
+        }elsif($use_guest_passwd =='-1'){
+		$dd_guest_passwd="$COOKIE{'rmkey'}";
+	 if($COOKIE{'rmkey'} ne ""){
+print<<HTML_END;
+	◆投稿者：  削除対象の左欄をチェック（複数指定可）、投稿時に入力した削除キーを下欄に入力し「削除」を押す<BR>(キーを記憶している場合は自動入力されます)<BR>
+HTML_END
+	 }else{
+print<<HTML_END;
+	◆投稿者：  削除対象の左欄をチェック（複数指定可）、投稿時に入力した削除キーを下欄に入力し「削除」を押す<BR>
+HTML_END
+	 }
+        }
+
+print<<HTML_END;
+	<INPUT TYPE="PASSWORD" NAME="passwd" SIZE="10" VALUE="$dd_guest_passwd">
+	</font>
+	<INPUT TYPE="SUBMIT" VALUE="削除">
+	</FORM>
+HTML_END
+
+&output_button_HTML;
+
+sub output_button_HTML{
+
+	print "<TABLE border=1 CELLSPACING=6 CELLPADDING=0><TR>";
+
+	if($pre_page > 0){
+
+	   # 先頭へジャンプ
+	   if($pre_page > 0){
+		print "<FORM ACTION=\"$cgi_name\" METHOD=\"POST\">";
+		print "<TD><FONT SIZE=-1>";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"page\" VALUE=1>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"amode\" VALUE=$FORM{'amode'}>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"p1\" VALUE=$FORM{'p1'}>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"p2\" VALUE=$FORM{'p2'}>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"bbsaction\" VALUE=\"page_change\">\n";
+		print "$POSTADDP{'BUTTONTOPFORM'}\n"; # 将来拡張用
+
+		# ワード検索時のページ変更ボタンは検索パラメータを引きずっていく
+		if($FORM{'mode'} eq "search_menu"){
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"mode\" VALUE=\"search_menu\">\n";
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"SearchWords\" VALUE=\"$FORM{'SearchWords'}\">\n";
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"MatchMode\" VALUE=\"$FORM{'MatchMode'}\">\n";
+		}
+		print "<INPUT TYPE=\"SUBMIT\" VALUE=\" 先頭 \">\n";
+		print "</FONT></TD>";
+		print "<\/FORM>\n";
+	   }
+
+	   # 前の？件へジャンプ
+		print "<FORM ACTION=\"$cgi_name\" METHOD=\"POST\">";
+		print "<TD><FONT SIZE=-1>";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"page\" VALUE=$pre_page>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"bbsaction\" VALUE=\"page_change\">\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"amode\" VALUE=$FORM{'amode'}>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"p1\" VALUE=$FORM{'p1'}>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"p2\" VALUE=$FORM{'p2'}>\n";
+		print "$POSTADDP{'BUTTONPREVFORM'}\n"; # 将来拡張用
+
+		# ワード検索時のページ変更ボタンは検索パラメータを引きずっていく
+		if($FORM{'mode'} eq "search_menu"){
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"mode\" VALUE=\"search_menu\">\n";
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"SearchWords\" VALUE=\"$FORM{'SearchWords'}\">\n";
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"MatchMode\" VALUE=\"$FORM{'MatchMode'}\">\n";
+		}
+		print "<INPUT TYPE=\"SUBMIT\" VALUE=\" ＜前の$disp_message件 \">\n";
+		print "</FONT></TD>";
+		print "<\/FORM>\n";
+	}else{
+		print "<TD></TD>";
+	}
+
+	# 下部のページ切替えボタンのHTML
+	if($next_page <= $total_page){
+
+		print "<FORM ACTION=\"$cgi_name\" METHOD=\"POST\">\n";
+		print "<TD><FONT SIZE=-1>";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"page\" VALUE=$next_page>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"bbsaction\" VALUE=\"page_change\">\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"amode\" VALUE=$FORM{'amode'}>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"p1\" VALUE=$FORM{'p1'}>\n";
+		print "<INPUT TYPE=\"HIDDEN\" NAME=\"p2\" VALUE=$FORM{'p2'}>\n";
+		print "$POSTADDP{'BUTTONNENTFORM'}\n"; # 将来拡張用
+
+		# ワード検索時のページ変更ボタンは検索パラメータを引きずっていく
+		if($FORM{'mode'} eq "search_menu"){
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"mode\" VALUE=\"search_menu\">\n";
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"SearchWords\" VALUE=\"$FORM{'SearchWords'}\">\n";
+		 print "<INPUT TYPE=\"HIDDEN\" NAME=\"MatchMode\" VALUE=\"$FORM{'MatchMode'}\">\n";
+		}
+		print "<INPUT TYPE=\"SUBMIT\" VALUE=\"次の$disp_message 件＞\">\n";
+		print "</FONT></TD>";
+		print "<\/FORM>\n";
+	}else{
+		print "<TD bgcolor=\"#808080\">これより先のページはありません </TD>";
+	}
+
+		print "</TR></TABLE>";
+}
+	
+	# 改造,非改造を問わず,クレジットの変更は固くお断りします。（著作権侵害となります）
+	# なお,当スクリプトの一部,あるいは全部を利用,あるいは参考にしたスクリプトを作成された場合も,
+	# かならず当リンクをその掲示板に付加してください。
+	print "<HR>\n";
+	print "<DIV ALIGN=\"RIGHT\">";
+	print "<B>FREE <A HREF=\"http:\/\/www.big.or.jp\/~talk\/welcome\/welcome7m.cgi\">imgboard v1.22 R6.1c<\/A>!!<\/B><BR>\n";
+	print "<\/DIV><BR>\n";
+}
+
+	print "<\/BODY>\n<\/HTML>\n";
+
+}
+
+
+#====================================#
+# disp_mode（表示モード）を選択する
+#====================================#
+
+sub check_mode{		
+
+	# テキストのみ
+	if($tmp_img_location eq ""){
+		$disp_mode="text_only";
+	# データ付き
+	}else{
+		# ユーザがクッキーで表示モードを以前選択している場合,それを優先
+		if(($COOKIE{'view_mode'} ne "")&&($COOKIE{'view_mode'} ne "as_cgi_defined")&&($user_selected_view_mode==1)){
+			if(($tmp_img_location!~ /\.dat$/)&&($tmp_img_location=~ /\.gif$|\.jpe?g$|\.png$|\.bmp$/i)){
+				$disp_mode="img_icon" if($COOKIE{'view_mode'} eq "text_img_type1");
+				$disp_mode="img_w_static"  if($COOKIE{'view_mode'} eq "text_img_type2");
+				$disp_mode="img_original"  if($COOKIE{'view_mode'} eq "text_img_type3");
+				$disp_mode="img_auto"      if($COOKIE{'view_mode'} eq "text_img_type4");
+				$disp_mode="img_limit_max" if($COOKIE{'view_mode'} eq "text_img_type5");				$disp_mode="img_text_link" if($disp_mode eq "");
+			}else{
+				$disp_mode="img_text_link";
+			}
+
+		# 以前選択してない場合,初期設定の通り
+		}else{
+			if(($show_img_on_board ==0)||($tmp_img_location=~ /\.dat$/)||($tmp_img_location!~ /\.gif$|\.jpe?g$|\.png$|\.bmp$/i)){
+				# テキストリンク
+				$disp_mode="img_text_link";
+			}else{
+			# ＢＢＳ上に直接貼付		# クッキー未使用時の固定指定 neko
+				if($on_board_img_size==0){	# アイコン
+					$disp_mode="img_icon";
+				}elsif($on_board_img_size==1){	# オート
+					$disp_mode="img_auto";
+				}elsif($on_board_img_size==2){	# 横固定
+					$disp_mode="img_w_static";
+				}elsif($on_board_img_size==3){	# オリジナル
+					$disp_mode="img_original";
+				}elsif($on_board_img_size==4){	# 縦固定
+					$disp_mode="img_h_static";
+				}elsif($on_board_img_size==5){	# 極端に大きな画像のみ縮小
+					$disp_mode="img_limit_max";
+				}else{
+					$disp_mode="img_icon";	# error時はアイコンにしとく
+				}
+			}
+		}
+	}
+}
+#
+#==============================================#
+# IMGプロパティ判別 ＆ 表示サイズ変更処理部
+#==============================================#
+
+# $disp_modeに従い、表示サイズの変更を実際に行うルーチン
+sub check_img{
+
+	$use_imgsize=1;
+
+	undef $orig_width;
+	undef $orig_height;
+	undef $w_set;
+	undef $h_set;
+	# file.datにheight,width情報があるかどうかをチェック。
+	if(($IMG_PARAMETERS{'width'}>2)&&($IMG_PARAMETERS{'height'}>2)&&($IMG_PARAMETERS{'hw_racio'}>1)){
+		    $img_parameters_exist=1;
+	}else{
+		    $img_parameters_exist=0;
+	}
+
+	if(($use_imgsize ==1)&&($imgsize_lib_flag==1)){
+
+		$check_img_location="$tmp_img_location";
+
+# 記事投稿時に画像の高さ、幅情報を解析し、記事データと共に記録しておく。
+# 表示時、解析結果が既に記録されている場合はimgsizeによる解析をスキップ。
+# これにより画像解析回数を減らし負荷軽減すると共に、超高速レイアウトを
+# 実現する。なお、imgsize.plには、file名をdummyとして通知。
+
+		$check_img_location='dummy' if ($img_parameters_exist==1);
+
+		if($disp_mode eq 'img_icon'){
+		# アイコン化。引数３は基本サイズ（省略可）	
+			&imgsize("$check_img_location",'iconize','4000');
+		}elsif($disp_mode eq 'img_w_static'){
+		# 横サイズ固定。引数３は横サイズ、引数４は最大縦limit（省略可）	
+			# レイアウトを揃えることができる。	
+			&imgsize("$check_img_location",'static_width','440','640');
+		}elsif($disp_mode eq 'img_original'){
+		# オリジナルサイズ。引数３は表示倍率(倍率変更可能)	
+			&imgsize("$check_img_location",'x_per','100%');
+		}elsif($disp_mode eq 'img_h_static'){
+		# 縦サイズ固定。引数３は縦サイズ、引数４は最大横limit（省略可）
+			# 以下パラメータで画像は1024x768画面でジャスト表示になる	
+			&imgsize("$check_img_location",'static_height','680','1000');
+		}elsif($disp_mode eq 'img_auto'){
+		# インテリジェントオートリサイズ。引数３は面積系のパラメータ（省略可）
+			&imgsize("$check_img_location",'auto_resize','1600000');
+		}elsif($disp_mode eq 'img_limit_max'){
+		# 極端に大きな画像のみ縮小。引数３は縦制限サイズ、引数４は横制限サイズ（省略可）
+			&imgsize("$check_img_location",'limit_by_max_size','480','480');
+		}
+
+		$orig_width	= "$IMGSIZE{'width'}";
+		$orig_height	= "$IMGSIZE{'height'}";
+		$w_set= "width=$IMGSIZE{'out_width'}"		if($IMGSIZE{'out_width'} !=0);
+		$h_set= "height=$IMGSIZE{'out_height'}"		if($IMGSIZE{'out_height'} !=0);
+
+	# imgsize未使用時 or imgsize.plが見つからない場合 neko
+	}else{
+		if($disp_mode eq 'img_icon'){
+		# アイコン化。
+			$w_set= "width =60";
+			$h_set= "height=45";
+		}elsif($disp_mode eq 'img_w_static'){
+		# 固定サイズ化
+			$w_set= "width =256";
+			$h_set= "height=192";
+		}elsif($disp_mode eq 'img_original'){
+		# オリジナルサイズ化	
+			undef $w_set;
+			undef $h_set;
+		}
+	}
+}
+#
+#=========================================#
+# 表示モード設定用/フォームＨＴＭＬ
+#=========================================#
+
+sub form_user_profile_html{
+
+	local($tmp_page_disp)="$FORM{'page'}";
+	$tmp_page_disp=1 if($tmp_page_disp eq "");
+
+	# 返信の時は変更されるとパラメータが抜けてしまうので
+	# 表示させない
+	if($FORM{'bbsaction'} eq "disp_rep_form"){
+		return;
+	}
+
+	# 検索の時は変更されるとパラメータが抜けてしまうので
+	# 表示させない
+	if($FORM{'mode'} eq "search_menu"){
+		return;
+	}
+
+if($CIMGSIZE{'smooze_mode'} > 0){
+	$yoko_sub_setumei=" をほぼ ";
+}
+
+print<<HTML_END;
+<!--訪問ユーザが個々にＢＢＳに画像埋込みするかどうかを判断．
+希望ユーザにのみ画像を埋込み\表\示\する,-->
+<TABLE BORDER=1 CELLSPACING=2 CELLPADDING=1>
+<TR $bgcolor_ie></TR>
+<TR>
+<TD WIDTH="24"></TD>
+<TD bgcolor="gray">
+<font size="-1" color="lightgreen">表\示モード (クッキーに記憶されます)<BR></font>
+</TD>
+<FORM ACTION="$cgi_name" METHOD="POST">	
+<INPUT TYPE="HIDDEN" NAME="bbsaction" VALUE="pf_change">
+<INPUT TYPE="HIDDEN" NAME="page" VALUE="$tmp_page_disp">
+<INPUT TYPE="HIDDEN" NAME="amode" VALUE="$FORM{'amode'}">
+<INPUT TYPE="HIDDEN" NAME="p1" VALUE="$FORM{'p1'}">
+<INPUT TYPE="HIDDEN" NAME="p2" VALUE="$FORM{'p2'}">
+$POSTADDP{'DISPMODE'}
+
+<TD width="20"></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD colspan=3 align=center>
+<font size=-1>
+<SELECT NAME="view_mode">
+<OPTION $selected_1 value="as_cgi_defined">管理者推奨に従う
+<OPTION $selected_2 value="1-text_only">テキストのみ（軽くなります）
+<OPTION $selected_3 value="text_img_type1">アイコンサイズ
+<OPTION $selected_4 value="text_img_type2">横サイズ $yoko_sub_setumei 固定
+<OPTION $selected_7 value="text_img_type5">極端に大きいものだけリサイズ
+<OPTION $selected_5 value="text_img_type3">原寸表\示
+<OPTION $selected_6 value="text_img_type4">オート（おまかせ）
+</SELECT>
+<INPUT TYPE="HIDDEN" NAME="entry_passwd" VALUE="$COOKIE{'entry_passwd'}">
+<INPUT TYPE="HIDDEN" NAME="name"  VALUE="$COOKIE{'name'}">
+<INPUT TYPE="HIDDEN" NAME="email" VALUE="$COOKIE{'email'}">
+<INPUT TYPE="HIDDEN" NAME="subject" VALUE="$COOKIE{'subject'}">
+<INPUT TYPE="HIDDEN" NAME="imgtitle" VALUE="$COOKIE{'imgtitle'}">
+<INPUT TYPE="HIDDEN" NAME="utc" VALUE="$COOKIE{'utc'}">
+<INPUT TYPE="HIDDEN" NAME="optA" VALUE="$COOKIE{'optA'}">
+<INPUT TYPE="HIDDEN" NAME="optB" VALUE="$COOKIE{'optB'}">
+<INPUT TYPE="HIDDEN" NAME="optC" VALUE="$COOKIE{'optC'}">
+<INPUT TYPE="HIDDEN" NAME="optD" VALUE="$COOKIE{'optD'}">
+<INPUT TYPE="HIDDEN" NAME="optE" VALUE="$COOKIE{'optE'}">
+<INPUT TYPE="HIDDEN" NAME="optF" VALUE="$COOKIE{'optF'}">
+<INPUT TYPE="HIDDEN" NAME="rmkey" VALUE="$COOKIE{'rmkey'}">
+<INPUT TYPE="HIDDEN" NAME="rmkeym" VALUE="$COOKIE{'rmkeym'}">
+</font>
+<font size=-1>
+<input type=submit value="適用">
+</font>
+</TD>
+</FORM>
+<TD><!-- $vip_n -->
+</TD>
+</TR>
+</TABLE>
+<HR>
+</font>
+HTML_END
+}
+#
+#====================================================#
+# 上記フォームにおいて、デフォルトのボタン位置を指定
+#====================================================#
+
+sub select_default_view_mode{
+
+		if($COOKIE{'view_mode'} eq "as_cgi_defined"){
+			$selected_1='selected';
+		}elsif($COOKIE{'view_mode'} eq "1-text_only"){
+			$selected_2='selected';
+		}elsif($COOKIE{'view_mode'} eq "text_img_type1"){
+			$selected_3='selected';
+		}elsif($COOKIE{'view_mode'} eq "text_img_type2"){
+			$selected_4='selected';
+		}elsif($COOKIE{'view_mode'} eq "text_img_type3"){
+			$selected_5='selected';
+		}elsif($COOKIE{'view_mode'} eq "text_img_type4"){
+			$selected_6='selected';
+		}elsif($COOKIE{'view_mode'} eq "text_img_type5"){
+			$selected_7='selected';
+		}else{
+			$selected_1='selected';
+		}
+}
+#
+#=====================================================#
+# その他のサブルーチン
+#=====================================================#
+#
+#=========================#
+# フォームのチェック
+#=========================#
+
+sub form_check{
+
+	local($crypt_RH)=$REMOTE_HOST;
+
+	foreach $form(sort keys %FORM){
+
+		# フォームの整形
+		# タグ禁止の場合
+		if($use_tag !=1){
+			$FORM{$form} =~ s/</&lt;/g;		# タグ禁止
+			$FORM{$form} =~ s/>/&gt;/g;		# タグ禁止
+
+
+			# Style指定	禁止
+			$FORM{$form} =~ s/style(\s*)=(.|\n)*/
+			Sorry..You can not use style in comment./ig;
+
+		}else{
+		# タグ許可の場合
+
+# (掲示板イタズラ対策) 各種危険タグを除去
+
+if(($FORM{$form}=~ /</)||($FORM{$form}=~ />/)){
+# タグがあった場合のみチェックする(高速化)
+$FORM{$form} =~ s/<!--(.|\n)*-->//g;			# SSI等	除去
+$FORM{$form} =~ s/<IM(A?)G(E?)(\s|\n)*SRC(.|\n)*\.(cgi|pl)(\s*)>/ig
+Sorry..You can not load IMG tag CGI in comment./ig;	# IMGタグ CGI	除去
+$FORM{$form} =~ s/<(\/?)COMMENT(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use COMMENT tag in comment./ig;	# COMMENTタグ	除去
+$FORM{$form} =~ s/<(\/?)FORM(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use FORM tag in comment./ig;		# FORM		除去
+$FORM{$form} =~ s/<(\/?)MARQUEE(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use MARQUEE tag in comment./ig;	# マーキー	除去
+$FORM{$form} =~ s/<(\/?)INPUT(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use FORM element tag in comment./ig;# FORM要素	除去
+$FORM{$form} =~ s/<(\/?)SELECT(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use FORM element tag in comment./ig;# SELECTタグ	除去
+$FORM{$form} =~ s/<(\/?)script(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use SCRIPT tag in comment./ig;	# Javascript,VBscript 除去
+$FORM{$form} =~ s/<(\/?)OBJECT(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use OBJECT tag in comment./ig;	# OBJECT(ActiveX) 除去
+$FORM{$form} =~ s/<(\/?)applet(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use JAVA in comment./ig;		# APPLET 除去
+$FORM{$form} =~ s/<META(.+)Refresh(.|\n)*>(\s*)(\n?)//ig;#METAタグ飛ばし禁止
+$FORM{$form} =~ s/<(\/?)EMBED(.+)SRC(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use EMBED tag in comment./ig;	# EMBEDタグ	除去
+$FORM{$form} =~ s/<(\/?)SERVER(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use SERVER tag in comment./ig;	# SERVERタグ	除去
+$FORM{$form} =~ s/<(\/?)plaintext(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use plaintext tag in comment./ig;	# PLAINTEXTタグ	除去
+$FORM{$form} =~ s/<(\/?)xmp(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use xmp tag in comment./ig;		# XMPタグ	除去
+$FORM{$form} =~ s/<(\/?)strike(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use strike tag in comment./ig;	# STRIKEタグ	除去
+$FORM{$form} =~ s/<s>/
+Sorry..You can not use strike tag in comment./ig;	# STRIKEタグ	除去
+$FORM{$form} =~ s/<(\/?)listing(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use listing tag in comment./ig;	# LISTINGタグ	除去
+$FORM{$form} =~ s/<(\/?)BODY(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use BODY tag in comment./ig;		# BODYタグ	除去
+$FORM{$form} =~ s/<(\/?)TITLE(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use TITLE tag in comment./ig;	# TITLEタグ	除去
+$FORM{$form} =~ s/<(\/?)BASEFONT(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use BASEFONT tag in comment./ig;	# BASEFONTタグ	除去
+$FORM{$form} =~ s/<(\/?)frame(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use FRAME tag in comment./ig;	# FRAMEタグ	除去
+$FORM{$form} =~ s/<(\/?)HTML(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use HTML tag in comment./ig;		# HTML閉タグ	除去
+$FORM{$form} =~ s/(\/?)COMMENT(.|\n)*>(\s*)(\n?)/
+Sorry..You can not use COMMENT tag in comment./ig;	# COMMENTタグ	除去
+	}
+# タグがあってもなくても調べる
+unless(($form eq "body")||($form eq "subject")||($form eq "view_mode")||($form eq "name")){
+$FORM{$form} =~ s/style(\s*)=(.|\n)*/
+Sorry..You can not use style in tag on comment./ig;	# Style指定	禁止
+$FORM{$form} =~ s/(.|\n)*onLoad(\s*)\=/ig
+Sorry..You can not use char onLoad in comment./ig;	# onLoad	除去
+$FORM{$form} =~ s/(.|\n)*onClick(\s*)\=/ig
+Sorry..You can not use char onClick in comment./ig;	# onClick	除去
+}
+#危険タグ除去ここまで
+			# IMGタグの埋込みを可否？
+			if($use_img_tag_in_comment !=1){
+				$FORM{$form} =~ s/<IM(A?)G(E?)(\s|\n)*SRC(.|\n)*>(\s*)(\n?)/Sorry..You can not use IMG tag in comment./ig;#IMGタグ除去
+			}else{
+			# IMGタグを埋込む場合は外部画像画像であることを明記する。
+				if(($form eq 'body')&&($FORM{$form}=~ /<IMA?GE?(\s)*SRC(.*)>/i)){
+					$FORM{$form} =~ s/ALT(\s)*=(\s)*\"(.+)\"/ /ig;	#ALT除去
+					$FORM{$form} =~ s/ALT(\s)*=(\s)*([^>]+)/ /ig;	#ALT除去
+					$FORM{$form} =~ s/border(\s)*=(\s)*([^>]+)/ /ig;#Border除去
+					$FORM{$form} =~ s/<IMA?GE?\s*SRC\s?=\s*(\S*)(\s*)>/<IMG SRC=$1 ALT="この画像は外部ＷＷＷサーバの画像です" Border=0>外部画像 /ig;
+				}
+			}
+		}
+		$FORM{$form} =~ s/\r//g;		#CR除去
+		$FORM{$form} =~ s/\n/<BR>/g;		#LFを<BR>に
+		$FORM{$form} =~ s/\t//g;		#TABの除去
+	}
+
+	# フォームの値を代入
+	$name      	= "$FORM{'name'}";
+	$email     	= "$FORM{'email'}";
+	$subject   	= "$FORM{'subject'}";
+	$body      	= "$FORM{'body'}";
+	$rmkey		= "$FORM{'rmkey'}";
+	$imgtitle 	= "$FORM{'imgtitle'}";
+	$img_location	= "$img_dir/$new_fname" if $new_fname ne '';
+
+	#<フォームの有無のチェック>
+	# 基本的にチェックする。ただし、プロファイル登録だけを行う
+	# ユーザの場合は名前やemailをチェックしない。
+	if($FORM{'bbsaction'} ne 'pf_change'){
+		&check_form_data_exist;
+	}
+	$name	 =' 無名 '      if $name eq '';
+	$email   =' no_email'   if $email eq '';
+	$subject =' 無題 '      if $subject eq '';
+	$body    =' 本文なし '  if $body eq '';
+	$rmkey  ='no_key'  	if $rmkey eq '';
+
+# 追加項目に未記入の場合のデフォルト値は以下の書き方を参考にしてください
+#	$FORM{'optA'} =' 無題 '      if $FORM{'optA'} eq '';
+
+	# 本文にユーザ情報を含める
+
+	# 暗号化
+ 	if($crypt_RH ne ""){
+		$crypt_RH=&tiny_encode("$crypt_RH");
+	}
+	$body    = "$body<!-- user： $crypt_RH-->";
+
+        # いたずら防止 (99/12/01 追加分)
+        $email   =~ s/"/&quot;/g;
+        $email   =~ s/style(\s*)=(.|\n)*//ig;
+
+	undef $p_key;	
+	foreach $p_key(keys %FORM){
+		if($p_key=~ /^opt/){
+			$FORM{$p_key}=~ s/style(\s*)=(.|\n)*//ig;
+			$FORM{$p_key}=~ s/"/&quot;/g;
+		}
+	}
+}
+#
+#========================#
+# 暗号化パスワードを作成
+#========================#
+#
+sub make_pass{
+
+	local($plain) = @_;# 引数
+	local($salt);
+	local($tmp_pass);
+
+	# 2002.02 UPDATE
+	if($PM{'use_crypt'} != 1){
+		return($plain);
+	}
+
+	$salt="$ENV{'PROCESSOR_REVISION'}"."$plain";
+	if($plain=~ /^ZzZ/){	# 2重暗号化を防ぐ
+		$tmp_pass = "$plain";
+	}elsif($plain=~ /^(\s*)$/){
+		$tmp_pass = "";
+	}else{
+		$tmp_pass = crypt($plain, $salt);
+		$tmp_pass = "ZzZ"."$tmp_pass";
+	}
+	return ($tmp_pass);
+}
+#
+sub tiny_encode{
+	local($plain) = @_;# 引数
+	 return($plain) if($plain=~ /\,/);
+  	 $plain =~ s/n/\,/ig;
+    	 $plain =~ tr/a-m/b-n/;
+   	 $plain =~ tr/A-M/B-N/; # 2002.12 自宅サーバ対応で追加
+  	 $plain =~ s/\,/a/ig;
+   	 $plain =~ s/4/\,/g;
+    	 $plain =~ tr/0-3/1-4/;
+  	 $plain =~ s/\,/0/g;
+ 	 $plain ="T-Enc"."$plain";
+	 return($plain);
+}
+
+sub tiny_decode{
+	local($plain) = @_;# 引数
+	 if($plain=~ /T-Enc(.*)$/){
+	  $plain = $1;
+	  $plain =~ s/a/\,/ig;
+    	  $plain =~ tr/b-n/a-m/;
+   	  $plain =~ tr/B-N/A-M/; # 2002.12 自宅サーバ対応で追加
+  	  $plain =~ s/\,/n/ig;
+   	  $plain =~ s/0/\,/g;
+    	  $plain =~ tr/1-4/0-3/;
+  	  $plain =~ s/\,/4/g;
+	 }
+	 return($plain);
+}
+#===============================#
+# フォームの入力項目のチェック
+#===============================#
+# 2001.03.11 返信に対応
+# 2001.09.20 エラーメッセージを設定エリアへ移動
+# 2002.06.07 画像を必須にした時に、記事の修正でエラーが出るバグに対処
+#
+sub check_form_data_exist{
+#
+	# 予備パラメータを必須にした場合のためのエラー
+	local($tmp_p_key);
+	foreach $p_key(keys %CHECK){
+	  if($CHECK{$p_key} == 1 ){
+	   if($p_key=~ /opt(.+)$/){
+	    $tmp_p_key="opt"."$1";
+	    if($FORM{$tmp_p_key} eq  ''){
+		$error_message .= "$CHECK_E{$p_key}";
+	    }
+	   # 添付画像のエラーは、必須設定なのに
+	   # 画像がなくて、親の時だけエラーを出す
+	   # 修正画面の時は、エラーを出さない(2002.06.07)
+	   }elsif($p_key eq "img"){
+	    if(($img_data_exists != '1')&&($FORM{'parent'} eq "")&&($FORM{'prebbsaction'} ne 'edit_form')){
+		$error_message .= "$CHECK_E{'img'}";
+	    }
+	   }else{
+	    if($FORM{$p_key} eq  ''){
+		$error_message .= "$CHECK_E{$p_key}";
+	    }
+	   }
+	  }
+	}
+}
+#
+#==========================================#
+# フォームの入力項目の省略可・必須を自動表示
+#==========================================#
+#
+sub auto_omit_disp{
+
+	# パラメータデフォルトを指定
+	if($auto_disp_omit_frag ne '1'){
+		$auto_disp_omit_frag=0;
+	}
+	local($html_h)="<font $f_param>*必要</font>"; 		# 必須の場合
+	local($html_s)="<font $f_param>*省略可</font>";  	# 省略可能な場合
+	if($auto_disp_omit_frag eq "1"){
+		foreach (keys %CHECK){
+		    if($CHECK{$_}==1){
+			$DISP_OMIT{$_} .="$html_h";
+		    }else{
+			$DISP_OMIT{$_} .="$html_s";
+		    }
+		}
+	}
+}
+#
+#============================#
+# 登録会員パスワードチェック
+#============================#
+# 会員パスが一致しないときだけ、エラーを出してアボートする
+# 2002.03.24 update
+# 会員パスワードを複数設定できるようにした
+sub check_entry_passwd{
+
+	local($w_pattern);
+
+	# 会員パスワードチェック
+	if($use_passwd_flag==1){
+
+	  # 管理者パスでも投稿できるようにした
+	  if(&check_passwd("$FORM{'entry_passwd'}","$admin_passwd","0")==1){
+		return;
+	  }
+	  if("$FORM{'entry_passwd'}" eq ""){
+	    &error(" 会員パスワードを入力してください．投稿はキャンセルされました．","","1");
+	  }
+
+	  if($member_passwd ne ""){ # 過去ルーチン互換にする
+		push(@MEMBER_PASSWD,$member_passwd);
+	  }
+	  foreach (@MEMBER_PASSWD){
+	    $w_pattern="$_";
+	    if($w_pattern ne ""){
+	     if(&check_passwd("$FORM{'entry_passwd'}","$w_pattern","0")==1){
+		return;
+	     }
+	    }
+	 }
+	 &error(" 会員パスワードが違います．投稿できませんでした．","","1");
+	}
+}
+#
+#============================#
+# パスワード照合
+#============================#
+# 2002.04.01 UPDATE
+# 引数1,2を照合する。一致なら1,不一致なら2が返る
+sub check_passwd{
+
+	local($cp1_passwd)=$_[0];	# 引数1として取得
+	local($cp2_passwd)=$_[1];	# 引数2として取得
+	local($match_level)=$_[2];	# 厳密さ（１なら厳密）
+	local($cpt_cp1_passwd);		# 引数1を暗号化したもの
+	local($cpt_cp2_passwd);		# 引数2を暗号化したもの
+
+	$cpt_cp1_passwd=&make_pass($cp1_passwd);
+	$cpt_cp2_passwd=&make_pass($cp2_passwd);
+
+	# パスワード照合
+	# 厳密
+	if($match_level == 1){
+	 if($cp1_passwd eq "$cp2_passwd"){
+		return 1;
+	 }else{
+		return 2;
+	 }
+	}
+
+
+	# 普通
+	if($cp1_passwd eq "$cp2_passwd"){
+		return 1;
+	}elsif($cp1_passwd eq "$cpt_cp2_passwd"){
+		return 1;
+	}elsif($cpt_cp1_passwd eq "$cp2_passwd"){
+		return 1 ;
+	}elsif($cpt_cp1_passwd eq "$cpt_cp2_passwd"){
+		return 1 ;
+	}else{
+		return 2;
+	}
+}
+#
+#=======================================#
+# 掲示板荒し対策２(1.22Rev6 機能強化版)
+#=======================================#
+
+sub protect_from_BBS_cracker{
+#
+# （悪質掲示板荒らし対策です）
+#
+# 相手のプロバイダ名により登録を禁止．(悪質掲示板荒らし対策)
+# 禁止したいユーザのいるプロバイダ名の一部を,で区切って""で囲み、
+# @BLACK_LISTに入力．(リストは初期設定のところにあります)．マッ
+# チするとそのユーザは登録できなくなります．
+#
+# 禁止単語による制限機能を追加しました。ホスト名を頻繁に変更する
+# 相手等、高度な「荒し技」を持つ相手からのイタズラが続く場合に、これを
+# 使ってください。 リストは初期設定のところにあります。
+
+       undef $bad_user_flag;
+	local($error_mes_bl);
+	local($error_mes_type);
+	local($w_pattern);
+
+	# デフォルトのダミーエラーメッセージ
+	$error_mes_bl="CGI error 223458 BLT Default";
+
+	#外部のブラックリストファイル（ホスト名）を読込む
+	if($use_ext_blacklist ==1){
+	  $add_black_count=&load_ext_list('blacklist.txt','BLACK_LIST');
+	}
+
+	#外部のブラックリストファイル（禁単語）を読込む
+	if(($use_ext_blacklist ==1)&&($PM{'no_upload_by_black_word'}==1)){
+	  $add_black_word_count=&load_ext_list('blkword.txt','BLACK_WORD');
+	}
+
+	foreach (@BLACK_LIST){
+	    # 正規表現をPerlパターンマッチへ変換
+	    $w_pattern=&change_pattern_match($_);
+		if($REMOTE_HOST=~ /$w_pattern/i){
+			if($no_disp_for_cracker==1){	# 荒し対策
+				&error(" CGIエラー．<!-- $add_black_count --> ");
+			}else{
+				&error(" CGIエラー．投稿できませんでした． ");
+			}
+		}
+	}
+
+ 	# 投稿時以外(view時など)は、ホスト名以外のフィルタはスキップして負荷軽減（ここから）
+	if($FORM{'bbsaction'} eq 'post'){
+
+	if($PM{'no_upload_by_black_word'}==1){
+
+	  foreach (@BLACK_WORD){
+
+	    $w_pattern="$_";
+	    $w_pattern=~ s/\s//g;
+	    $w_pattern=~ s/　//g;
+
+	    if($w_pattern ne ""){
+		$blkw_count++;
+		#記事すべての項目をチェックする
+		local(@ALL_ITEM)=('body','name','subject','email','imgtitle','optA');
+		local($ttt_form)="";
+		foreach $form(@ALL_ITEM){
+		        $ttt_form = $FORM{"$form"};
+			$ttt_form =~ s/\s//g;
+			$ttt_form =~ s/　//g;
+			if (index($ttt_form,$w_pattern) >= 0){
+				$error_mes_type="black_word";
+				$bad_user_flag=1;
+				last;# 検出したら抜ける
+			}
+		}
+	    }
+	  }
+	}
+
+	# 問題点を検出した場合の処理
+	if($bad_user_flag==1){
+		# ダミーのエラーメッセージを出す
+		if($error_mes_type eq "black_word"){
+			# 設定で指定している場合はそれを使う。ないならデフォルト	
+			if($PM{'error_message_to_black_word'} ne ""){
+				$error_mes_bl="$PM{'error_message_to_black_word'}";
+			}
+		}
+       		&error("$error_mes_bl $blkw_count<!--abwc $add_black_word_count abuc -->");
+	}
+
+	}	# 投稿時以外(view時など)は、ホスト名以外のフィルタはスキップ（ここまで）
+}
+
+# 外部リストをロードする部品
+
+sub load_ext_list{
+
+	local($list_fname)	= $_[0];	# リストの名前
+	local($array_name)	= $_[1];	# 配列の名前
+	local($add_count)	= 0;		# リストから追加された項目数
+
+	if(-e "$list_fname"){
+	open(IN, "$list_fname")|| &error("設定エラー．ファイル\"$list_fname\"を読込めません．処理は中断されました．");
+	eval "flock(IN,1);" if($PM{'flock'} == 1 );
+		while(<IN>){
+			if($_ =~ /^([^#])(.*)$/){	#コメントアウトは除く
+				if($_ =~ /^(\s*)(\S+)(\s*)(\#?)(.*)$/){
+					# Perl4でも動く書き方にする（長くなるけど）
+					if($array_name eq 'BLACK_LIST'){
+						push(@BLACK_LIST, $2);
+					}elsif($array_name eq 'BLACK_WORD'){
+						push(@BLACK_WORD, $2);
+					}
+					$add_count++;
+				}
+			}
+		}
+	eval "flock(IN,8);" if($PM{'flock'} == 1 );
+	close(IN);
+	}
+	return($add_count);	# リストから追加された項目数
+}
+
+sub change_pattern_match{
+
+	# 正規表現をPerlパターンマッチへ変換
+	local($d_pattern)	= $_[0];
+	$d_pattern=~ s/\s|\r|\n|\;|\)//g;	# 念のため
+	$d_pattern=~ s/\./\\./g;
+	$d_pattern=~ s/\?/\./g;
+	$d_pattern=~ s/\*/\.\*/g;
+	$d_pattern=~ s/P_TAIL$/\$/i;
+	$d_pattern=~ s/P_END$/\$/i;
+	$d_pattern=~ s/^P_HEAD/\^/i;
+	$d_pattern=~ s/P_SPACE/\\s/i;
+	return($d_pattern)
+}
+
+#========================#
+# IP情報を一部伏せ字にする
+#========================#
+
+# $user_IP情報をプライバシー保護のため、一部伏せ字にするフィルタ
+
+sub user_IP_privacy_filter{
+
+    local($local_ip,$other_ip,$company_name,$org_local_ip,$org_other_ip);
+
+    # リモートホストがIPアドレスの場合
+    if($user_IP=~ /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/){
+	$user_IP="$1.$2.$3.\*";
+    # リモートホストが携帯アドレスの場合
+    }elsif($user_IP=~ /-KSN-/i){
+	# 数字を隠す。
+	 $other_ip=~ tr/0-4/\?/;
+    # リモートホストが論理ホスト名の場合
+    }elsif($user_IP=~ /(\w+)\.(\w+)$/){
+      if($user_IP=~ /^([^\.]+)\.(.*)$/){
+	$local_ip="$1";
+	$other_ip="$2";
+	$org_local_ip="$1";
+	$org_other_ip="$1";
+
+	# 最もローカル側のipの頭を１文字隠す。あと数字は意味ないので隠す。
+	$local_ip=substr($local_ip,1);
+	$local_ip="\?"."$local_ip";
+	$local_ip=~ tr/0-9/\?/;
+	# 会社から掲示板にアクセスしていることがバレるといやな人は多いと
+	# 思われるので、会社の場合は社名を削る。しかし、あんまり削ると
+	# イタズラ予防効果がなくなるので、お尻を２文字だけ削ることにする
+	if($other_ip=~ /^(.*)(\.?)([^\.]+)\.(co)\.(jp)$/){
+	    $company_name="$3";
+#	    $company_name=substr($company_name,1);
+	    chop($company_name);
+	    chop($company_name);
+	    $other_ip="$1$2$company_name\?\?.$4.$5";
+	}
+	# 政府機関は頭を２文字、お尻を１文字削る
+	if($other_ip=~ /^(.*)(\.?)([^\.]+)\.(go)\.(jp)$/){
+	    $company_name="$3";
+	    $company_name=substr($company_name,2);
+	    chop($company_name);
+	    $other_ip="$1$2\?\?$company_name\?.$4.$5";
+	}
+	# 大学は、悪い人?がよくJUMPに使い、悪用されることが多いので、
+	# 下部はそのまま削らない・・・(^_^)
+	if($other_ip=~ /ac\.jp$/){
+		$other_ip="$org_other_ip";
+	}
+	if(($other_ip=~ /ne\.jp$/)||($other_ip=~ /or\.jp$/)){
+	 # プロバイダは、もともと匿名性が高いので、最初の１文字削りと
+	 # 数字消しで充分かな・・・ということだったが、
+	 # サードドメインの数字だけ消しておく
+	 $other_ip=~ tr/0-9/\?/;
+	}
+	$user_IP="$local_ip"."\."."$other_ip";
+      }
+    }
+}
+
+#============================#
+# ＪＵＭＰ用ＨＴＭＬ
+#============================#
+
+sub jump_html{
+
+#	$gvar_cgi_add_url;			# URLに足すべきもの(グローバル変数)
+	local($tmp_cgi_add_url)	= $_[0];	# URLに足すべきもの(将来拡張用)
+
+	local($mes_01);
+
+	if($SERVER_NAME=~ /tok2\.com/){
+	  $mes_01=qq|<META http-equiv="Set-Cookie" content="$tok2_cookie">|;
+	}else{
+	  undef $mes_01;
+	}
+
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+
+	if(($form_disp_on_board==0)&&($FORM{'bbsaction'} eq 'post')&&($FORM{'prebbsaction'} ne "disp_rep_form")&&($FORM{'prebbsaction'} ne "edit_form")){
+
+# フォーム別ウィンド時のためのメニュー
+		print<<EOF;
+<HTML lang="ja">
+<HEAD>
+ <TITLE>Imgboard - Message </TITLE>
+ $mes_01
+ <META HTTP-EQUIV="Refresh" CONTENT="20; URL=$cgi_name?bbsaction=disp_form_only">
+<SCRIPT language="javascript">
+<!--
+timerID		=10;
+var timer_a	=0;
+var timer_b	=0;
+
+
+function reload_bbs_window(){
+	clearTimeout(timerID);
+	timerID =setTimeout("reload_bbs_window()",1000);
+	if(timer_a ==7){	//7秒後にフラッシュ
+		location.href="$cgi_name?bbsaction=disp_form_only&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=$FORM{'amode'}";//入力ウィンドをロード
+	}
+	if(timer_b ==5){	//5秒後にフラッシュ
+		window.opener.location.href="$cgi_name?&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=$FORM{'amode'}";	//親ウィンドをリロード
+	}
+	if(timer_b ==120){	//120秒後にループ自動停止
+		clearTimeout(timerID);
+	}
+	timer_a+=1;//１秒に一回インクリメント
+	timer_b+=1;//１秒に一回インクリメント
+}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#D0D0D0" onLoad="reload_bbs_window();">
+<table border="1" cellspacing="10" cellpadding="10">
+ <TR bgcolor="#0000B0">
+  <TD bgcolor="#0000B0" NOWRAP>
+   <font size="-1" color="white"><B>Imgboard - Message</B></font>
+  </TD>
+ </TR>
+</table>
+<UL><BR><BR>
+<font color=black>
+<blink>処理中......</blink><BR><BR>
+10秒間このままお待ちください．
+</UL>
+</BODY>
+</HTML>
+
+EOF
+
+	}else{
+
+	  # 引数で指定された場合はそれを使う
+	  if($tmp_cgi_add_url ne ""){
+		$cgi_add_url="$tmp_cgi_add_url";
+
+	  # グローバル変数で指定された場合はここで拾う
+	  }elsif($gvar_cgi_add_url ne ""){
+		$cgi_add_url="$gvar_cgi_add_url";
+
+	  # 引数で指定されない場合はケース別にここで対処を分岐
+	  }else{
+		$cgi_add_url="";
+
+		# 返信時にページを記憶する
+		if(($FORM{'bbsaction'} eq "post")&&($FORM{'prebbsaction'} eq "disp_rep_form")){
+			if($FORM{'page'} ne ""){
+				$cgi_add_url="\?page=$FORM{'page'}&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=$FORM{'amode'}";
+			}
+			# レスを上に持って行く設定の場合スレッドが先頭へ行くので、先頭へジャンプ
+			if($PM{'res_go_up'} == 1){
+				$cgi_add_url="\?page=1&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=$FORM{'amode'}";
+			}
+		# 削除時 / ページ変更時
+		}elsif(($FORM{'bbsaction'} eq "remove")||($FORM{'bbsaction'} eq "pf_change")){
+		   # 2003.06 変更
+		   # 削除、表示モード変更時の飛び先PAGEを計算
+		   if($FORM{'page'}>1){
+				$tmp_jump_page=$FORM{'page'};
+		   }else{
+				$tmp_jump_page=1;
+		   }
+		   $cgi_add_url="\?page=$tmp_jump_page&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=$FORM{'amode'}";
+		# WebParts情報修正時
+		}elsif(($FORM{'prebbsaction'} eq "edit_form")&&(($FORM{'amode'} ne "post_webparts"))){
+		  $cgi_add_url="\?page=$FORM{'page'}&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=$FORM{'amode'}"
+		}
+	  }
+
+		print<<EOF;
+<HTML lang="ja">
+<HEAD>
+ <TITLE>wait..</TITLE>
+ $mes_01
+ <META HTTP-EQUIV="Refresh" CONTENT="3; URL=$cgi_name$cgi_add_url">
+</HEAD>
+<BODY BGCOLOR="#D0D0D0">
+<table border="1" cellspacing="10" cellpadding="10">
+ <TR bgcolor="#0000B0">
+  <TD bgcolor="#0000B0" NOWRAP>
+   <font size="-1" color="white"><B>Imgboard - Message</B></font>
+  </TD>
+ </TR>
+</table>
+<UL><BR>
+<font color=black>
+<blink>処理中......</blink><BR><BR>
+３秒間このままお待ちください．
+</UL>
+
+</BODY>
+</HTML>
+
+EOF
+
+	}
+}
+#
+#================================================#
+# オリジナルファイル名使用希望者用追加サブルーチン
+#================================================#
+#
+sub use_orig_name{
+	&error("オリジナルファイル名で保存する機能はimgboardから削除されました。<BR>同機能は、今後は e_FTPboardでサポートします ");
+}
+#
+#============================#
+# エラーの出力
+#============================#
+
+sub error{
+
+	local($error_message)	= $_[0];# メッセージを引数として取得
+	local($error_message2)	= $_[1];# メッセージを引数として取得
+	local($js_back_flag)	= $_[2];# Javascriptで戻るボタンを出したい場合は1に
+
+	#for Form window
+	if(($form_disp_on_board ==0)&&($FORM{'bbsaction'} ne 'remove' )){
+		$error_bbsaction="disp_form_only";
+	}
+
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+
+print<<EOF;
+<HTML lang="ja">
+<HEAD><TITLE>Error Message from Imgboard</TITLE></HEAD>
+
+<BODY BGCOLOR=\"#D0D0D0">
+<table border="1" cellspacing="10" cellpadding="10">
+ <TR bgcolor="#0000B0">
+  <TD bgcolor="#0000B0" NOWRAP>
+   <font size="-1" color="white"><B>Imgboard - Error Message</B></font>
+  </TD>
+ </TR>
+</table>
+
+<UL>
+ <H4> $error_message </H4>
+ $error_message2 <BR>
+</UL>
+<BR>
+<UL>
+EOF
+
+# 返信の時、修正の時、アイコン登録時に記入ミスがあると戻れないバグに対応
+    if((($FORM{'bbsaction'} eq 'post')&&(($FORM{'prebbsaction'} eq 'disp_rep_form')||($FORM{'prebbsaction'} eq 'edit_form')))||($FORM{'amode'} eq "icon_admin")||($js_back_flag == 1 )||($FORM{'amode'} eq "post_webparts")){
+
+print<<EOF;
+<FORM>
+<INPUT TYPE="button" VALUE=" もどる " onClick="history.back()">
+</FORM>
+<NOSCRIPT>
+<a href="$ENV{'HTTP_REFERER'}">もどる</a>
+</NOSCRIPT>
+EOF
+    }else{
+print<<EOF;
+<FORM METHOD="GET" ACTION="$ENV{'HTTP_REFERER'}">
+<INPUT TYPE="HIDDEN" NAME="page" VALUE="$FORM{'page'}">
+<INPUT TYPE="HIDDEN" NAME="amode" VALUE="$FORM{'amode'}">
+<INPUT TYPE="HIDDEN" NAME="p1" VALUE="$FORM{'p1'}">
+<INPUT TYPE="HIDDEN" NAME="p2" VALUE="$FORM{'p2'}">
+<INPUT TYPE=\"HIDDEN\" NAME="bbsaction" VALUE="$error_bbsaction">
+<INPUT TYPE="SUBMIT" VALUE=" もどる "> 
+</FORM>
+EOF
+    }
+print<<EOF;
+</UL>
+
+</BODY>
+</HTML>
+EOF
+	&rm_tmp_uploaded_files;			# 一時保存された画像データを削除
+	exit;
+}
+#
+#===================================#
+# 一時登録された画像ファイルの削除
+#===================================#
+
+sub rm_tmp_uploaded_files{
+	if($img_data_exists==1){
+		foreach $fname_list(@NEWFNAMES){
+			if(-e "$img_dir/$fname_list"){
+				unlink("$img_dir/$fname_list");
+				# メタファイルも削除する
+				&rm_meta_file("$img_dir/$fname_list");
+			}
+			# 携帯用ファイルも削除する
+			if($fname_list=~ /\.(jpe?g|gif|png|bmp|mng|noa)$/i){
+				  &rm_snl_file("$unq_id","$img_dir","$existing_snl_type_list");
+			}
+		}
+	}
+}
+#
+#=============================#
+# 携帯用ファイルの削除(R7)
+#=============================#
+#
+# 将来の全携帯対応を考えて拡張子は
+# いろいろできるようにしておく
+#
+sub rm_snl_file{
+
+	local($tmp_rm_snl_unq_id)	=$_[0]; # 引数1はUID
+	local($tmp_rm_snl_dir)		=$_[1]; # 引数2はパス
+	local($tmp_rm_snl_exist_type)	=$_[2]; # 引数3はSNL存在リスト
+
+	local($snl_future_bit);		# 携帯用ファイル名の将来拡張ビット
+	local($snl_ext);		# 携帯用ファイルの実際の拡張子
+
+	$tmp_rm_snl_unq_id="snl"."$tmp_rm_snl_unq_id";
+
+	 @SNL_TYPE=split(/\//,$tmp_rm_snl_exist_type);
+
+	if($tmp_rm_snl_exist_type ne ""){
+	   foreach $snl_type(@SNL_TYPE){
+	    	($snl_ext,$snl_future_bit,$dummy)=split(/\-/,$snl_type);
+		if(-e "$tmp_rm_snl_dir/$tmp_rm_snl_unq_id$snl_future_bit\.$snl_ext"){
+			unlink("$tmp_rm_snl_dir/$tmp_rm_snl_unq_id$snl_future_bit\.$snl_ext");
+		}
+	   }
+	}
+}
+#
+#====================================================#
+# imgtitleから、$IMG_PARAMETERS{name}情報を抜き出す
+#====================================================#
+# 引数はコメントアウト付きの$tmp_imgtitle
+# 返値はコメントアウトなしの$tmp_imgtitleと連想配列 $IMG_PARAMETERS{$name}
+sub parse_img_param{
+
+	local($ttmp_imgtitle)= $_[0];	# 引数として取得
+
+	# imgtitleの中にsize,height,width等のパラメータを格納
+	# 書式<!--パラメータ名=値;パラメータ名2=値2・・・-->
+	# <!--と-->を除きパラメータ部を抽出
+	if($ttmp_imgtitle ne ''){
+		($ttmp_imgtitle,$img_parameters)=split(/<\!--/,$ttmp_imgtitle);
+		$img_parameters=~ s/-->//g;
+	}
+
+	# パラメータ$img_parametersが追加されている場合．
+	if($img_parameters ne ''){
+		foreach ( split(/;/,$img_parameters)){
+			local($name,$value) = split(/\=/);
+			$IMG_PARAMETERS{$name} = $value;
+		}
+	}
+	return($ttmp_imgtitle);
+}
+#
+#===================================#
+# ASX メタファイルの削除
+#===================================#
+# Winodows Mediaのストリーム再生やeggy/FOMAのストリーム再生対応のために
+# 機能拡張した。 削除するファイルがメタファイルを持っていそうな
+# 名前だったらメタファイルらしきファイルを探し、もしあれば消しておく
+sub rm_meta_file{
+
+	local($tmp_rm_meta_file)=$_[0]; # 引数は削除するファイル名本体（パス付き）
+
+	# asx等に対応
+	if($tmp_rm_meta_file=~ /^(.*)\.(asf|wma|wmv?)$/){
+	   if(-e "$1\.asx"){
+		unlink("$1\.asx");# ASF(古い表記の仕方)
+	   }
+	   if(-e "$1\.wax"){
+		unlink("$1\.wax");# ASF&WinMediaAudio(一時的に使われた)
+	   }
+	   if(-e "$1\.wvx"){
+		unlink("$1\.wvx");# ASF&WinMediaAudio/Video(現在はこれが推奨らしい)
+	   }
+	}
+}
+#
+#=======================#
+# 投稿ブラウザチェック
+#=======================#
+#
+sub check_post_browser_type{
+	if($HTTP_USER_AGENT=~ /icab/i){
+	    &error(" エラー このブラウザでは記事の投稿はできません ");
+	}
+}
+#
+#====================#
+# ブラウザチェック
+#====================#
+#
+sub check_browser_type{
+
+	# Apache 1.3.12 以降で発生する、Netscape 4.x文字化け問題対策
+	if($HTTP_USER_AGENT!~ /compatible/i){
+	 if($HTTP_USER_AGENT=~ /Mozilla\/4\.(\d)/i){
+	  if( $use_sjis_header_for_Netscape4X == 1){
+	   if( $1 >= 5 ){
+		$Netscape4x_ch_set="; charset=Shift_JIS";
+#		$Netscape4x_ch_set="; charset=ISO-2022-JP";
+	   }
+	  }
+	 }
+	}
+}
+#
+#=====================#
+# iモードチェック(R6)
+#=====================#
+# 2001.05.25 (iモード以外もリダイレクトするようにした)
+sub check_imode{
+
+	if($imode_redirect==1){
+	   if(-e "$imode_cgi_name"){
+		if($HTTP_USER_AGENT=~ /docomo/i){
+		  print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+		  &simple_HTML(""," 自動転送します "," <a href=\"$imode_cgi_name\"\> iモードユーザ専用アクセスページ </a> をどうぞご利用ください ");
+		}elsif($HTTP_USER_AGENT=~ /L-mode/i){
+		  print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+		  &simple_HTML(""," 自動転送します "," <a href=\"$imode_cgi_name\"\> L-modeユーザ専用アクセスページ </a> をどうぞご利用ください ");
+		}elsif($HTTP_USER_AGENT=~ /ASTEL/i){
+		  print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+		  &simple_HTML(""," 自動転送します "," <a href=\"$imode_cgi_name\"\> アステルユーザ専用アクセスページ </a> をどうぞご利用ください ");
+		}elsif($HTTP_USER_AGENT=~ /UP\.Browser/i){
+			print "Content-type: text/x-hdml;charset=Shift_JIS\n\n";
+			print<<EOF;
+<HDML VERSION="3.0" TTL="0">
+<DISPLAY name="index" TITLE="画像掲示板">
+<ACTION type="accept" task="go" DEST="$imode_cgi_name?t=$sec" label="次へ">
+<A TASK="GO" LABEL="GO" DEST="$imode_cgi_name?t=$sec">EZwebユーザ専用アクセスページへ</A><BR>
+</DISPLAY>
+</HDML>
+EOF
+			exit;
+		}elsif($ENV{'HTTP_X_JPHONE_MSNAME'} ne ""){
+		  print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+		  &simple_HTML(""," 自動転送します "," <a href=\"$imode_cgi_name\"> J-PHONEユーザ専用アクセスページ </a> をどうぞご利用ください ");
+		}else{
+		}
+	   }
+	}
+}
+sub simple_HTML{
+
+ local($tmp_tm)		=$_[0];
+ local($tmp_mes01)	=$_[1];
+ local($tmp_mes02)	=$_[2];
+ local($tmp_exit_f)	=$_[3];
+
+
+print<<HTML_END;
+<HTML>
+<HEAD><TITLE>$tmp_tm</TITLE></HEAD>
+<BODY BGCOLOR=#B0B0D0>
+$tmp_mes01<P>
+$tmp_mes02
+<P>
+HTML_END
+
+print "$output_simple_block01_HTML\n";
+
+if($tmp_exit_f == 1){
+print<<HTML_END;
+<CENTER>
+[<a href="$cgi_name?page=$FORM{'page'}">$tmp_tm 終了</a>]<BR>
+</CENTER>
+HTML_END
+}
+print<<HTML_END;
+</BODY>
+</HTML>
+HTML_END
+
+undef $output_simple_block01_HTML; # 初期化
+exit;
+
+}
+#
+#====================#
+# プロバイダチェック
+#====================#
+
+sub check_ISP{
+
+	if($SERVER_NAME=~ /bekkoame\./){
+		&error(" CGI設定エラー。imgboardがサポート外サイトを検出しました。<BR>「$SERVER_NAME」は、CGIに関して特殊な制約があるため、残念ながらimgboardを利用することができません。他のプロバイダをご利用ください ");
+	}
+
+	if($SERVER_NAME=~ /prohosting\.com/){
+		&error(" CGI設定エラー。imgboardが非推奨サイトを検出しました。<BR>「$SERVER_NAME」は、広告挿入用のJavascriptに特殊な制約があり、残念ながらR6以降のimgboardを利用することができません。freeweb,トクトク等、他の無料プロバイダをご利用ください ");
+	}
+
+	if(($SERVER_NAME=~ /hi\-ho\.ne\.jp/)||($SERVER_NAME=~ /\.nifty\.com/)||($SERVER_NAME=~ /\.wakwak\.com/)){
+	# img_url設定が必要なサイトで設定が未設定の場合は警告を出す
+		if($img_url eq 'http://あなたのプロバイダ/あなたのディレクトリ/img-box'){
+			&error(" CGI設定にエラーがあります。<BR>あなたが設置しようとしているプロバイダ
+			「 $SERVER_NAME 」では特殊な設定が必要になります。新FAQ掲示板を参照して、これを設定してください ");
+		}
+	}
+
+	if($SERVER_NAME=~ /www5.\.biglobe/){
+	# img_url設定が必要なサイトで設定が未設定の場合は警告を出す
+		if($img_url eq 'http://あなたのプロバイダ/あなたのディレクトリ/img-box'){
+			&error(" CGI設定にエラーがあります。<BR>あなたが設置しようとしているプロバイダ
+			「 $SERVER_NAME 」では＄img_urlの設定が必要になります。これを設定してください。
+			なお、設定方法がわからない場合はサポート掲示板の過去ログを参照してください ");
+		}
+	}
+}
+#
+#====================#
+# Apache1.3.x対策
+#====================#
+
+sub check_RH{
+	if(($REMOTE_HOST eq "")||($REMOTE_HOST =~ /^null$/i)){
+	    $REMOTE_HOST = "$ENV{'REMOTE_ADDR'}";
+	}
+	# 1.22 Rev4 イタズラ投稿防止策
+	# リモートホストがない場合は登録させない。メッセージはダミー
+	if(($REMOTE_HOST eq "")&&($no_upload_by_no_RH_user=='1')){
+	    &error("CGIエラー No REMOTE_HOST <BR>現在、リモートホスト情報がない場合は、投稿できない設定になっています。 ");
+	}
+}
+
+#================================#
+# 連続投稿制限 メイン(1.22 Rev4)
+#================================#
+#
+sub limit_upload_times{
+	if($limit_upload_times_flag==1){
+	 # 連続投稿カウンタを実行
+	 # $new_utc_setはクッキーに設定される。
+	 # 引数は設定部で設定。デフォルト値を持つので空でもいい。
+	 $new_utc_set=&count_upload_times("$upload_limit_type","$upload_limit_times");
+	}
+}
+#
+#================================#
+# 連続投稿制限 サブ(1.22 Rev4)
+#================================#
+#
+sub count_upload_times{
+
+	# 連続投稿カウンタ
+	# 引数は時刻レンジ、制限回数
+	# 返値は新カウンタセット値,グローバル変数の$now_up_counterに現在の連続回数
+
+	#初期化
+	local($upload_limit_type)	= $_[0];# 時刻レンジを引数として取得
+	local($upload_limit_times)	= $_[1];# 制限回数を引数として取得
+	local($tmp_up_counter);
+
+	# デフォルト値をセット
+	$upload_limit_type="2min" if($upload_limit_type eq "");
+	$upload_limit_times="5" if($upload_limit_times eq "");
+
+	local(@NOWTIME)	= localtime(time);
+	local($yday)		= $NOWTIME[7];
+
+	# 時刻データからタイムベースナンバーを作る
+	if($upload_limit_type eq "day"){		# 1日当たり？回で制限
+		$up_base_num=35+$yday;
+	}elsif($upload_limit_type eq "1hour"){	# 1時間当たり？回で制限
+		$up_base_num=35+$yday+$hour;
+	}elsif($upload_limit_type eq "10min"){	# 10分当たり？回で制限
+		$up_base_num=35+$yday+(int(($min+1)/10));
+	}elsif($upload_limit_type eq "2min"){	# 2分当たり？回で制限
+		$up_base_num=35+$yday+(int(($min+1)/2));
+	}elsif($upload_limit_type eq "1min"){	# 1分当たり？回で制限
+		$up_base_num=35+$yday+(int(($min+1)/1));
+	}else{						# デフォルトは2分	
+		$up_base_num=35+$yday+(int(($min+1)/2));
+	}
+
+	if($COOKIE{'utc'} eq ""){
+		# クッキーの値がない場合はセット
+		$tmp_up_counter=$up_base_num;
+		$now_up_counter=1;
+
+		return($tmp_up_counter);
+	}else{
+		$tmp_up_counter=$COOKIE{'utc'};	# クッキーからカウンタ値を読む
+	}		
+
+	# エラーチェック
+	if($tmp_up_counter=~ /^(\d+)$/){
+		# なにもしない
+	}else{
+		# ０あるいは、数字以外の異常値になっている場合リセットする
+		$tmp_up_counter=$up_base_num;
+		# これをクッキーにセットする
+		return($tmp_up_counter);
+	}
+	return(1) if($up_base_num==0);		# ０除算予防(通常はない)
+
+#&error("up base $up_base_num yday $yday utc $COOKIE{'utc'} tmp_up $tmp_up_counter");
+
+	# メイン処理
+	if(($tmp_up_counter % $up_base_num)==0){
+		# タイムベースが一致する場合はカウントアップする
+		$tmp_up_counter+=$up_base_num;
+		$now_up_counter=int($tmp_up_counter/$up_base_num);
+		if($now_up_counter > $upload_limit_times){
+			&error(" CGIエラー overtimes 掲示板管理者が設定した連続投稿
+回数をオーバーしました。<BR>しばらく投稿できません ");
+			exit;
+		}
+	}else{
+		# タイムベースが一致しない場合はカウンタをリセットし、新タイムペースを設定
+		$tmp_up_counter=$up_base_num;
+		$now_up_counter=1;
+	}
+	# これをクッキーにセットする
+	return($tmp_up_counter);
+}
+#
+#=====================================#
+# 自動URLリンク機能 Ver0.98 (R6 NEW)
+#=====================================#
+# 2001.09.27 update
+# セキュリティ上の理由とダイアルアップユーザ減少の
+# 昨今のネット事情より、PCからのtel自動リンクは廃止。
+# telリンクはiアクセスの方だけ実装すれば十分だろう。
+#
+sub set_auto_url_link{
+
+	# 引数１は処理したいデータ;
+	# 返値は処理後のデータ;
+	local($tmp_data)=@_;
+
+	# アンカータグを書くユーザなら自動リンクをオフにする
+	# ない場合のみ処理
+	$PM{'auto_mail_find'}=1;
+
+	if($tmp_data!~ /<A(\s)(\n?)|<IMA?GE?(.*)/i){
+
+	        $tmp_data =~ s/[\x80-\x9f\xe0-\xff]./$&\x01/g; # 2バイト文字
+
+		# 自動URLリンク
+		# 日本語ドメインに対応するとこんなかんじ？？
+                # 2001.04.10 小修正（改行後を無効にした）
+                # 2001.08.20 小修正（tripod等で認識ミスがあるので訂正）
+
+		$tmp_data =~ s/(https?\:\/\/[^\s|\:|\<]+)\.(\/?)([\-_\.\!\~\*\'\(\)a-zA-Z0-9\;\/\?\:\@\&\=\+\$\,\%\#]*)/<A HREF="$1.$2$3$4" TARGET="_blank">$1.$2$3$4<\/A>/ig;
+		$tmp_data =~ s/(r?ftp\:\/\/[\-_\.\!\~\*\'\(\)a-zA-Z0-9\;\/\:]+)/<A HREF="$1" TARGET="_blank">$1<\/A>/g;
+		# 自動mailリンク(mailtoルール)		
+		$tmp_data =~ s/(mailto\:[\-_\.a-zA-Z0-9\@]+)/<A HREF="$1" TARGET="_blank">$1<\/A>/g;
+
+		# 自動メルアドリンク
+		if($PM{'auto_mail_find'}==1){
+		  $tmp_data =~ s/([\-_\.a-zA-Z0-9]+)\@([\-a-zA-Z0-9]+)\.([\-a-zA-Z0-9\.]+)([^a-zA-Z0-9]+)/<A HREF="mailto\:$1\@$2\.$3">$1\@$2\.$3<\/A>$4/g;
+		}
+		$tmp_data =~ tr/\x01//d;
+	}
+	return($tmp_data);
+}
+#
+#=========================#
+# 記事データの置換
+#=========================#
+# 後から記事を編集する場合に用いる
+# R6NEW 2001.08.25
+# 2002.10 改良
+
+sub replace_data{
+
+	local($target_tid)	= $_[0];# 引数 ターゲット記事のID
+	local($tmp_file)	= $_[1];# 処理するログファイル名
+
+	local($tmp_rm_key);	# 記事に設定されていた削除キー
+
+  	if($ENV{'REQUEST_METHOD'} ne 'POST'){
+		&error(" セキュリティ警告 <BR> GETによる記事投稿はＮＧです ");
+	}
+
+	&form_check;
+
+	if($error_message ne ''){
+		&error($error_message);
+		exit;
+	}
+
+#	# 記事の日付表示（変更可能)
+#	$date_data = "\[$year/$month/$mday,$hour:$min:$sec\]";
+
+	# セパレータとして問題あるものを、事前に置換
+	$subject=&Enc_EQ("$subject");
+
+	undef $tmp_data;
+
+	$all_message=0;
+
+
+	# データ読込み
+	open(IN, "$tmp_file")|| &error(" 設定エラー．データ保存用ファイル\"$tmp_file\"が見つかりません．処理は中断されました．");
+	eval "flock(IN,1);" if($PM{'flock'} == 1 );
+
+            	@main = <IN>;
+
+	eval "flock(IN,8);" if($PM{'flock'} == 1 );
+	close(IN);
+
+        # 暗号化
+	if(($rmkey ne "no_key")&&($rmkey ne "")){
+		$rmkey		= &make_pass("$rmkey");
+	}
+
+	undef $match_count;
+	undef @SEP_DATA;
+	local($tmp_opt_form_data);
+
+	foreach $file_line(@main){
+
+		# HEADER保存 (将来への拡張もここで対応)
+		if($file_line=~ /^\#?\,param_/i){
+
+			push(@TMPMESSAGE, $file_line);
+
+		}elsif(($file_line=~ /$target_tid/)&&($match_count < 1)){
+
+			$match_count++;
+			@SEP_DATA=split(/\t/,$file_line);# TABで一度分解する
+
+			$tmp_rm_key="$SEP_DATA[9]";
+
+#&error("$subject $target_tid mc $match_count 9 $tmp_rm_key");
+
+			# 上書きするものはここで上書き代入
+			# 前のデータ保存をそのまま保存するものはコメントアウト
+			$SEP_DATA[0]="$subject";
+			$SEP_DATA[1]="$name";
+			$SEP_DATA[2]="$email";
+#			$SEP_DATA[3]="$date_data";
+
+			 # optは保存する必要がある
+			 if($SEP_DATA[4]=~ /(.*)<!--opt\:(.*)-->/i){
+
+				$tmp_opt_form_data="$2";
+
+				# 旧データを取得して保持
+			        undef %OPTDATA;
+				foreach ( split(/;/,$tmp_opt_form_data)){
+					local($name,$value) = split(/\=/);
+					$value=&Dec_EQ("$value");
+					if($name=~ /^opt(.+)$/){
+					  $OPTDATA{"$name"}	= $value;
+					}
+				}
+				# 上書きすべきパラメータは、適宜上書き
+				foreach $p_key(keys %FORM){
+				  if($p_key=~ /^opt(.+)/){
+					$OPTDATA{$p_key}="$FORM{$p_key}";
+				  }
+				}
+				# 結合して$opt_dataを作る
+				foreach $p_key(sort keys %OPTDATA){
+				  $tmp_data=&Enc_EQ($OPTDATA{$p_key});
+				  $opt_data.="$p_key"."\="."$tmp_data"."\;";
+				  undef $tmp_data;
+				}
+			        undef %OPTDATA;
+				$SEP_DATA[4]="$body<\!--opt\:$opt_data-->";
+			}else{
+				# ここは通らないはず
+				$SEP_DATA[4]="$body<\!--opt\:-->";
+			}
+#			$SEP_DATA[5]="$img_location";
+			if($FORM{'amode'} eq "post_webparts"){
+			# WebPartsの場合、タイトルだけ交換するケースが必要
+			  if($SEP_DATA[6]=~ /(.*)<!--(.*)-->/i){
+				$SEP_DATA[6]="$imgtitle"."<!--"."$2"."-->";
+			  }
+			}else{
+#			$SEP_DATA[6]="$imgtitle<\!--dsize=$img_data_size;type=$img_type;width=$img_width;height=$img_height;hw_racio=$img_hw_racio;-->";
+			}
+#			$SEP_DATA[7]="$new_seq_no";
+#			$SEP_DATA[8]="$FORM{'blood'}";
+#			$SEP_DATA[9]="$rm_key";
+#			$SEP_DATA[10]="$unq_id";
+			$SEP_DATA[11]="";
+
+			# 結合して復元する
+			for($numb=0;$numb < scalar(@SEP_DATA) ;$numb++){
+				$new_message.="$SEP_DATA[$numb]"."\t";
+			}
+			push(@TMPMESSAGE, $new_message);
+		}else{
+			push(@TMPMESSAGE, $file_line);
+		}
+	}
+
+	# パスワードをチェック(修正は厳密にチェック。生パス必要)
+	if((&check_passwd("$FORM{'entry_passwd'}","$tmp_rm_key","0")==1)||(&check_passwd("$FORM{'entry_passwd'}","$admin_passwd","1")==1)||($FORM{'amode'} eq "post_webparts")){
+#		&error("一致しました。既削除キー $tmp_rm_key 入力されたパスワード$FORM{'rm_key'} ");
+	}else{
+		&error("パスワードが違います。","記事の修正には管理者パスワード、あるいは投稿時に投稿者が入力したパスワードが必要です。<BR>再度パスワードを入力してください ");
+	}
+
+	# データ書き出し開始
+	open(OUT, "> $tmp_file")|| &error(" 設定エラー．データ用保存ファイル\"$tmp_file\"にデータを書込むことができませんでした．<BR>\"$tmp_file\"という名前のファイルが正しい位置に存在しないか、あるいは、書込み許可がないためだと思われます．<BR>処理は中断されました．");
+
+	eval "flock(OUT,2);" if($PM{'flock'} == 1 );
+	foreach $file_line(@TMPMESSAGE){
+		$file_line=~ s/\n//g;
+		$file_line=~ s/\r//g;
+		print OUT "$file_line"."\n";
+	}
+	eval "flock(OUT,8);" if($PM{'flock'} == 1 );
+	close(OUT);
+#&error("$subject $target_tid mc $match_count");
+}
+#
+#=========================#
+# 記事データの並び替え
+#=========================#
+# 後から記事の順番を変更する場合に用いる
+# R6NEW 2002.07.20
+sub sort_kiji{
+
+	local($target_tid)	= $_[0];# 引数1 順番変更するターゲット記事のID
+	local($target_ins_tid)	= $_[1];# 引数2 挿入POINTのID
+	local($tmp_ins_p)	= $_[2];# 引数3 挿入POINTの後ろか前か
+	local($tmp_file)	= $_[3];# 引数4 処理するログファイル名
+
+	local($store_file_line)	= "";	# 一時保存
+	local($ins_p_find_flag)	= "";	# 挿入個所確認フラグ（安全のため）
+
+	# 事前チェック
+  	if(($target_tid eq "")||($target_ins_tid eq "")){
+		&error(" エラー <BR> 該当記事idがありません ");
+	}
+
+	$all_message=0;
+
+	# データ読込み
+	open(IN, "$tmp_file")|| &error(" 設定エラー．データ保存用ファイル\"$tmp_file\"が見つかりません．処理は中断されました．");
+	eval "flock(IN,1);" if($PM{'flock'} == 1 );
+       	@main = <IN>;
+	eval "flock(IN,8);" if($PM{'flock'} == 1 );
+	close(IN);
+
+	undef $match_count;
+	undef @SEP_DATA;
+
+	foreach $file_line(@main){
+
+		# HEADER保存 (将来への拡張もここで対応)
+		if($file_line=~ /^\#?\,param_/i){
+			push(@TMPMESSAGE, $file_line);
+		}elsif(($file_line=~ /$target_tid/)&&($match_count < 1)){
+			$match_count++;
+			@SEP_DATA=split(/\t/,$file_line);# TABで一度分解する
+			if($target_tid eq "$SEP_DATA[10]"){
+				$store_file_line="$file_line";
+			}else{
+			 push(@TMPMESSAGE, $file_line);
+			}
+		# 挿入ポイントの存在も確認しておく
+		}elsif($file_line=~ /$target_ins_tid/){
+			@SEP_DATA=split(/\t/,$file_line);# TABで一度分解する
+			if($target_ins_tid eq "$SEP_DATA[10]"){
+				$ins_p_find_flag=1;
+			}
+			push(@TMPMESSAGE, $file_line);
+		}else{
+			push(@TMPMESSAGE, $file_line);
+		}
+	}
+
+	# 処理前チェック。挿入ポイントがないときはソートを中止（安全のため）
+	if($ins_p_find_flag != 1 ){
+		&error(" エラー 。順番変更中にデータ矛盾発生。データ保全のため処理を中止します ");
+	}
+
+#&error(" $target_tid-$target_ins_tid-$tmp_ins_p-$tmp_file-$store_file_line");
+
+
+	# データ書き出し開始
+	$store_file_line=~ s/\n//g;
+	$store_file_line=~ s/\r//g;
+
+	open(OUT, "> $tmp_file")|| &error(" 設定エラー．データ用保存ファイル\"$tmp_file\"にデータを書込むことができませんでした．<BR>\"$tmp_file\"という名前のファイルが正しい位置に存在しないか、あるいは、書込み許可がないためだと思われます．<BR>処理は中断されました．");
+
+	eval "flock(OUT,2);" if($PM{'flock'} == 1 );
+	foreach $file_line(@TMPMESSAGE){
+		if($file_line=~ /$target_ins_tid/){
+		  @SEP_DATA=split(/\t/,$file_line);# TABで一度分解する
+		  if($target_ins_tid eq "$SEP_DATA[10]"){
+		  # ターゲットの前に挿入
+		  	if($tmp_ins_p eq "pre"){
+		   	  print OUT "$store_file_line"."\n";
+		 	}
+
+		 	$file_line=~ s/\n//g;
+		 	$file_line=~ s/\r//g;
+		 	print OUT "$file_line"."\n";
+
+		 	# ターゲットの後ろに挿入
+		 	if($tmp_ins_p ne "pre"){
+		 	  print OUT "$store_file_line"."\n";
+		 	}
+	  	  }else{
+		 	$file_line=~ s/\n//g;
+		 	$file_line=~ s/\r//g;
+		 	print OUT "$file_line"."\n";
+		  }
+		}else{
+		  $file_line=~ s/\n//g;
+		  $file_line=~ s/\r//g;
+		  print OUT "$file_line"."\n";
+		}
+	}
+	eval "flock(OUT,8);" if($PM{'flock'} == 1 );
+	close(OUT);
+}
+#
+#==================================#
+# 同一人物からの２重投稿の防止
+#==================================#
+# 一人１エントリしか作れないようにする。
+# 出会い掲示板用。配布版では未サポート
+#
+sub check_double_post{
+#	&error(" 配布版では未サポートの機\能\です ");
+	# メールアドレスをチェックし、既に掲示板上にあるエントリの
+	# メールアドレスと重なる場合は新規投稿を失敗させる。
+}
+#
+#==================================#
+# 記事を削除して良いかを確認させる
+#==================================#
+# 選択された記事一つを表示して、その記事を消すための
+# 削除パスワードの入力を促す。
+# 出会い掲示板SP用。配布版では未サポート
+#
+sub output_remove_select_html{
+	&error(" 出会い掲示板SP用。配布版では未サポートの機\能\です ");
+}
+#
+#=======================================#
+# <ウェブパーツデータファイルを読込>    #
+#=======================================#
+#
+sub read_web_parts_data{
+
+	local($tmp_mes_line);
+	local($tmp_file)	= $_[0];# 処理するログファイル名
+
+	# メッセージを読み込む
+	open(IN, "$tmp_file")|| &error(" 設定エラー．データ保存用ファイル\"$tmp_file\"が見つかりません．処理は中断されました．");
+
+	   eval "flock(IN,1);" if($PM{'flock'} == 1 );
+	   while(<IN>){
+
+		# HEADER保存 (将来への拡張もここで対応)
+		if($_ =~ /^\#?\,param_/i){
+			push(@WP_HEAD_MESSAGE, $_);
+		}
+		# 記事をバッファに入れる
+		if($_ =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)/){
+			$tmp_mes_line="$_";
+			chop($tmp_mes_line);
+			push(@WP_MESSAGE, $tmp_mes_line);
+		}
+	   }
+	eval "flock(IN,8);" if($PM{'flock'} == 1 );
+	close(IN);
+}
+#
+#===============================================#
+#     <編集するために、記事データを呼び出す>    #
+#===============================================#
+# R6NEW (正式版では機能を削除する)
+# 記事データを編集・修正するために、UIDをキーにして呼び出す
+# 出力は編集入力フォームの初期値としてロードする
+#
+sub load_target_kiji{
+
+	local($t_pattern)=$_[0];	# 記事UIDを引数として取得
+	local($tmp_file)= $_[1];	# 処理するログファイル名
+
+	undef @T_MESSAGE;
+	local($tc_message);
+	local($tmp_unq_id);
+
+	# IDを持つ記事を一つ選択する
+	open(READ, "$tmp_file");
+		eval "flock(READ,1);" if($PM{'flock'} == 1 );
+		while(<READ>){
+			if($file_line=~ /^\#?\,param_/i){
+			}elsif($_ =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+			  $tmp_unq_id		= $11;	# 固有ID(時刻ベース)
+			  if($tmp_unq_id eq "$t_pattern"){
+				push(@T_MESSAGE, $_);
+				$tc_message++;
+			  }
+			}
+		}
+		eval "flock(READ,8);" if($PM{'flock'} == 1 );
+	close(READ);
+
+	# 一つだけ選択できたか、エラーチェックする
+	if($tc_message > 1){
+	  &error(" 複数の記事とマッチ。異常のため、終了します <BR>検索パターン $t_patterm ");
+	}elsif($tc_message==0){
+	  &error(" マッチする記事がありませんでした。<BR>検索ID $t_patterm ");
+	}
+
+	# 正常なら、記事データを分解する
+	if($T_MESSAGE[0] =~ /^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)\t?([^\t]*)/){
+		$tmp_subject		= $1;
+		$tmp_name		= $2;
+		$tmp_email		= $3;
+		$tmp_date		= $4;
+		$tmp_body		= $5;
+		$tmp_img_location	= $6;
+		$tmp_img_title		= $7;
+		$tmp_seq_no		= $8;	# 連番
+		$tmp_blood_name		= $9;	# 親の血統ID(子供のみ持つ)
+		$tmp_rm_key		= $10;	# 削除キー
+		$tmp_unq_id		= $11;	# 固有ID(時刻ベース)
+		$new_p1			= $12;
+		$new_p2			= $13;
+
+		$tmp_subject=&Dec_EQ("$tmp_subject");
+
+		# 予備入力項目パラメータを復元
+		# bodyの中に、コメントアウト形式でデータは隠し保存されている
+		# 書式<!--opt:パラメータ名=値;パラメータ名2=値2・・・-->
+		#<!--opt:と-->を除きパラメータ部を抽出する処理
+		if($tmp_body ne ''){
+		  ($tmp_body,$opt_form_data)	=split(/<\!--opt:/,$tmp_body);
+		  $opt_form_data		=~ s/-->//g;
+		}
+
+		$tmp_body=~ s/\<!-- user：\s([^>]*)(\s*)--\>//g;
+
+	# 入力フォームのCOOKIEの初期値として出力する
+
+		#パラメータ$opt_form_dataが追加されている場合．
+		if($opt_form_data ne ''){
+			foreach ( split(/;/,$opt_form_data)){
+				local($name,$value) = split(/\=/);
+				$value=&Dec_EQ("$value");
+
+				if($name=~ /^opt_data_(.+)$/){
+				  $OPTDATA{"opt$1"}	= $value;
+				  $OPT_FORM_DATA{"opt$1"}= $value;# 旧R5互換用
+				  $COOKIE{"opt$1"}	="$value";
+				# 徐々にこちらへシフト
+				}elsif($name=~ /^opt(.+)$/){
+				  $OPTDATA{"$name"}	= $value;
+				  $OPT_FORM_DATA{"$name"}= $value;# 旧R5互換用
+				  $COOKIE{$name}	="$value";
+				}
+			}
+		}else{
+			undef %OPTDATA;
+	        	undef %OPT_FORM_DATA;# 旧R5互換用
+		}
+
+		$COOKIE{'subject'}	="$tmp_subject";
+		$COOKIE{'name'}		="$tmp_name";
+
+		$COOKIE{'email'}	="$tmp_email";
+		$COOKIE{'email'}	=~ s/(\s+)no_email//i;
+
+		$COOKIE{'body'}		="$tmp_body";
+		$COOKIE{'body'}		=~ s/<BR>/\n/gi;
+
+		# WebPartsの場合は、画像のタイトル名を変更できる
+		if($FORM{'amode'} eq "icon_edit"){
+		  $tmp_img_title=~ s/\<!--(.*)--\>//g;
+		  $COOKIE{'imgtitle'}	="$tmp_img_title";
+		}
+
+		$no_cookie_for_subject=0;	# 題名クッキーの無効化を解除
+		$use_passwd_flag=1;
+		$POSTADDP{'UPLOADFORM'}=qq|<INPUT TYPE="HIDDEN" NAME="apasswd" VALUE="$COOKIEAD{'apasswd'}">|;
+	}
+}
+#
+#===================================#
+# 管理者画面のメイン処理部
+#===================================#
+sub amode_done{
+
+    # 管理モード色にする
+    $PM{'orig_body_bgcolor'}="$PM{'body_bgcolor'}"; # 旧全体の背景色を記憶
+
+    if($FORM{'amode'} ne ''){
+	$PM{'body_bgcolor'}	="#B0B0D0";		# 全体の背景色
+	$PM{'body_text'}	="#000000";		# 基本フォント色
+	$PM{'body_link'}	="#4040FF";		# リンク色
+	$PM{'body_vlink'}	="#0000FF";		# 既アクセスリンク色
+	$PM{'body_background'}	="";			# 背景画像名
+
+	$res_table_sitei="bgcolor=#F0E0D6";		# 返信背景色
+
+	&read_cookie;# クッキーを読込む(パスの関係でPOST渡しするが、その場合は読まれないため)
+	if(&check_passwd("$COOKIEAD{'apasswd'}","$admin_passwd","0")!=1){
+	    &error(" 管理者メニュー パスワードエラー ","","1");
+	}
+    }
+
+    if($FORM{'amode'} eq 'icon_admin'){
+      if($EXTCFG{'type'}!~ /icon/i){
+	    &error(" この掲示板には、<a href=http://www.big.or.jp/~talk/t-club/soft/mini_r6/imgboard_newicon.cgi target=_blank>アイコン付き掲示板</a>化用外部設定ファイルがまだ追加されていませんので、この機\能\は使えません。 ","","1");
+      }
+	$use_passwd_flag=1; # パスワード欄を出す
+	$POSTADDP{'MEMBERPASS'}=qq|←ここは自動で管理パスワードが入ります。もし空欄になっていた場合は、「<B>管理者パスワード</B>」を入れてください（ 管理者専用アイコンを一般ユーザが無断使用しないように、管理者本人であることを厳正にチェックします） |;
+	$COOKIE{'entry_passwd'}="$COOKIEAD{'apasswd'}";
+	$amode_done_mes01=" (管理者専用アイコンを選べるモード) ";
+
+	# jump_htmlの飛び先を指定
+	$gvar_cgi_add_url="\?page=1&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=icon_admin"; 
+
+    }elsif($FORM{'amode'} eq 'select_edit'){
+
+	$amode_done_mes01=" (内容修正・編集モード) ";
+	$POSTADDP{'MEMBERPASS'}=qq| ←内容修正・編集時は、イタズラ防止のため、管理者本人で<BR>あることを厳正にチェックします：お手数ですが、会員パス欄に「<B>管理者パスワード</B>」を入れてください |;
+
+	# 修正時はクッキーの交換を防ぐため、記憶しない。従って、補助しない。
+	$COOKIE{'entry_passwd'}="";
+
+	# 修正は厳密にチェック。生パス必要。チェックはreplace_data内
+
+    }elsif($FORM{'amode'} eq 'show_ip'){
+
+	if(($FORM{'mode'} eq "keitai_menu")||($FORM{'mode'} eq "disp_admin_check_menu")){
+	    &error(" IP表\示\モードの場合はこのメニューは無効です。一度管理者モードを終了してください  ","","1");
+	}
+	$no_disp_RH_in_HTML_sorce=-1;	# HTMLソースにリモホを表示しない
+	$use_ip_privacy_filter=0;	# プライバシー保護のためIPアドレスの一部を伏せ字に
+	$amode_done_mes01=" (投稿記事<a href=http://www.mse.co.jp/ip_domain/ target=_blank>IP確認</a>モード) ";
+    }elsif($FORM{'amode'} eq 'post_webparts'){
+
+	# 初期値の上書き
+	$CHECK{'name'}		=1;	# 名前 （デフォルト1）
+	$CHECK{'email'}		=0;	# email（デフォルト1）
+	$CHECK{'subject'}	=0;	# 題名 （デフォルト0）
+	$CHECK{'body'}		=0;	# 本文 （デフォルト0）
+	$CHECK{'img'}		=1;	# 添付画像（デフォルト0）
+	$CHECK{'rmkey'}		=0;	# 削除キー（デフォルト0）# ←現在未使用
+	$CHECK_E{'img'}		=qq|エラー。添付画像は必須です。<BR>|;
+	$CHECK{'optA'}		=0;
+	$CHECK{'optB'}		=0;
+	$CHECK{'optC'}		=0;
+	$CHECK{'optD'}		=0;
+	$CHECK{'optE'}		=0;
+	$CHECK{'optF'}		=0;
+
+	$list_max_message=30;			# 3x6 レイアウト程度
+	$list_max_message=$list_max_message-8;	# bit誤差修正
+	$max_message=int($list_max_message/2);#
+	$limit_wp_max_message=$max_message;#
+	$allow_other_multimedia_data=0;	# セキュリティ対策
+
+	if($FORM{'prebbsaction'} eq 'edit_form'){# 置換モードの場合
+		$CHECK{'img'}		=0;	# 添付画像（デフォルト0）
+		&replace_data("$FORM{'target'}","$PM{'icon_data_file'}");# 修正処理
+	}else{
+		&check_double_post("$FORM{'email'}","2","1");# 2重投稿チェック
+		&post_data("$PM{'icon_data_file'}");	# 投稿処理
+	}
+	# jump_htmlの飛び先を指定
+	$gvar_cgi_add_url="\?page=1&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=disp_webparts"; 
+	&jump_html;				# パラメータクリア用ＨＴＭＬ
+	exit;					# 終了
+
+    }elsif($FORM{'amode'} eq 'remove_webparts'){
+
+	$file		= "$PM{'icon_data_file'}";
+
+	# jump_htmlの飛び先を指定
+	$gvar_cgi_add_url="\?page=1&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=disp_webparts"; 
+
+    }elsif($FORM{'amode'} eq 'icon_sort_up'){
+
+	# jump_htmlの飛び先を指定
+	$gvar_cgi_add_url="\?page=1&p1=$FORM{'p1'}&p2=$FORM{'p2'}&amode=disp_webparts#$FORM{'target'}"; 
+
+	# target_uid,inspoint_uid,pre_or_after,target_logname
+	&sort_kiji("$FORM{'target'}","$FORM{'insuid'}","pre","$PM{'icon_data_file'}");
+
+	&jump_html;				# パラメータクリア用ＨＴＭＬ
+	exit;					# 終了
+
+    }elsif($FORM{'amode'} eq 'icon_edit'){
+
+	$file		= "$PM{'icon_data_file'}";
+
+
+    }elsif($FORM{'amode'} eq 'disp_webparts'){
+
+	$amode_done_mes01=" パーツ（アイコン・背景画像等）管理モード  ";
+	$FORM{'amode'} 	= "remove_webparts";	# フォーム実行後のアクションを指定
+	$show_img_on_board=1;
+	$on_board_img_size=3;
+	$CIMGSIZE{'smooze_mode'}=0;
+	$user_selected_view_mode=0;
+	$PM{'use_rep'} 		=0;
+	$PM{'res_go_up'} 	=0;
+	$disp_message 		=50;
+	$CHECK{'img'}		=1;	# 添付画像（デフォルト0）
+	$PM{'INS_POINT_TOP02'}  =qq|ーーーー管理者だけが投稿・削除のできる画像パーツ置き場ですーーー</center><BR><TABLE border=1 bgcolor=gold><TR><TD>表\のimgboardで使うアイコン・背景画像等の（半永続的な）置き場としてご利用いただけます。
+<LI>パーツは表\のimgboardの画像アップロード先($img_dir)と同じフォルダに保存されますが、<BR>
+表\のimgboardの記事とは別管理になります（表\の記事と無関係に半永続的に保存されます）。
+<LI>パーツは最大11個まで、ここに保存できます
+<LI>パーツの削除は必ずこの画面から行ってください。
+<LI>ユーザが既にアイコンとして使っている画像を不用意に削除すると、過去の記事に付いているアイコンが「X状態」になるのでアイコンを削除する場合はその点に注意してください。
+<LI>ここでアイコン画像として分類して登録した画像は、アイコン付き掲示板化用外部設定ファイルを使うと、表\のimgboardにおいてアイコン選択メニューに自動ロードされます。
+<LI>表\のimgboardの背景画像等として使う場合は、パーツのURLを以下で確認してどこかにメモし、適宜HTMLにURLを埋め込んで使ってください（すいません。背景画像は手動です）。
+</TD></TR></TABLE><CENTER>|;
+
+#
+	if($COOKIE{'entry_passwd'} eq ""){
+	  $COOKIE{'entry_passwd'}="$COOKIEAD{'apasswd'}";
+	}
+
+	print "Content-type: text/html"."$Netscape4x_ch_set"."\n\n";
+	&top_html;
+	&output_wp_upload_form;			# 入力フォームを表示
+	&output_html("$PM{'icon_data_file'}");		# 掲示板を表示
+	exit;
+
+    }elsif($FORM{'amode'} eq 'change_set'){
+	if(&check_passwd("$FORM{'apasswd'}","$admin_passwd","0")!=1){
+	    &error(" パスワードエラー ","","1");
+	}
+    }else{
+	$amode_done_mes01="";
+    }
+}
+#===================================================#
+#     <ＨＴＭＬ--管理メニュー(共通ベース)>          #
+#===================================================#
+#
+#
+sub output_admin_base_HTML{
+
+ local($tmp_tm)		=$_[0]; # タイトル
+ local($tmp_mes01)	=$_[1]; # メッセージ１
+ local($tmp_mes02)	=$_[2]; # メッセージ２
+ local($tmp_exit_f)	=$_[3]; # 終了ボタンを出す
+ local($tmp_exit_mes)	=$_[4]; # 終了ボタンのタイトル
+ local($tmp_no_bodyf_f)	=$_[5]; # 下部の</BODY>を入れないときは1
+ local($tmp_send_pass)	=$_[6]; # パスワードをカスケードする時は1
+
+ local($mes_p2);
+
+ if($tmp_send_pass==1){
+	$mes_p2=qq|<INPUT TYPE=HIDDEN NAME="apasswd" VALUE="$COOKIEAD{'apasswd'}">\n|;
+ }
+
+print<<HTML_END;
+<HTML>
+<BODY BGCOLOR=#B0B0D0>
+<TABLE bgcolor=blue width="99%">
+<TR>
+ <TD>
+  <B><font color=white> 画像Upload掲示板</font></B>
+ </TD>
+</TR>
+</TABLE>
+
+<BR>
+<UL>
+$tmp_tm <BR>
+<P>
+$tmp_mes01
+<P>
+$tmp_mes02
+<P>
+HTML_END
+
+print "$output_admin_block01_HTML\n";
+
+if($tmp_exit_f == 1){
+print<<HTML_END;
+<CENTER>
+<FORM METHOD=GET action="$cgi_name">
+<INPUT TYPE=HIDDEN NAME="page" VALUE="$FORM{'page'}">
+<INPUT TYPE=HIDDEN NAME="amode" VALUE="$FORM{'amode'}">
+<INPUT TYPE="HIDDEN" NAME="p1" VALUE="$FORM{'p1'}">
+<INPUT TYPE="HIDDEN" NAME="p2" VALUE="$FORM{'p2'}">
+$mes_p2
+<INPUT TYPE=SUBMIT VALUE="$tmp_exit_mes 終了">
+</FORM>
+</CENTER>
+HTML_END
+}
+
+if($tmp_no_bodyf_f != 1){
+print<<HTML_END;
+</BODY>
+</HTML>
+HTML_END
+}
+
+undef $output_admin_block01_HTML; # 初期化
+
+}
+#
+#===============================================#
+#     <ＨＴＭＬ--管理メニュー(ワード検索)>      #
+#===============================================#
+#
+#  管理メニュー(ワード検索メニュー)用のＨＴＭＬです．
+#
+sub output_search_menu_HTML{
+
+	local($mes_p1);
+	local($mes_p2);
+
+	if($FORM{'MatchMode'} eq "OR"){
+		$mes_p1="selected";
+	}
+
+	if($FORM{'amode'} eq "show_ip"){
+		$mes_p2=qq|<INPUT TYPE=HIDDEN NAME="apasswd" VALUE="$COOKIEAD{'apasswd'}">\n|;
+	}
+
+$output_admin_block01_HTML=qq|<FORM METHOD=POST action="$cgi_name">
+<INPUT TYPE=HIDDEN NAME="mode" VALUE="search_menu">
+<INPUT TYPE=HIDDEN NAME="amode" VALUE="$FORM{'amode'}">
+$mes_p2<INPUT TYPE="HIDDEN" NAME="p1" VALUE="$FORM{'p1'}">
+<INPUT TYPE="HIDDEN" NAME="p2" VALUE="$FORM{'p2'}">
+
+<INPUT TYPE=TEXT SIZE=25 NAME="SearchWords" MAXLENGTH=40 VALUE="$FORM{'SearchWords'}">
+<BR>
+<SELECT NAME="MatchMode">
+<OPTION VALUE="AND">AND 検索
+<OPTION VALUE="OR" $mes_p1>OR 検索
+</SELECT>
+<BR><BR>
+</UL>
+<CENTER>
+<INPUT TYPE=SUBMIT VALUE="検索実行">
+</CENTER>
+</FORM>|;
+
+&output_admin_base_HTML(" ワード検索 "," 記事の全文検索を行います。複合のワードを入力する場合は半角スペースで各単語を区切って入力してください ","","1"," ワード検索 ","1","0");
+
+}
+#
+sub output_search_menu_HTML2{
+print<<HTML_END;
+</BODY>
+</HTML>
+HTML_END
+
+}
+#=====================================#
+#     <ＨＴＭＬ--管理者確認>          #
+#=====================================#
+#
+#  管理者確認用のＨＴＭＬです．
+#
+sub output_admin_check_HTML{
+
+$output_admin_block01_HTML=qq|<CENTER>
+<FORM ACTION="$cgi_name" METHOD="POST" NAME="admincheck">
+管理者パスワード\*<BR>
+<INPUT TYPE="password" NAME="apasswd" SIZE="10" VALUE="$COOKIE{'apasswd'}">
+<INPUT TYPE="hidden" NAME="mode" VALUE="disp_admin_menu">
+<INPUT TYPE="hidden" NAME="amode" VALUE="$FORM{'amode'}">
+<INPUT TYPE="HIDDEN" NAME="p1" VALUE="$FORM{'p1'}">
+<INPUT TYPE="HIDDEN" NAME="p2" VALUE="$FORM{'p2'}">
+<INPUT TYPE="submit" VALUE="OK">
+</FORM>
+</CENTER><P>
+<UL><font size=-1 color=gray>
+＊管理ができるのは、管理者のみです<BR>
+＊これ以降のメニューはクッキー必須です。クッキーを有効にしてください<BR>
+＊<font color=red>記事の削除機\能\は、管理メニューにはありません。<BR>掲示板から直接削除できますので、掲示板下部の説明をお読みください</font><BR>
+</font>
+</UL><P><P>|;
+
+&output_admin_base_HTML(" -管理者確認- "," 管理者パスワードを入れて下さい ","","1"," 管理者確認 ","");
+
+}
+#
+#=====================================#
+#     <ＨＴＭＬ--管理メニュー>        #
+#=====================================#
+#
+#  管理メニュー用のＨＴＭＬです．カスタマイズの必要はありません。
+#
+sub output_admin_menu_HTML{
+
+	$FORM{'apasswd'}=&make_pass($FORM{'apasswd'});
+
+# 2002.05.18 add for トクトクユーザ
+	local($mes_01);
+	if($SERVER_NAME=~ /tok2\.com/){
+	  $mes_01=qq|<HEAD><META http-equiv="Set-Cookie" content="$tok2_cookie"></HEAD>|;
+	}
+
+print<<HTML_END;
+<HTML lang="ja">
+$mes_01
+<BODY BGCOLOR=#B0B0D0>
+
+<TABLE bgcolor=blue width="99%">
+<TR>
+<TD>
+<B><font color=white> 画像Upload掲示板</font></B>
+</TD>
+</TR>
+</TABLE>
+
+<P>
+<UL>
+管理者メニューです<BR>
+</UL>
+<P>
+
+<CENTER>
+<FORM ACTION="$cgi_name" METHOD="POST" NAME="admincheck">
+メニューを選択してください\*<BR>
+<P>
+<INPUT TYPE="HIDDEN" NAME="p1" VALUE="$FORM{'p1'}">
+<INPUT TYPE="HIDDEN" NAME="p2" VALUE="$FORM{'p2'}">
+<SELECT name=amode>
+<OPTION value="icon_admin">管理者専用のアイコンを使って、新記事を投稿する
+<OPTION value="select_edit">既存の記事を編集・修正する（文章のみ可）
+<OPTION value="show_ip">記事投稿者のＩＰ情報を調べる
+<OPTION value="disp_webparts">Webパーツ（アイコン・背景画像）管理画面を出す
+</SELECT>
+<INPUT TYPE="submit" VALUE=" OK ">
+</FORM>
+</CENTER>
+
+<CENTER>
+[<a href="$cgi_name?page=$FORM{'page'}">戻る</a>]<BR>
+</CENTER>
+
+
+その他<BR>
+→<a href="http://www.big.or.jp/~talk/t-club/soft/faq01/bbs.cgi">特報CGIのFAQを検索(全文検索可\能\)</a><BR>
+→<a href="http://www.big.or.jp/~talk/t-club/soft/mini_r6/index.cgi#hist">R6の更新情報をチェック</a><BR>
+→<a href="http://www.big.or.jp/~talk/t-club/soft/mini_r6/index.cgi#hist">特報からのお知らせ</a><BR>
+→<a href="http://www.big.or.jp/~talk/t-club/soft/room01/imgboard_ftp.cgi">最新の外部設定ファイルを探す</a><BR>
+<BR>
+他の特報製CGIの紹介<BR>
+[<a href="http://www.big.or.jp/~talk/t-club/soft/mini_r6/imgboard_ftp.cgi">オリジナル名で保存・各種携帯データ対応・閲覧にパスワード制限可能\・アイコン最大５０個まで登録・eFTPboardの紹介</a>]<BR>
+[<a href="http://www.webalbum.jp">ウェブアルバムの紹介 http://www.webalbum.jp</a>]<BR>
+
+</BODY>
+</HTML>
+HTML_END
+}
+#
+#=======================================================#
+#     <ＨＴＭＬ--Webパーツ投稿用フォーム>               #
+#=======================================================#
+#
+sub output_wp_upload_form{
+&ext_config_icon_form_pre if($EXTSUB{'icon_form_pre'} == 1 );
+&auto_omit_disp;
+
+# 修正時は画像をアップロードさせない
+ if($FORM{'bbsaction'} eq 'edit_form'){
+	$cm_out_img_h='<!--';
+	$cm_out_img_f='-->';
+ }
+ $SEL{'icon_admin'}="";
+ $SEL{'icon_norm01'}="";
+ $SEL{'sozai_background'}="";
+ $SEL{'other'}="";
+
+ # icon名
+ local($ie_tmp_img_title)="$COOKIE{'imgtitle'}";
+ if($ie_tmp_img_title=~ /img200/i){
+	$ie_tmp_img_title="";
+ }
+
+ foreach(keys %SEL){
+  if($COOKIE{'subject'}=~ /$_/i){
+	$SEL{$_}="selected";
+	last;
+  }
+ }
+ if($COOKIE{'name'} eq ""){
+   $COOKIE{'name'}=" --- ";
+ }
+
+print<<HTML_END;
+<!-- フォーム入力部・・・ここはあまり変更しない方がいいでしょう -->
+<FORM ACTION="$cgi_name" METHOD="POST" ENCTYPE="multipart/form-data">
+<INPUT TYPE="HIDDEN" NAME="bbsaction" VALUE="post">
+<INPUT TYPE="HIDDEN" NAME="amode" VALUE="post_webparts">
+<INPUT TYPE="HIDDEN" NAME="apasswd" VALUE="$COOKIEAD{'apasswd'}">
+<INPUT TYPE="HIDDEN" NAME="email" VALUE="$COOKIE{'email'}">
+<INPUT TYPE="HIDDEN" NAME="name" VALUE="$COOKIE{'name'}">
+<INPUT TYPE="HIDDEN" NAME="blood" VALUE="$FORM{'blood'}">
+<INPUT TYPE="HIDDEN" NAME="parent" VALUE="$FORM{'parent'}">
+<INPUT TYPE="HIDDEN" NAME="prebbsaction" VALUE="$FORM{'bbsaction'}">
+<INPUT TYPE="HIDDEN" NAME="target" VALUE="$FORM{'target'}">
+<INPUT TYPE="HIDDEN" NAME="target_no" VALUE="$FORM{'target_no'}">
+$POSTADDP{'ICONUPLOADFORM'}<!-- 将来拡張用 -->
+<UL>
+<TABLE BORDER="$table_border" CELLSPACING="$table_cellspacing" CELLPADDING="$table_cellpadding" bgcolor="$table_bgcolor" background="$table_background_image">
+
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>分類： </font></TD>
+ <TD colspan=2>
+ <SELECT name=subject>
+ <OPTION value="icon_norm01" $SEL{'icon_norm01'}> icon_norm01 (一般ユーザ用アイコンとして使う)
+ <OPTION value="icon_admin" $SEL{'icon_admin'}>icon_admin (管理者専用アイコンとして使う)
+ <OPTION value="other" $SEL{'other'}>other (ただの画像置き場として使う)
+ </SELECT>
+</TD>
+</TR>
+
+<TR $ie_bg >
+ <TD ALIGN=RIGHT><font $font_option>メモ：</font></TD>
+ <TD colspan=2>
+<TEXTAREA NAME="body" COLS=60 ROWS=1 WRAP=SOFT>$COOKIE{'body'}</TEXTAREA>$DISP_OMIT{'body'}</TD>
+</TR>
+$cm_out_img_h
+<TR bgcolor="#FDFDFD">
+ <TD ALIGN=RIGHT><font $font_option2 >画像選択 </font></TD>
+ <TD colspan=2><INPUT TYPE="FILE" NAME="img" VALUE="" SIZE=30>←ファイルを選択 $DISP_OMIT{'img'}</TD>
+</TR>
+$cm_out_img_f
+HTML_END
+
+if(($FORM{'amode'} eq "icon_edit")&&($COOKIE{'subject'}=~ /icon/i)){
+print<<HTML_END;
+<TR  bgcolor="#FDFDFD">
+ <TD ALIGN=RIGHT NOWRAP><font $font_option2 > &nbsp&nbsp画像のタイトル </font></TD>
+ <TD colspan=2><INPUT TYPE="TEXT" NAME="imgtitle" SIZE=30 MAXLENGTH=60 VALUE="$ie_tmp_img_title"><font $f_param>＊必要（アイコン時）<BR>（記事投稿フォームでアイコンを選択するときの呼出し名に対応します）</font>
+</TD>
+</TR>
+HTML_END
+}
+
+print<<HTML_END;
+<TR >
+ <TD>
+ </TD>
+ <TD><INPUT TYPE="SUBMIT" VALUE=" 登録する "><INPUT TYPE="RESET" VALUE="中止">
+ </TD>
+ </FORM>
+ <TD align=center></TD>
+</TR>
+</TABLE>
+</UL>
+HTML_END
+}
+#
+#   
+#======================================================================#
+#     <ＨＴＭＬ--2.レイアウトパターン4/ アイコン確認用レイアウト>      #
+#======================================================================#
+#
+sub kiji_base_icon_html{
+local($ie_bg01)="bgcolor=#A0A0A0";
+local($wp_tmp_subject)="$tmp_subject";
+
+
+ if($tmp_subject eq "icon_admin"){
+  $tmp_subject=" 管理者アイコン ";
+ }elsif($tmp_subject eq "icon_norm01"){
+  $tmp_subject=" 一般ユーザ用アイコン ";
+ }elsif($tmp_subject eq "sozai_background"){
+  $tmp_subject=" 背景画像用素材 ";
+ }elsif($tmp_subject eq "other"){
+  $tmp_subject=" その他 ";
+ }
+
+
+if(($wp_tmp_subject=~ /icon/i)&&($old_tmp_unq_id ne "")){
+print<<HTML_END;
+<P><a name=$tmp_unq_id></a>
+[<a href="$cgi_name?page=$disp_page&amode=icon_sort_up&target=$tmp_unq_id&insuid=$old_tmp_unq_id&bbsaction=icon_up&p=$FORM{'p1'}&p2=$FORM{'p2'}">↑このアイコンの表\示\順をひとつ上へ変更する</a>]<BR><BR>
+HTML_END
+}
+
+print<<HTML_END;
+<table border=0 bgcolor="#909090" width="80%">
+<TR>
+<TD rowspan=7>
+<IMG SRC="$tmp_img_location" BORDER="0" $size_sitei ALIGN="LEFT" HSPACE="12">
+</TD>
+<TD bgcolor="#CDCDEF" colspan=2>Webパーツ $disp_seq_no のプロパティ
+[<a href="$cgi_name?bbsaction=edit_form&target=$tmp_unq_id&target_no=$tmp_seq_no&p1=$FORM{'p1'}&p2=$FORM{'p2'}&page=$FORM{'page'}&amode=icon_edit">\修\正\</a>]
+</TD>
+</TR>
+<TR>
+<TD bgcolor="#CDCDEF">[分類]</TD>
+<TD bgcolor="#CDCDEF"> $tmp_subject </TD>
+</TR>
+
+<TR>
+<TD bgcolor="#CDCDEF">画像のタイトル：</TD>
+<TD bgcolor="#CDCDEF">$tmp_imgtitle
+</TD>
+</TR>
+
+<TR>
+<TD $ie_bg01>[ファイルタイプ/サイズ]</TD>
+<TD $ie_bg01> $IMG_PARAMETERS{'type'}-$img_dsize</TD>
+</TR>
+<TR>
+<TD $ie_bg01>[縦横ドット数]</TD>
+<TD $ie_bg01> $w_set x $h_set</TD>
+</TR>
+<TR>
+<TD $ie_bg01>[管理者のメモ]</TD>
+<TD $ie_bg01> $tmp_body </TD>
+</TR>
+HTML_END
+
+if($wp_tmp_subject=~ /other/i){
+print<<HTML_END;
+<TR>
+<TD $ie_bg01>このファイルを呼出す時のURL</TD>
+<TD $ie_bg01><A HREF="$tmp_img_location" TARGET="top">
+クリック</A>してブラウザのURL欄を見るとわかるよ！</TD>
+</TR>
+HTML_END
+}
+print<<HTML_END;
+<TR>
+<TD $ie_bg01>[その他]</TD>
+<TD $ie_bg01 colspan=2> 投稿者：$tmp_name $auto_user_IP  $disp_re</TD>
+</TR>                              
+</TABLE>
+HTML_END
+
+
+ # 一つ前のアイコンのunq_idを記憶する
+ if($wp_tmp_subject=~ /icon/i){
+  $old_tmp_unq_id="$tmp_unq_id";
+ }
+
+}
+#
+#===============================================#
+#     <ＨＴＭＬ--携帯対応メニュー>              #
+#===============================================#
+#
+#  携帯対応メニュー用のＨＴＭＬです．
+#
+sub output_keitai_menu_HTML{
+
+	local($tmp_imode_flag)=0;
+
+	# 判定
+	if(-e "$imode_cgi_name"){
+		$tmp_imode_flag=1;
+print<<HTML_END;
+<a href=\"$imode_cgi_name\"> 携帯ユーザ用アクセスページ</a>をどうぞご利用ください
+HTML_END
+		return;
+	}
+
+$output_admin_block01_HTML=qq|<B>(imgboard製作元からのお知らせ)</B>「パソ\コ\ンだけでなく、出先の携帯等からも、気軽に掲示板の記事をチェックしたい」という皆様のご要望に応え、携帯からのアクセスを可\能\にする機\能\追加モジュールを作成しました。現在、特報CGIにてβ版を無償配布していますので、良かったらご利用ください。<BR>
+<PRE>----携帯アクセス仕様-------
+
+1.<B>(どこでもアクセス)</B> パソ\コ\ンと携帯で記事データを共有できます。
+2.<B>(だれでもアクセス)</B>以下の機種から、投稿、返信、閲覧、削除等ができます。
+   ドコモ (iモード\機\,FOMA)
+   J-PHONE(Jスカイ,ステーション,パケット対応機)
+   au (EZweb)
+   TU-KA(EZweb)
+3.<B>(楽々アクセス)</B> 疑似クッキー機\能\あり。文字の入力が楽です。
+4.<B>(imgboard特別SP)</B> 以下の機\種\からは、ファイルアップロードも\可\能\です。
+  J-PHONEのパケット対応機\ 51シリーズ以降(写メール等)
+  注：その他のカメラ付き携帯(ishot/その他写メール機/EZ)対応は<a href="http://www.big.or.jp/~talk/t-club/soft/mini_r7/" target=_blank>次のimgboard1.22R7</a>以降で対応予\定\
+5.<B>(簡単アクセス)</B>携帯専用のURLを周知し忘れても、imgboard用のURLに携帯でアクセスすると
+  自動的に携帯用ページにナビゲートする機\能\があります。
+6.<B>(簡単アクセス2)</B> 携帯の種類や機種を自動判別し、それに適したページを出すようになっています。
+7.<B>(組み込み簡単)</B> 基本的にはim.cgiモジュールをimgboard.cgi本体と同一ディレクトリに入れるだけです。
+8.以下は動作デモのサンプル掲示板です。
+<FORM> <INPUT TYPE="button" VALUE="サンプル" onclick="imode_window=window.open('http://www.big.or.jp/~talk/t-club/soft/mini_r6/im.cgi','imode_window','directories=no,location=no,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes,close=yes,width=220,height=530');"> <NOSCRIPT><A HREF="http://www.big.or.jp/~talk/t-club/soft/mini_r6/im.cgi"><B>サンプル</B></a></NOSCRIPT></FORM>|;
+
+&output_admin_base_HTML(" エラー。この掲示板にはまだ携帯対応用追加モジュール、「携帯アクセス」が組み込まれていません "," ","  ","1"," 携帯対応 ");
+}
+#
+#============================================#
+#     <ＨＴＭＬ--アイコン一覧 >              #
+#============================================#
+#
+#  アイコン一覧ウィンド用のＨＴＭＬです．
+#
+sub output_icon_list_HTML{
+	&error(" 設定エラー。アイコン付き掲示板化するには、外部設定ファイルset_iconXXX.cgiが必要です。特報CGIにて入手してください ");
+}
+#
+#===============================#
+# 修正ウィンドのＨＴＭＬトップ
+#===============================#
+#
+sub edit_top_html{
+#
+print<<HTML_END;
+<HTML lang="ja">
+<HEAD><TITLE>$title</TITLE></HEAD>
+<BODY BGCOLOR="$PM{'body_bgcolor'}" BACKGROUND="$PM{'body_background'}" TEXT="$PM{'body_text'}" LINK="$PM{'body_link'}" VLINK="$PM{'body_vlink'}">
+<FORM>
+<INPUT TYPE="button" VALUE="修正せずに前のページへ戻る" onClick="history.back()">
+</FORM>
+<HR>
+<UL>
+ <H3>記事$FORM{'target_no'}を修正します </H3>
+ <LI>記事を修正して投稿ボタンを押してください
+ <LI>会員パスには管理者パスか、投稿時に設定した削除ＩＤを入れてください
+</UL>
+HTML_END
+}
+#
+#========================#
+# CGI名をとりだす
+#========================#
+#
+sub get_script_name {
+
+	local($file_name) = $0;
+	local($path_name);
+	local($script_name);
+
+	# パスがある場合は削る
+	if ($file_name =~ /\\|\//) {
+	  if ($file_name =~ /^(.*)\\([^\\]*)$/) {
+		$path_name	=$1;
+		$script_name	=$2;
+	  }elsif($file_name =~ /^(.*)\/([^\/]*)$/) {
+		$path_name	=$1;
+		$script_name	=$2;
+	  }else{
+		$script_name	="$file_name";
+	  }
+	}else{
+	  $script_name="$file_name";
+	}
+	$script_path_name="$path_name";
+	return("$script_name");
+}
+#
+#
+#===================================#
+# プロバイダのOSを判定する
+#===================================#
+# 引数なし、返値はＯＳの種類(win,mac)
+# Perl for Winは新しいOS(NT SP4,Windows2000等)を検出
+# できないバグがある そのため、いろんなヒントから、
+# Windowsであることを検出するものとする。なお、強制
+# 的に設定することもできるようにする。これらのフラグ
+# はbinmode切替えやメール処理で用いる。
+sub check_www_server_os{
+
+	local($tmp_www_server_os)="";
+
+	# 事前準備（エラーチェック）
+	$tmp_www_server_os= $^O;
+
+	# Win98 & NT4(SP4)対策
+	$tmp_www_server_os= $ENV{'OS'} if($tmp_www_server_os eq "");
+
+	# AnHTTPd /OmniHTTPd/IIS対策
+	$tmp_www_server_os= 'win' if($ENV{'SERVER_SOFTWARE'} =~ /AnWeb|Omni|IIS\//i);
+
+	# Win Apache 対策
+	$tmp_www_server_os= 'win' if($ENV{'WINDIR'} ne "");
+
+	# Perlが新OSを検知できない場合,強制的に指定する
+	if($force_www_server_os_to =~ /win/i){
+		$tmp_www_server_os = 'win';
+	}elsif($force_www_server_os_to =~ /mac/i){
+		$tmp_www_server_os = 'mac';
+	}
+	return($tmp_www_server_os);
+}
+#
+#===================================#
+# 記事登録時に管理者にメール
+#===================================#
+
+sub send_mail{
+
+	local($tmp_mail_prog)="";		# sendmail以外のプログラム名
+	local($tmp_mail_data)= "./$$\.dat";	# 一時ファイル名
+
+	if ($use_email==1){
+
+		# OSの種別を判別
+		$www_server_os =&check_www_server_os;
+
+		# メールプログラムの種別を判別
+		if($mail_prog =~ /blat/i){
+			$tmp_mail_prog="blatj";
+		}
+
+		# OSをチェック、Windows,Macの初心者ユーザには警告を出す
+		# ただし、BlackJumboDog等の利用者には警告を出さない。
+		if(($www_server_os=~ /win/i)&&($tmp_mail_prog eq "")){
+			&error("管理者設定にエラーがあります<BR>メール通知\機\能\はWindowsサーバでは使用できません。オフにしてください。");
+			return;
+		}elsif($www_server_os=~ /mac/i){
+			&error("管理者設定にエラーがあります<BR>メール通知\機\能\はMacサーバでは使用できません。オフにしてください。");
+			return;
+		}
+
+		# パラメータチェック（セキュリティチェック）
+		if($email=~ /.*\@.*\..*/){
+			$eemail_address=$email;
+		}else{
+			$eemail_address="dummy\@dummy.co.jp";
+		}
+
+		$eemail_name="$name";
+		$eemail_subject	="$subject";
+		$eemail_imgtitle="$imgtitle";
+
+		# 本文が長すぎる場合はカットする。メール爆弾系のイタズラ対策。
+		$eemail_body=$body;
+		$eemail_body=~ s/\<BR\>/\n/gi;
+		$eemail_body=~ s/<!-- user：\s([^>]*)(\s*)-->//ig;
+		$eemail_body="$eemail_body"."\n"."$REMOTE_HOST";
+
+		if(length($body) >360){
+			$eemail_body=" メッセージが長過ぎますので、メッセージはカットしました.<!-- user： $REMOTE_HOST --> - $ENV{'HTTP_REFERER'}";
+		}
+
+  		# URLが指定されている場合はフルURL表記にする。
+		$eemail_img_location="$img_location";
+		if($img_dir_url!~ /http:\/\/yourprovider\/yourname\/imgboard\/ftp-box\//){
+			$eemail_img_location="$img_dir_url"."$new_fname";
+		}
+
+		# セキュリティ対策のため、問題のある文字をフィルタ
+		$eemail_address		=~ s/\,|\;|\://g;
+		$eemail_name		=~ s/\,|\;|\://g;
+		$eemail_subject		=~ s/\,|\;|\://g;
+		$eemail_imgtitle	=~ s/\,|\;|\://g;
+
+		# メール文面ここから
+$mail_hmes .= "MIME-Version: 1.0\n";
+$mail_hmes  = "Reply-to: $eemail_address\n";
+$mail_hmes .= "From: $eemail_address\n";
+$mail_hmes .= "Subject: \[imgboard\]New article is added \n";
+$mail_hmes .= "Content-Type: text/plain; charset=iso-2022-jp\n";
+$mail_hmes .= "Content-Transfer-Encoding: 7bit\n\n";
+
+$mail_mes .= "imgboardに新しい記事が投稿されました。\n\n";
+$mail_mes .= "[ Date ] $date_data\n";
+$mail_mes .= "[ 名前 ] $eemail_name\n" 		if($eemail_name ne "");
+$mail_mes .= "[e-mail] $eemail_address\n"	if($eemail_address ne "");
+$mail_mes .= "---------------------------------------\n";
+$mail_mes .= "[タイトル] $eemail_subject\n" 		if($eemail_subject ne "");
+$mail_mes .= "[  本文  ] \n $eemail_body\n"		if($eemail_body ne "");
+$mail_mes .= "[Image Title]  $eemail_imgtitle\n" 	if($eemail_imgtitle ne "");
+$mail_mes .= "[Image URL  ]  $img_data_size\n" 		if($img_location ne "");
+$mail_mes .= "        $eemail_img_location \n"		if($img_location ne "");
+$mail_mes .= "[使用プラウザ] $HTTP_USER_AGENT\n"		if($HTTP_USER_AGENT);
+$mail_mes .= "[連続] $now_up_counter 回 [リミッタの現在設定] $upload_limit_times / $upload_limit_type \n"	if($limit_upload_times_flag==1);
+$mail_mes .= " 以上 \n";
+
+	# メール文面ここまで
+
+	# 送出開始
+
+	# blatjの時
+	 if($tmp_mail_prog eq "blatj"){
+
+	  # 一時ファイルに書き出す
+	   open  (OUT,">$tmp_mail_data") || &error("Write Error : $tmp_mail_data");
+	   print  OUT $mail_mes;
+	   close (OUT);
+
+
+	  # メールを送出
+	  open  (MAIL,"| $mail_prog $tmp_mail_data -t $recipient $attach_option_mes -q -s imgboard_New_article") || &error(" 管理者設定にエラーがあります<BR>メールプログラム$mail_progが見つかりません。メールプログラムのパスを再確認してください。<BR>またWebサーバとメールサーバが別のサーバの場合使用できません。\n");
+   	  close (MAIL);
+
+	  # 一時ファイル削除
+	  unlink($tmp_mail_data);
+
+	# 普通のsendmailの時
+	 }else{
+
+	  # メールヘッダと本文を結合する
+	  $mail_mes="$mail_hmes"."$mail_mes";
+
+	  # メールで標準の形態、漢字コードJIS、改行コードLFに変換する。
+	  $mail_mes=~ s/\r\n/\n/g;		# 改行コードを変換
+	  $mail_mes=~ s/\r/\n/g;			# 改行コードを変換
+	  &jcode'convert(*mail_mes, 'jis');	# 漢字コードをJISに(修正99.11)
+
+	  # メールを送出
+	  open (MAIL, "|$mail_prog $recipient") || &error(" 管理者設定にエラーがあります<BR>メールプログラム$mail_progが見つかりません。メールプログラムのパスを再確認してください。<BR>またWebサーバとメールサーバが別のサーバの場合使用できません。\n");
+		print MAIL "$mail_mes";	
+   	  close (MAIL);
+
+	 }
+
+	}
+}
+#
+#==================================#
+# imgboard スクリプト尻切れ検出用 
+#==================================#
+
+sub check_script_end{
+	$script_end_flag='1';
+}
+
+# スクリプト終端です
+

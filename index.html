@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>overscript/ - Overscript Imageboard Software & Textboard Software list</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="keywords" content="9ch, 9-ch, bbs, overscript, kareha, matsuba, kusaba, drydock, futaba, shiichan, tinybb, tablecat, siokara, yotsuba, yotsubanome, tinyib, joyful note, maitaba, pixmicat, danbooru, img2, imageboard, textboard, software, bbsen" />
+        <meta name="description" content="overscript - a list of imageboard software and *board software" />
+    </head>
+<!-- fuck w3c -->
+<script src="https://kit.fontawesome.com/f506cd76e7.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style type="text/css">
+* { margin: 0; padding: 0 }
+* { font-family: sans-serif }
+body, html { background: url('bg.jpg') }
+/* h1 { margin-top: 0.5em; text-align: center; font-family: Arial; font-weight: 100; letter-spacing: -0.03em } */
+/* h5 { margin-top: 0.5em; font-weight: 100; font-family: Georgia; text-align: center; font-style: italic } */
+/* #spiel { font-size: 59%; font-family: verdana, sans-serif; width: 85%; margin: 1.4em auto; clear: both; text-align: center } */
+/* #content { font-weight: 500; width: 75%; margin: 4px auto 30px auto; display: table } */
+/* a { font-family: sans-serif; color: #000; outline: none; background: #fafafa; font-size: 92%; padding: 1px } */
+table { border-collapse: collapse; width: 100% }
+td { border: 1px solid rgba(200,200,200,0.10); padding: 0.2em 0.1em 0.2em 0.5em }
+th { font-size: 80%; padding-bottom: 0.3em }
+/* #name { font-size: 80%; font-style: italic }
+#version { font-size: 70%; font-weight: bold }
+#author { font-size: 70% }
+#lang { font-size: 70% }
+#author a { text-decoration: none }
+#download { font-size: 75% }
+#note { font-size: 70% } */
+#desc { display: table-cell; width: auto; padding-left: 5px; font-size: 80% }
+a:active { outline: 0 }
+a:hover { text-decoration: none; background: #fff }
+.container
+{   background: rgba(255,255,255,0.85);
+    border: 1px solid #aaa;
+    margin: 20px auto;
+    /* padding: 2px;
+    padding-top: 16px;
+    padding-bottom: 16px; */
+    /* width: 720px; */
+    border-radius: 2px;
+    box-shadow: 3px 3px 4px #dedede }
+    #header, #footer { text-align: center }
+    #footer { font-size: 70%; margin-bottom: 2em }
+</style>
+<body>
+<div class="container pt-4">
+<div class="text-center">
+<h1>Overscript</h1>
+<h5>a little list of bbs scripts</h5>
+<p id="spiel">
+This is overscript, a comprehensive overview of all known anonymous futaba-style bulletin board scripts.
+<br />
+if you have any scripts you know about that aren't listed here, please email weitzeug@gmail.com with details about it
+<br /><br />I am maintaining an archive at <a href="http://tanami.org/pub/software/TrueScript/">/pub/software/TrueScript/</a> and a git mirror <a href="http://git.tanami.org">here</a>
+</p>
+</div>
+<div id="app">
+    <div id="content">
+            <div class="p-4">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-primary">Left</button>
+                        <button type="button" class="btn btn-outline-primary">Middle</button>
+                        <button type="button" class="btn btn-outline-primary">Right</button>
+                    </div>
+                </div>
+    
+            <table class="table table-sm">
+            <!-- <tr><th>#</th></th><th>Name</th> <th>Language</th> <th>Version</th> <th>Author</th> <th>Download</th> <th>Comments</th></tr> -->
+            <!-- Sort options: Name, Language, Last Checked, Author -->
+
+            <template v-for="(script, index) in scripts">
+                <tr>
+                    <table class="table table-sm">
+                        <tr>
+                            <!-- <td id="index">{{ index }}</td> -->
+                            <td id="name"><h4>{{ script.name }}</h4></td>
+                            <td id="lang">{{ script.language }}</td>
+                            <td id="version"> {{ script.version }}</td>
+                        </tr>
+                        <tr>
+                            <td id="author"><h5>by <a :href="script.author_url">{{ script.author_name }}</a></h5></td>
+                            <td id="download">
+                                <a class="btn btn-outline-primary" target="_none" :href="script.download_url">Download</a>
+                            </td>
+                            <td id="note">{{ script.notes }}</td>
+                        </tr>
+                    </table>
+                </tr>
+                </template>
+                
+
+            </table>
+        </div>
+</div>
+<script src="https://vuejs.org/js/vue.js"></script>
+<script src="data.js"></script> 
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            scripts: script_data,
+        },
+        mounted: function() {
+            this.loadScripts()
+        },
+        methods: {
+            loadScripts: function() {
+                console.log('ok')
+            }
+        },
+    })
+</script>
+
+
+<div id="footer">All content assumed to be <b>public domain</b>, you may clone it as many times as possible.
+<br /><br /><b>last update: }; print `stat --format=%y index.pl`; print q{</b>
+</div>
+</div>
+</body>
+</html>
