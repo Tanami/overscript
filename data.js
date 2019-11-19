@@ -2,13 +2,13 @@ script_data = [
    {
       "author_name" : "!WAHa_06x36",
       "author_url" : "https://wakaba.c3.cx",
-      "download_url" : "https://wakaba.c3.cx",
+      "download_url" : "https://wakaba.c3.cx/releases/Kareha/",
       "language" : "Perl",
       "name" : "Kareha",
-      "notes" : "favourite script",
-      "version" : "3.1.14",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11"
+      "notes" : "This is my favourite script. It is easy for beginners to modify and it runs well on low-end servers.",
+      "version" : "3.1.4",
+      "status" : "inactive",
+      "last_checked" : "2019-11-20"
    },
    {
       "author_name" : "Ben Bitdiddle",

@@ -8,6 +8,8 @@
     </head>
 <!-- fuck w3c -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://vuejs.org/js/vue.js"></script>
+<script src="data.js"></script> 
 <style type="text/css">
 body, html { background: url('bg.jpg') }
 td { border: 1px solid rgba(200,200,200,0.10); padding: 0.2em 0.1em 0.2em 0.5em }
@@ -68,12 +70,15 @@ if you have any scripts you know about that aren't listed here, please email wei
                             <!-- <td id="index">{{ index }}</td> -->
                             <td id="name"><h4>{{ script.name }}</h4></td>
                             <td id="lang">{{ script.language }}</td>
-                            <td id="version"> {{ script.version }}</td>
+                            <td id="version">{{ script.version }}</td>
                         </tr>
                         <tr>
                             <td id="author"><h5>by <a :href="script.author_url">{{ script.author_name }}</a></h5></td>
                             <td id="download">
-                                <template v-if="script.download_url !== '#none'">
+                                <template v-if="script.download_url.includes('github')">
+                                        <a class="btn btn-outline-success" target="_none" :href="script.download_url">GitHub</a>
+                                </template>
+                                <template v-else-if="script.download_url !== '#none'">
                                     <a class="btn btn-outline-primary" target="_none" :href="script.download_url">Download</a>
                                 </template>
                                 <template v-else>
@@ -90,8 +95,6 @@ if you have any scripts you know about that aren't listed here, please email wei
             </table>
         </div>
 </div>
-<script src="https://vuejs.org/js/vue.js"></script>
-<script src="data.js"></script> 
 <script>
     new Vue({
         el: '#app',
