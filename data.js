@@ -6,7 +6,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Kareha",
       "notes" : "favourite script",
-      "version" : "3.1.14"
+      "version" : "3.1.14",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Ben Bitdiddle",
@@ -15,7 +16,8 @@ script_data = [
       "language" : "MIT Scheme",
       "name" : "SchemeBBS",
       "notes" : "very new, might be unstable",
-      "version" : "b013b246"
+      "version" : "b013b246",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Yumi",
@@ -24,7 +26,8 @@ script_data = [
       "language" : "PHP",
       "name" : "RAL",
       "notes" : "gazou-style, anonymity-focussed",
-      "version" : "1bc8179"
+      "version" : "1bc8179",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "majestrate",
@@ -33,7 +36,8 @@ script_data = [
       "language" : "Go",
       "name" : "nntpchan",
       "notes" : "uses NNTP to decentralise hosting",
-      "version" : "0.4.0"
+      "version" : "0.4.0",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Stephen Lynx",
@@ -42,7 +46,8 @@ script_data = [
       "language" : "nodejs",
       "name" : "LynxChan",
       "notes" : "JSON-RPC interface!",
-      "version" : "1.6.2"
+      "version" : "1.6.2",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Ernstchan",
@@ -51,7 +56,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Phutaba",
       "notes" : "lots of small new features",
-      "version" : "f0356b9"
+      "version" : "f0356b9",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Kermit Alexander II",
@@ -60,7 +66,8 @@ script_data = [
       "language" : "Python",
       "name" : "maniwani",
       "notes" : "Experimental BBS with modern ideologies.",
-      "version" : "52ca059"
+      "version" : "52ca059",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Yamada",
@@ -69,7 +76,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Yamada IB",
       "notes" : "n/a",
-      "version" : "n/a"
+      "version" : "n/a",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Kyle Farwell",
@@ -78,7 +86,8 @@ script_data = [
       "language" : "Plan 9 rc",
       "name" : "werchan",
       "notes" : "the chan fell off",
-      "version" : "1.5"
+      "version" : "1.5",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Joshua Moore",
@@ -87,7 +96,8 @@ script_data = [
       "language" : "Java",
       "name" : "NodeChan",
       "notes" : "ambitious attempt at p2p which does not use the DHT",
-      "version" : "0.7.5"
+      "version" : "0.7.5",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "steenuil",
@@ -96,7 +106,8 @@ script_data = [
       "language" : "Ur",
       "name" : "negoto",
       "notes" : "runs as an executable",
-      "version" : "05d87bb"
+      "version" : "05d87bb",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "\"josh\"",
@@ -105,7 +116,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Infinity Next",
       "notes" : "8ch.net in-house IB",
-      "version" : "n/a"
+      "version" : "n/a",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "oprel",
@@ -114,7 +126,8 @@ script_data = [
       "language" : "Perl",
       "name" : "emanon",
       "notes" : "modern extensions to Tablecat",
-      "version" : "727486f"
+      "version" : "727486f",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "flashwave",
@@ -123,7 +136,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Satoko",
       "notes" : "work in progress",
-      "version" : "5aca872"
+      "version" : "5aca872",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "ahushh",
@@ -132,7 +146,8 @@ script_data = [
       "language" : "Haskell",
       "name" : "Monaba",
       "notes" : "lots of modern features",
-      "version" : "5d44e8d"
+      "version" : "5d44e8d",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "czaks",
@@ -141,7 +156,8 @@ script_data = [
       "language" : "PHP",
       "name" : "vichan",
       "notes" : "vroom vroom caching",
-      "version" : "5.1.0"
+      "version" : "5.1.0",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "bakape",
@@ -150,7 +166,8 @@ script_data = [
       "language" : "Go",
       "name" : "meguca",
       "notes" : "where do we go from here?",
-      "version" : "2.3.0"
+      "version" : "2.3.0",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "mission712",
@@ -159,7 +176,8 @@ script_data = [
       "language" : "PHP",
       "name" : "BlazeChan",
       "notes" : "WIP, looks dead",
-      "version" : "54a941f"
+      "version" : "54a941f",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "k-anon",
@@ -168,7 +186,8 @@ script_data = [
       "language" : "Python",
       "name" : "wakarimasen",
       "notes" : "wakaba-compatible, low memory usage, extended admin panel",
-      "version" : "rev 444"
+      "version" : "rev 444",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "!WAHa_06x36",
@@ -177,7 +196,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Wakaba",
       "notes" : "sql-only",
-      "version" : "3.0.8"
+      "version" : "3.0.8",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "tslocum",
@@ -186,7 +206,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Kusaba",
       "notes" : "HAHAHAHAHAHAHA",
-      "version" : "0.9.2"
+      "version" : "0.9.2",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "marlencrabapple",
@@ -195,7 +216,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Glaukaba",
       "notes" : "wakaba fork with a lot of new changes",
-      "version" : "0.125"
+      "version" : "0.125",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Desuneko",
@@ -204,7 +226,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Mitsuba",
       "notes" : "made from scratch, has a module system",
-      "version" : "rev 762"
+      "version" : "rev 762",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Futaba Channel",
@@ -213,7 +236,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Futallaby",
       "notes" : "DEAD",
-      "version" : "040103"
+      "version" : "040103",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Futaba Channel",
@@ -222,7 +246,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Futaba",
       "notes" : "historical",
-      "version" : "311005"
+      "version" : "311005",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Floens",
@@ -231,7 +256,8 @@ script_data = [
       "language" : "Python",
       "name" : "&#181;chan",
       "notes" : "Focus on separation of concerns.",
-      "version" : "n/a"
+      "version" : "n/a",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "emgram769",
@@ -240,7 +266,8 @@ script_data = [
       "language" : "node.js",
       "name" : "livechan",
       "notes" : "self-styled \"IRC-like imageboard\"",
-      "version" : "n/a"
+      "version" : "n/a",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Lal'C",
@@ -249,7 +276,8 @@ script_data = [
       "language" : "node.js",
       "name" : "Doushio",
       "notes" : "uses Redis as a datastore",
-      "version" : "rev 1.465"
+      "version" : "rev 1.465",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "woxxy",
@@ -258,7 +286,8 @@ script_data = [
       "language" : "PHP",
       "name" : "FoolFuuka",
       "notes" : "made for archiving *boards, very fast",
-      "version" : "0.730"
+      "version" : "0.730",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "mr[vile]",
@@ -267,7 +296,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Macro",
       "notes" : "one of my scripts",
-      "version" : "0.5.1"
+      "version" : "0.5.1",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "drydock",
@@ -276,7 +306,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Drydock",
       "notes" : "haven't tested it in years",
-      "version" : "r211"
+      "version" : "r211",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "sabitsuki",
@@ -285,7 +316,8 @@ script_data = [
       "language" : "Python",
       "name" : "iyagi",
       "notes" : "new clone of tablecat's backend",
-      "version" : "4b4e080"
+      "version" : "4b4e080",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Vladimir37",
@@ -294,7 +326,8 @@ script_data = [
       "language" : "node.js",
       "name" : "Hanako",
       "notes" : "strong focus on scalability",
-      "version" : "1.0.0"
+      "version" : "1.0.0",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Gareth Smith",
@@ -303,7 +336,8 @@ script_data = [
       "language" : "PHP",
       "name" : "img2",
       "notes" : "untested",
-      "version" : "061610"
+      "version" : "061610",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Matthew Trevino",
@@ -312,7 +346,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Regular Board",
       "notes" : "channel-style filtering, forum-like layout",
-      "version" : "9528cce"
+      "version" : "9528cce",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Shii",
@@ -321,7 +356,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Shiichan",
       "notes" : "use Kareha instead",
-      "version" : "3960"
+      "version" : "3960",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "thewiz",
@@ -330,7 +366,8 @@ script_data = [
       "language" : "node.js",
       "name" : "gibson",
       "notes" : "emulates pre-internet BBSen with a JS console",
-      "version" : "1.30"
+      "version" : "1.30",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "hotaru2k3",
@@ -339,7 +376,8 @@ script_data = [
       "language" : "Perl",
       "name" : "TinyBB",
       "notes" : "there is TinyBB &amp; TinyBBv3",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "``maiko''",
@@ -348,7 +386,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Tablecat",
       "notes" : "VIP",
-      "version" : "240411"
+      "version" : "240411",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "???",
@@ -357,7 +396,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Siokara",
       "notes" : "not updated since 2004",
-      "version" : "1.04a"
+      "version" : "1.04a",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "tslocum",
@@ -366,7 +406,8 @@ script_data = [
       "language" : "Python",
       "name" : "PyIB",
       "notes" : "written by an autist",
-      "version" : "r66"
+      "version" : "r66",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "???",
@@ -375,7 +416,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Cynthia",
       "notes" : "japanese",
-      "version" : "02e1"
+      "version" : "02e1",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "sparky4+4",
@@ -384,7 +426,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Yotsubanome",
       "notes" : "written by a retard",
-      "version" : "who cares"
+      "version" : "who cares",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "tj9991",
@@ -393,7 +436,8 @@ script_data = [
       "language" : "PHP",
       "name" : "TinyIB",
       "notes" : "never seen it being used",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "kent-web",
@@ -402,7 +446,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Joyful Note",
       "notes" : "japanese, untested",
-      "version" : "2.73"
+      "version" : "2.73",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "ochiba",
@@ -411,7 +456,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Ochiba",
       "notes" : "special hybrid-script",
-      "version" : "1.2.1"
+      "version" : "1.2.1",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "bottiger",
@@ -420,7 +466,8 @@ script_data = [
       "language" : "PHP",
       "name" : "4chandk",
       "notes" : "appears to be dead.",
-      "version" : "240207"
+      "version" : "240207",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "various",
@@ -429,7 +476,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Pixmicat",
       "notes" : "taiwanese script based on japanese source",
-      "version" : "6"
+      "version" : "6",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "???",
@@ -438,7 +486,8 @@ script_data = [
       "language" : "",
       "name" : "0ch",
       "notes" : "untested",
-      "version" : "4.xx"
+      "version" : "4.xx",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "???",
@@ -447,7 +496,8 @@ script_data = [
       "language" : "PHP",
       "name" : "GazouBBS",
       "notes" : "I can't read wapanese",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "???",
@@ -456,7 +506,8 @@ script_data = [
       "language" : "PHP?",
       "name" : "Gazo-CH",
       "notes" : "unknown, uncertain of existence",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "team4chan",
@@ -465,7 +516,8 @@ script_data = [
       "language" : "PHP?",
       "name" : "Yotsuba",
       "notes" : "4chan's script",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "???",
@@ -474,7 +526,8 @@ script_data = [
       "language" : "PHP",
       "name" : "REchan",
       "notes" : "???",
-      "version" : "080726"
+      "version" : "080726",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "SYNchan",
@@ -483,7 +536,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Mikich",
       "notes" : "SYNchan's script",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "savetheinternet",
@@ -492,7 +546,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Tinyboard",
       "notes" : "4chon.net's script",
-      "version" : "0.9.2"
+      "version" : "0.9.2",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "kirtaner",
@@ -501,7 +556,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Taimaba",
       "notes" : "420chan's script",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Storlek",
@@ -510,7 +566,8 @@ script_data = [
       "language" : "PHP?",
       "name" : "Matsuba",
       "notes" : "sovietrussia's script",
-      "version" : "<i>(git)</i>"
+      "version" : "<i>(git)</i>",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Wajett Systems",
@@ -519,7 +576,8 @@ script_data = [
       "language" : "???",
       "name" : "C-BOARD",
       "notes" : "this is actually a modded version",
-      "version" : "3.8"
+      "version" : "3.8",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "unknown",
@@ -528,7 +586,8 @@ script_data = [
       "language" : "Perl",
       "name" : "K-Board",
       "notes" : "experimental features",
-      "version" : "1.9"
+      "version" : "1.9",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Tacky",
@@ -537,7 +596,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Tackynote",
       "notes" : "untested",
-      "version" : "0.996"
+      "version" : "0.996",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Tacky",
@@ -546,7 +606,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Mkakikomitai",
       "notes" : "japanese, emoticons and shit",
-      "version" : "0.73"
+      "version" : "0.73",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Tacky",
@@ -555,7 +616,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Tackyvote",
       "notes" : "",
-      "version" : "0.95"
+      "version" : "0.95",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Tacky",
@@ -564,7 +626,8 @@ script_data = [
       "language" : "Perl",
       "name" : "Mezase2",
       "notes" : "",
-      "version" : "0.58"
+      "version" : "0.58",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "iignotus",
@@ -573,7 +636,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Ignium",
       "notes" : "untested, website is horrid",
-      "version" : "170709"
+      "version" : "170709",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Federico Ramirez",
@@ -582,7 +646,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Ha Chan",
       "notes" : "not actively developed?",
-      "version" : "1.07"
+      "version" : "1.07",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "tehHedger",
@@ -591,7 +656,8 @@ script_data = [
       "language" : "Python",
       "name" : "Orphereus",
       "notes" : "python, \"modular\"",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "k-anon",
@@ -600,7 +666,8 @@ script_data = [
       "language" : "Perl",
       "name" : "desuchan",
       "notes" : "forked from wakaba, lots of changes",
-      "version" : "rev 168"
+      "version" : "rev 168",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "unknown",
@@ -609,7 +676,8 @@ script_data = [
       "language" : "Java",
       "name" : "ochan",
       "notes" : "ENTERPRISE QUALITY",
-      "version" : "r326"
+      "version" : "r326",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "airflow83",
@@ -618,7 +686,8 @@ script_data = [
       "language" : "PHP",
       "name" : "kotoba-ib",
       "notes" : "russian",
-      "version" : "r437"
+      "version" : "r437",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "to-ru",
@@ -627,7 +696,8 @@ script_data = [
       "language" : "Perl",
       "name" : "imgboard.cgi",
       "notes" : "quite popular in japan",
-      "version" : "1.22"
+      "version" : "1.22",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "CGI RESCUE",
@@ -636,7 +706,8 @@ script_data = [
       "language" : "Perl",
       "name" : "minibbs",
       "notes" : "japanese",
-      "version" : "10.32"
+      "version" : "10.32",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "unknown",
@@ -645,7 +716,8 @@ script_data = [
       "language" : "unknown",
       "name" : "Sweetnote",
       "notes" : "proprietary?",
-      "version" : "unknown"
+      "version" : "unknown",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "unknown",
@@ -654,7 +726,8 @@ script_data = [
       "language" : "",
       "name" : "imageboard",
       "notes" : "lol",
-      "version" : "1.21"
+      "version" : "1.21",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "ivarch",
@@ -663,7 +736,8 @@ script_data = [
       "language" : "Perl",
       "name" : "mconv",
       "notes" : "last updated in 2004, archaic",
-      "version" : "1.2.7"
+      "version" : "1.2.7",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "spoot",
@@ -672,7 +746,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Saguaro",
       "notes" : "based on futallaby",
-      "version" : "0.97.5"
+      "version" : "0.97.5",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "luza",
@@ -681,7 +756,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Kakaha",
       "notes" : "uses SQLite backend",
-      "version" : "r21"
+      "version" : "r21",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "unknown",
@@ -690,7 +766,8 @@ script_data = [
       "language" : "Haskell",
       "name" : "himgb",
       "notes" : "U MENA HASKEL",
-      "version" : "unknown"
+      "version" : "unknown",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "unknown",
@@ -699,7 +776,8 @@ script_data = [
       "language" : "PHP",
       "name" : "backyard",
       "notes" : "looks buggy",
-      "version" : "0.0.5"
+      "version" : "0.0.5",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "tslocum",
@@ -708,7 +786,8 @@ script_data = [
       "language" : "python",
       "name" : "p2pchan",
       "notes" : "windows-only?",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Albright",
@@ -717,7 +796,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Thorn",
       "notes" : "very, very old",
-      "version" : "???"
+      "version" : "???",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "grumpy",
@@ -726,7 +806,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Anonsaba",
       "notes" : "Anonsaba is apparently back-doored, DO NOT USE",
-      "version" : "0.1"
+      "version" : "0.1",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "z411",
@@ -735,7 +816,8 @@ script_data = [
       "language" : "Python",
       "name" : "weabot",
       "notes" : "based on PyIB with most of the Kusaba feature set",
-      "version" : "0.7.2"
+      "version" : "0.7.2",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Yuto Ikeno",
@@ -744,7 +826,8 @@ script_data = [
       "language" : "C",
       "name" : "mewBBS",
       "notes" : "very, very old",
-      "version" : "4.9"
+      "version" : "4.9",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Yuto Ikeno",
@@ -753,7 +836,8 @@ script_data = [
       "language" : "Perl",
       "name" : "miniboard",
       "notes" : "also very old (1997!)",
-      "version" : "1.1"
+      "version" : "1.1",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "NekoArc",
@@ -762,7 +846,8 @@ script_data = [
       "language" : "PHP",
       "name" : "arcNET",
       "notes" : "used on 4chon, 314chan and mikuchan ",
-      "version" : "r32"
+      "version" : "r32",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Kazer",
@@ -771,7 +856,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Excelis",
       "notes" : "untested, has smilies and such",
-      "version" : "1.6"
+      "version" : "1.6",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "unknown",
@@ -780,7 +866,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Nelliel",
       "notes" : "looks to be a decent Futallaby rewrite",
-      "version" : "v0.9b-r5"
+      "version" : "v0.9b-r5",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Ikimashou (?)",
@@ -789,7 +876,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Naranai",
       "notes" : "danbooru-type image script",
-      "version" : "r50"
+      "version" : "r50",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Ere Whitehouse",
@@ -798,7 +886,8 @@ script_data = [
       "language" : "PHP",
       "name" : "NitPick",
       "notes" : "image-posting, unlimited thread length?",
-      "version" : "unknown"
+      "version" : "unknown",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "hotaru2k3",
@@ -807,7 +896,8 @@ script_data = [
       "language" : "Perl",
       "name" : "PerlHP-bbs",
       "notes" : "it's probably going to be better than kusaba.",
-      "version" : "unknown"
+      "version" : "unknown",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "Qiming Zeng",
@@ -816,7 +906,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Lucid Tea",
       "notes" : "level of completion undetermined",
-      "version" : "r3"
+      "version" : "r3",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "treeofsephiroth?",
@@ -825,7 +916,8 @@ script_data = [
       "language" : "PHP",
       "name" : "Shimonoseki",
       "notes" : "appears to be a bland Kusaba X rewrite (possibly insecure)",
-      "version" : "48a7d5ca"
+      "version" : "48a7d5ca",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "n/a",
@@ -834,7 +926,8 @@ script_data = [
       "language" : "n/a",
       "name" : "Hatoya",
       "notes" : "n/a",
-      "version" : "n/a"
+      "version" : "n/a",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "",
@@ -843,7 +936,8 @@ script_data = [
       "language" : "",
       "name" : "EZ TREE",
       "notes" : "",
-      "version" : ""
+      "version" : "",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "",
@@ -852,7 +946,8 @@ script_data = [
       "language" : "",
       "name" : "pdfbook",
       "notes" : "",
-      "version" : ""
+      "version" : "",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "",
@@ -861,7 +956,8 @@ script_data = [
       "language" : "",
       "name" : "sbbs",
       "notes" : "",
-      "version" : ""
+      "version" : "",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "",
@@ -870,7 +966,8 @@ script_data = [
       "language" : "",
       "name" : "Petit BBS",
       "notes" : "",
-      "version" : ""
+      "version" : "",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "",
@@ -879,7 +976,8 @@ script_data = [
       "language" : "",
       "name" : "banabo",
       "notes" : "",
-      "version" : ""
+      "version" : "",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "",
@@ -888,7 +986,8 @@ script_data = [
       "language" : "",
       "name" : "koutei",
       "notes" : "",
-      "version" : ""
+      "version" : "",
+      "last_checked" : "2019-08-11"
    },
    {
       "author_name" : "",
@@ -897,6 +996,7 @@ script_data = [
       "language" : "",
       "name" : "afbbs",
       "notes" : "",
-      "version" : ""
+      "version" : "",
+      "last_checked" : "2019-08-11"
    }
 ]
