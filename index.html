@@ -62,39 +62,48 @@ if you have any scripts you know about that aren't listed here, please email wei
                 </div>
             </div>
     
-            <table class="table table-sm">
-            <!-- <tr><th>#</th></th><th>Name</th> <th>Language</th> <th>Version</th> <th>Author</th> <th>Download</th> <th>Comments</th></tr> -->
-            <!-- Sort options: Name, Language, Last Checked, Author -->
+            <table class="table table-sm table-borderless">
 
             <template v-for="(script, index) in sortedScripts">
-                <tr>
-                    <table class="table table-sm">
-                        <tr>
-                            <td id="name">
-                                <h4>{{ script.name }}</h4>
-                                <button type="button" :class="status[script.status]">{{ script.status }}</button>
-                            </td>
-                            <td id="author"><h6>by <a :href="script.author_url">{{ script.author_name || 'unknown' }}</a></h6></td>
-                            <td id="other">
-                                <button type="button" class="btn btn-sm btn-outline-dark">{{ script.language || 'unknown' }}</button>
-                                <button type="button" class="btn btn-sm btn-outline-dark">{{ script.version || 'unknown' }}</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="download">
-                                <template v-if="script.download_url.includes('github')">
-                                        <a class="btn btn-sm btn-outline-success" target="_none" :href="script.download_url">GitHub</a>
-                                </template>
-                                <template v-else-if="script.download_url !== '#none'">
-                                    <a class="btn btn-sm btn-outline-primary" target="_none" :href="script.download_url">Download</a>
-                                </template>
-                                <template v-else>
-                                    <a class="btn btn-sm btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
-                                </template>
-                            </td>
-                            <td colspan="2" id="note">{{ script.notes || 'no details available' }}</td>
-                        </tr>
-                    </table>
+                <tr class="border-top">
+                    <td>
+                        <h4>{{ script.name }}</h4>
+                        <h6>by <a :href="script.author_url">{{ script.author_name || 'unknown' }}</a></h6>
+                        <div>
+                            <template v-if="script.download_url.includes('github')">
+                                <a class="btn btn-sm btn-outline-success" target="_none" :href="script.download_url">GitHub</a>
+                            </template>
+                            <template v-else-if="script.download_url !== '#none'">
+                                <a class="btn btn-sm btn-outline-primary" target="_none" :href="script.download_url">Download</a>
+                            </template>
+                            <template v-else>
+                                <a class="btn btn-sm btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
+                            </template>
+                        </div>
+                    </td>
+                    <td>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <div class="row">
+                                    <div class="col-3">
+                                        {{ script.language || 'unknown' }}
+                                    </div>
+                                    <div class="col-3">
+                                        <div>created: {{ script.created }}</h6></div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div>status: <span :class="status[script.status]">{{ script.status }}</span></div>
+                                    </div>
+                                    <div class="col-3">
+                                            {{ script.version || '' }}
+                                    </div>
+                                </div>
+                            </tr>
+                            <tr class="border-top">
+                                <td class="align-text-bottom" colspan="2" id="note">{{ script.notes || 'no details available' }}</td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
                 </template>
                 
@@ -110,9 +119,10 @@ if you have any scripts you know about that aren't listed here, please email wei
             sortToggle: false,
             sortMethod: '',
             status: {
-                active: 'btn btn-sm btn-outline-success',
-                inactive: 'btn btn-sm btn-outline-danger',
-                unknown: 'btn btn-sm btn-outline-dark',
+                active: 'text-success',
+                inactive: 'text-danger',
+                missing: 'muted',
+                unknown: 'text-dark',
             }
         },
         mounted: function() {
