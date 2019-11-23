@@ -5,11 +5,11 @@ script_data = [
       "download_url" : "https://wakaba.c3.cx/releases/Kareha/",
       "language" : "Perl",
       "name" : "Kareha",
-      "notes" : "This is my favourite script. It is easy for beginners to modify and it runs well on low-end servers.",
+      "notes" : "This is my favourite script. It is easy for beginners to modify and it runs well on low-end servers. Kareha is spiritually similar to Wakaba as it is written by the same author. It is very popular in textboard communities such as 4-ch.net and sageru.org",
       "version" : "3.1.4",
-      "status" : "inactive",
-      "last_checked" : "2019-11-20",
-      "created" : "unknown"
+      "status" : "maintained",
+      "last_checked" : "2019-11-23",
+      "created" : "pre-2004"
    },
    {
       "author_name" : "Ben Bitdiddle",
@@ -29,11 +29,11 @@ script_data = [
       "download_url" : "https://github.com/yumi-xx/RAL",
       "language" : "PHP",
       "name" : "RAL",
-      "notes" : "gazou-style, anonymity-focussed",
-      "version" : "1bc8179",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "RAL was written specifically for howler.space and attempts to put focus on perpetual posting (documented as continuities) with a grid-style interface for viewing threads.",
+      "version" : "v3.1",
+      "status" : "maintained",
+      "last_checked" : "2019-11-23",
+      "created" : "2017"
    },
    {
       "author_name" : "majestrate",
@@ -103,7 +103,7 @@ script_data = [
       "name" : "werchan",
       "notes" : "the chan fell off. Probably a great choice if you run Plan 9 or want to use an almost CGI-free environment (!).",
       "version" : "1.5",
-      "status" : "inactive",
+      "status" : "unmaintained",
       "last_checked" : "2019-11-20",
       "created" : "unknown"
    },
@@ -233,11 +233,11 @@ script_data = [
       "download_url" : "http://wakaba.c3.cx",
       "language" : "Perl",
       "name" : "Wakaba",
-      "notes" : "sql-only",
-      "version" : "3.0.8",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Wakaba is a very old and popular script (slightly more popular than its cousin, Kareha) derived from Futallaby code. Wakaba uses a MySQL backend for storage. Wakaba's design serves as the scaffolding for many other scripts.",
+      "version" : "3.0.9",
+      "status" : "maintained",
+      "last_checked" : "2019-11-23",
+      "created" : "pre-2004"
    },
    {
       "author_name" : "tslocum",
@@ -245,11 +245,11 @@ script_data = [
       "download_url" : "http://kusabax.cultnet.net",
       "language" : "PHP",
       "name" : "Kusaba",
-      "notes" : "HAHAHAHAHAHAHA",
+      "notes" : "Kusaba was once the most popular script for imageboards. Kusaba's history is tumultuous and colourful since it was the target of many hacking attempts partly due to the code quality and partly due to the types of communities which used it.",
       "version" : "0.9.2",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "status" : "radioactive",
+      "last_checked" : "2019-11-23",
+      "created" : "pre-2008"
    },
    {
       "author_name" : "marlencrabapple",
@@ -348,16 +348,16 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "mr[vile]",
+      "author_name" : "Tanami",
       "author_url" : "http:/9ch.in",
-      "download_url" : "http://9ch.in/git/",
+      "download_url" : "#none",
       "language" : "Perl",
       "name" : "Macro",
-      "notes" : "one of my scripts",
+      "notes" : "A script that I wrote in a weekend, largely inspired by Kareha. I ran it on 9ch.in for a while but now it is unmaintained.",
       "version" : "0.5.1",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "status" : "unmaintained",
+      "last_checked" : "2019-11-23",
+      "created" : "2008"
    },
    {
       "author_name" : "drydock",
