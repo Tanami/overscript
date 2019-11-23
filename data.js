@@ -13,15 +13,15 @@ script_data = [
    },
    {
       "author_name" : "Ben Bitdiddle",
-      "author_url" : "#none",
+      "author_url" : "https://gitlab.com/naughtybits",
       "download_url" : "https://gitlab.com/naughtybits/schemebbs",
       "language" : "MIT Scheme",
       "name" : "SchemeBBS",
-      "notes" : "very new, might be unstable",
-      "version" : "b013b246",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "SchemeBBS powers textboard.org, it features typical kareha-style textboard features such as quoting and shiichan-style text formatting. The code itself has few dependencies and is written competently but may be too lightweight for some people.",
+      "version" : "n/a",
+      "status" : "maintained",
+      "last_checked" : "2019-11-23",
+      "created" : "2018"
    },
    {
       "author_name" : "Yumi",

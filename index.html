@@ -66,8 +66,8 @@ if you have any scripts you know about that aren't listed here, please email wei
 
             <template v-for="(script, index) in sortedScripts">
                 <tr class="border-top">
-                    <td>
-                        <h4>{{ script.name }}</h4>
+                    <td class="p-2">
+                        <h5>{{ script.name }}</h5>
                         <h6>by <a :href="script.author_url">{{ script.author_name || 'unknown' }}</a></h6>
                         <div>
                             <template v-if="script.download_url.includes('github')">
