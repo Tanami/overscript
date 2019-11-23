@@ -1116,10 +1116,10 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "",
+      "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
-      "language" : "",
+      "language" : "Perl",
       "name" : "EZ TREE",
       "notes" : "",
       "version" : "",
@@ -1128,10 +1128,10 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "",
+      "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
-      "language" : "",
+      "language" : "Perl",
       "name" : "pdfbook",
       "notes" : "",
       "version" : "",
@@ -1140,10 +1140,10 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "",
+      "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
-      "language" : "",
+      "language" : "Perl",
       "name" : "sbbs",
       "notes" : "",
       "version" : "",
@@ -1152,10 +1152,10 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "",
+      "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
-      "language" : "",
+      "language" : "Perl",
       "name" : "Petit BBS",
       "notes" : "",
       "version" : "",
@@ -1164,10 +1164,10 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "",
+      "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
-      "language" : "",
+      "language" : "Perl",
       "name" : "banabo",
       "notes" : "",
       "version" : "",
@@ -1176,10 +1176,10 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "",
+      "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
-      "language" : "",
+      "language" : "Perl",
       "name" : "koutei",
       "notes" : "",
       "version" : "",
@@ -1188,10 +1188,10 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "",
+      "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
-      "language" : "",
+      "language" : "Perl",
       "name" : "afbbs",
       "notes" : "",
       "version" : "",

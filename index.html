@@ -135,10 +135,10 @@ if you have any scripts you know about that aren't listed here, please email wei
                         return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
                     break;
                     case 'author':
-                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.author) : b.name.localeCompare(a.author))
+                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.author_name.localeCompare(b.author_name) : b.author_name.localeCompare(a.author_name))
                     break;
                     case 'language':
-                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.language) : b.name.localeCompare(a.language))
+                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.language.localeCompare(b.language) : b.language.localeCompare(a.language))
                     break;
                     default:
                         return this.scripts
