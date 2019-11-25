@@ -25,6 +25,7 @@ a:hover { text-decoration: none; background: #fff }
     box-shadow: 3px 3px 4px #dedede }
     #header, #footer { text-align: center }
     #footer { font-size: 70%; margin-bottom: 2em }
+.text-black { color: black !important }
 </style>
 <body>
 <div class="container pt-4">
@@ -80,6 +81,9 @@ if you have any scripts you know about that aren't listed here, please email wei
                                 <a class="btn btn-sm btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
                             </template>
                         </div>
+                    </td>
+                    <td>
+                        <a class="text-black" :href="'img/'+getImageURL(script.name)"><img :src="'thumb/'+getImageURL(script.name)" alt="no image"></img></a>
                     </td>
                     <td>
                         <table class="table table-sm table-borderless">
@@ -146,6 +150,9 @@ if you have any scripts you know about that aren't listed here, please email wei
             }
         },
         methods: {
+            getImageURL: function(name) {
+                return name.toLowerCase().replace(/ /g, '_') + '.png';
+            },
             loadScripts: function() {
                 console.log('ok')
             }
