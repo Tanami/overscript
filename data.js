@@ -9,7 +9,7 @@ script_data = [
       "version" : "3.1.4",
       "status" : "maintained",
       "last_checked" : "2019-11-23",
-      "created" : "pre-2004"
+      "created" : "2004?"
    },
    {
       "author_name" : "Ben Bitdiddle",
@@ -55,18 +55,6 @@ script_data = [
       "name" : "LynxChan",
       "notes" : "JSON-RPC interface!",
       "version" : "1.6.2",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
-   },
-   {
-      "author_name" : "Ernstchan",
-      "author_url" : "http://kfarwell.org",
-      "download_url" : "https://github.com/ernstchan/phutaba",
-      "language" : "Perl",
-      "name" : "Phutaba",
-      "notes" : "lots of small new features",
-      "version" : "f0356b9",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
       "created" : "unknown"
@@ -127,6 +115,18 @@ script_data = [
       "name" : "negoto",
       "notes" : "runs as an executable",
       "version" : "05d87bb",
+      "status" : "unknown",
+      "last_checked" : "2019-08-11",
+      "created" : "unknown"
+   },
+   {
+      "author_name" : "Ernstchan",
+      "author_url" : "http://kfarwell.org",
+      "download_url" : "https://github.com/ernstchan/phutaba",
+      "language" : "Perl",
+      "name" : "Phutaba",
+      "notes" : "lots of small new features",
+      "version" : "f0356b9",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
       "created" : "unknown"
@@ -276,28 +276,28 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "Futaba Channel",
+      "author_name" : "thatdog",
       "author_url" : "http://www.1chan.net/futallaby/",
       "download_url" : "http://www.1chan.net/futallaby/",
       "language" : "PHP",
       "name" : "Futallaby",
-      "notes" : "DEAD",
+      "notes" : "Futallaby is historically important, serving as the original codebase for 4chan.org. It is derived heavily from Futaba. Futallaby inspired many other scripts such as Kusaba, TinyIB, Tinyboard, TinyBB, etc.",
       "version" : "040103",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "created" : "2003"
    },
    {
       "author_name" : "Futaba Channel",
-      "author_url" : "http://www.1chan.net/futallaby/",
-      "download_url" : "http://www.1chan.net/futallaby/",
+      "author_url" : "https://www.2chan.net/",
+      "download_url" : "https://www.2chan.net/script/",
       "language" : "PHP",
       "name" : "Futaba",
-      "notes" : "historical",
-      "version" : "311005",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Futaba is the historical script written for 2chan.net which served as the spiritual basis for the vast majority of all other imageboard scripts. The significance of this script for the greater *chan community is understated.",
+      "version" : "051031",
+      "status" : "stable",
+      "last_checked" : "2019-11-26",
+      "created" : "2001"
    },
    {
       "author_name" : "Floens",
@@ -545,11 +545,11 @@ script_data = [
       "download_url" : "http://ochiba.x-maru.org/",
       "language" : "PHP",
       "name" : "Ochiba",
-      "notes" : "special hybrid-script",
+      "notes" : "Ochiba was created out of the author's desire for a hybrid bbs script which allowed for imageboard-style commenting on top of a photo-blogging interface. It also supports RSS feeds, multiple-file uploads, and a keyword system for filtering.",
       "version" : "1.2.1",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "status" : "stable",
+      "last_checked" : "2019-11-26",
+      "created" : "2004"
    },
    {
       "author_name" : "bottiger",
@@ -1196,6 +1196,19 @@ script_data = [
       "notes" : "",
       "version" : "",
       "status" : "unknown",
-      "last_checked" : "2019-08-11"
+      "last_checked" : "2019-08-11",
+      "created": "unknown"
+   },
+   {
+      "author_name" : "n/a",
+      "author_url" : "#none",
+      "download_url" : "#none",
+      "language" : "PHP",
+      "name" : "Hydrogen",
+      "notes" : "",
+      "version" : "",
+      "status" : "unknown",
+      "last_checked" : "2019-11-26",
+      "created": "unknown"
    }
 ]

@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>overscript/ - Overscript Imageboard Software & Textboard Software list</title>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <meta name="keywords" content="9ch, 9-ch, bbs, overscript, kareha, matsuba, kusaba, drydock, futaba, shiichan, tinybb, tablecat, siokara, yotsuba, yotsubanome, tinyib, joyful note, maitaba, pixmicat, danbooru, img2, imageboard, textboard, software, bbsen" />
-        <meta name="description" content="overscript - a list of imageboard software and *board software" />
-    </head>
-<!-- fuck w3c -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://vuejs.org/js/vue.js"></script>
-<script src="data.js"></script> 
-<style type="text/css">
-body, html { background: url('bg.jpg') }
-td { border: 1px solid rgba(200,200,200,0.10); padding: 0.2em 0.1em 0.2em 0.5em }
-th { font-size: 80%; padding-bottom: 0.3em }
-#desc { display: table-cell; width: auto; padding-left: 5px; font-size: 80% }
-a:active { outline: 0 }
-a:hover { text-decoration: none; background: #fff }
-.container
-{   background: rgba(255,255,255,0.85);
-    border: 1px solid #aaa;
-    margin: 20px auto;
-    border-radius: 2px;
-    box-shadow: 3px 3px 4px #dedede }
-    #header, #footer { text-align: center }
-    #footer { font-size: 70%; margin-bottom: 2em }
-.text-black { color: black !important }
-</style>
+<head>
+    <title>overscript/ - Overscript Imageboard Software & Textboard Software list</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="keywords" content="9ch, 9-ch, bbs, overscript, kareha, matsuba, kusaba, drydock, futaba, shiichan, tinybb, tablecat, siokara, yotsuba, yotsubanome, tinyib, joyful note, maitaba, pixmicat, danbooru, img2, imageboard, textboard, software, bbsen" />
+    <meta name="description" content="overscript - a list of imageboard software and *board software" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://vuejs.org/js/vue.js"></script>
+    <script src="data.js"></script>
+    <style type="text/css">
+        body, html { font-size: 14px; background: url('bg.jpg') }
+        .container {
+            background: rgba(255,255,255,0.85);
+            border: 1px solid #aaa;
+            margin: 20px auto;
+            border-radius: 2px;
+            box-shadow: 3px 3px 4px #dedede
+        }
+        .text-black { color: black !important }
+    </style>
+</head>
 <body>
+<div id="app">
 <div class="container pt-4">
+<div class="float-left">(<b>{{ sortedScripts.length }}</b> scripts catalogued)</div>
 <div class="text-right">
     <a class="nav-link" href="https://github.com/tanami/overscript"><span class="d-none d-sm-inline">View on GitHub </span><svg version=1.1 width=16 height=16 viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden=true><path fill-rule=evenodd d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 </div>
@@ -43,46 +38,46 @@ if you have any scripts you know about that aren't listed here, please email wei
 </p>
 </div>
 <!-- it is a pretty well-known fact that modern javascript pretends to solve all templating problems but in the end the most useful code is always the hairiest.. -->
-<div id="app">
     <div id="content">
-            <div class="p-4 text-center">
-                <div class="form-group">
-                    <label>Sort By:</label>
-                    <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-outline-primary" @click="sortMethod = ''">None</button>
-                      <template v-for="sortOption in sortOptions">
-                            <button v-if="sortMethod !== sortOption[0]" type="button" class="btn btn-outline-primary" @click="sortMethod = sortOption[0]">{{ sortOption[1] }}</button>
-                            <button v-else type="button" class="btn btn-primary" @click="sortToggle = !sortToggle">{{ sortOption[1] }} {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
-                      </template>
-                    </div>
+        <div class="p-4 text-center">
+            <div class="form-group">
+                <label>Sort By:</label>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-dark" @click="sortMethod = ''">None</button>
+                    <template v-for="sortOption in sortOptions">
+                        <button v-if="sortMethod !== sortOption[0]" type="button" class="btn btn-outline-dark" @click="sortMethod = sortOption[0]">{{ sortOption[1] }}</button>
+                        <button v-else type="button" class="btn btn-dark" @click="sortToggle = !sortToggle">{{ sortOption[1] }} {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
+                    </template>
                 </div>
             </div>
-    
-            <table class="table table-sm table-borderless">
+        </div>
 
-            <template v-for="(script, index) in sortedScripts">
-                <tr class="border-top">
-                    <td class="p-2">
-                        <h5>{{ script.name }}</h5>
-                        <h6>by <a :href="script.author_url">{{ script.author_name || 'unknown' }}</a></h6>
-                        <div>
-                            <template v-if="script.download_url.includes('github')">
-                                <a class="btn btn-sm btn-outline-success" target="_none" :href="script.download_url">GitHub</a>
-                            </template>
-                            <template v-else-if="script.download_url !== '#none'">
-                                <a class="btn btn-sm btn-outline-primary" target="_none" :href="script.download_url">Download</a>
-                            </template>
-                            <template v-else>
-                                <a class="btn btn-sm btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
-                            </template>
-                        </div>
-                    </td>
-                    <td>
-                        <a class="text-black" :href="'img/'+getImageURL(script.name)"><img :src="'thumb/'+getImageURL(script.name)" alt="no image"></img></a>
-                    </td>
-                    <td>
-                        <table class="table table-sm table-borderless">
-                            <tr>
+        <table class="table table-sm table-borderless">
+
+        <template v-for="(script, index) in sortedScripts">
+            <tr class="border-top">
+                <td class="p-2">
+                    <h5>{{ script.name }}</h5>
+                    <h6>by <a :href="script.author_url">{{ script.author_name || 'unknown' }}</a></h6>
+                    <div>
+                        <template v-if="script.download_url.includes('github')">
+                            <a class="btn btn-sm btn-outline-success" target="_none" :href="script.download_url">GitHub</a>
+                        </template>
+                        <template v-else-if="script.download_url !== '#none'">
+                            <a class="btn btn-sm btn-outline-primary" target="_none" :href="script.download_url">Download</a>
+                        </template>
+                        <template v-else>
+                            <a class="btn btn-sm btn-outline-secondary" target="_none" :href="script.download_url">no source</a>
+                        </template>
+                    </div>
+                </td>
+                <td>
+                    <a class="text-black" :href="'img/'+getImageURL(script.name)"><img :src="'thumb/'+getImageURL(script.name)" alt="no image"></img></a>
+                </td>
+                <td>
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td>
                                 <div class="row">
                                     <div class="col-3">
                                         {{ script.language || '' }}
@@ -97,18 +92,17 @@ if you have any scripts you know about that aren't listed here, please email wei
                                             {{ script.version || '' }}
                                     </div>
                                 </div>
-                            </tr>
-                            <tr class="border-top">
-                                <td class="align-text-bottom" colspan="2" id="note">{{ script.notes || 'no details available' }}</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                </template>
-                
-
-            </table>
-        </div>
+                            </td>
+                        </tr>
+                        <tr class="border-top">
+                            <td class="align-text-bottom" colspan="2" id="note">{{ script.notes || 'no details available' }}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </template>
+        </table>
+    </div>
 </div>
 <script>
     new Vue({
@@ -163,10 +157,7 @@ if you have any scripts you know about that aren't listed here, please email wei
         },
     })
 </script>
-
-
-<div id="footer">This section of tanami.org and overscript.net is explictly provided under the GNU GPLv3 License.
-</div>
+<div class="text-center p-4"><small>This section of tanami.org and overscript.net is explictly provided under the GNU GPLv3 License.</small></div>
 </div>
 </body>
 </html>
