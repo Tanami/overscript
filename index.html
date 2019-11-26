@@ -50,15 +50,10 @@ if you have any scripts you know about that aren't listed here, please email wei
                     <label>Sort By:</label>
                     <div class="btn-group" role="group">
                       <button type="button" class="btn btn-outline-primary" @click="sortMethod = ''">None</button>
-
-                      <button v-if="sortMethod !== 'name'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'name'">Name</button>
-                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Name {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
-
-                      <button v-if="sortMethod !== 'language'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'language'">Language</button>
-                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Language {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
-
-                      <button v-if="sortMethod !== 'author_name'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'author_name'">Author</button>
-                      <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Author {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
+                      <template v-for="sortOption in sortOptions">
+                            <button v-if="sortMethod !== sortOption[0]" type="button" class="btn btn-outline-primary" @click="sortMethod = sortOption[0]">{{ sortOption[1] }}</button>
+                            <button v-else type="button" class="btn btn-primary" @click="sortToggle = !sortToggle">{{ sortOption[1] }} {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
+                      </template>
                     </div>
                 </div>
             </div>
@@ -122,6 +117,14 @@ if you have any scripts you know about that aren't listed here, please email wei
             scripts: script_data,
             sortToggle: false,
             sortMethod: '',
+            sortOptions: [
+                ['name', 'Name'],
+                ['language', 'Language'],
+                ['author_name', 'Author'],
+                ['status', 'Status'],
+                ['created', 'Created'],
+                ['last_checked', 'Last Checked']
+            ],
             status: {
                 maintained: 'text-success',
                 unmaintained: 'text-danger',

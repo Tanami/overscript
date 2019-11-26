@@ -29,7 +29,7 @@ script_data = [
       "download_url" : "https://github.com/yumi-xx/RAL",
       "language" : "PHP",
       "name" : "RAL",
-      "notes" : "RAL was written specifically for howler.space and attempts to put focus on perpetual posting (documented as continuities) with a grid-style interface for viewing threads.",
+      "notes" : "RAL was written specifically for howler.space and attempts to focus on so-called perpetual posting (documented as ``continuities'') with a grid-style interface for viewing threads.",
       "version" : "v3.1",
       "status" : "maintained",
       "last_checked" : "2019-11-23",
@@ -237,7 +237,7 @@ script_data = [
       "version" : "3.0.9",
       "status" : "maintained",
       "last_checked" : "2019-11-23",
-      "created" : "pre-2004"
+      "created" : "2004"
    },
    {
       "author_name" : "tslocum",
@@ -245,11 +245,11 @@ script_data = [
       "download_url" : "http://kusabax.cultnet.net",
       "language" : "PHP",
       "name" : "Kusaba",
-      "notes" : "Kusaba was once the most popular script for imageboards. Kusaba's history is tumultuous and colourful since it was the target of many hacking attempts partly due to the code quality and partly due to the types of communities which used it.",
-      "version" : "0.9.2",
-      "status" : "radioactive",
-      "last_checked" : "2019-11-23",
-      "created" : "pre-2008"
+      "notes" : "Kusaba was once the most popular script for imageboards. Kusaba's history is tumultuous and colourful since it was the target of many hacking attempts partly due to the code quality and partly due to the types of communities which used it. The original author (Trevor) abandoned it in 2008 and Harrison Weston became the new maintainer.",
+      "version" : "0.9.3",
+      "status" : "stable",
+      "last_checked" : "2019-11-26",
+      "created" : "2008?"
    },
    {
       "author_name" : "marlencrabapple",
