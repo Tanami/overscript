@@ -41,11 +41,11 @@ script_data = [
       "download_url" : "https://github.com/majestrate/nntpchan/releases",
       "language" : "Go",
       "name" : "nntpchan",
-      "notes" : "uses NNTP to decentralise hosting",
-      "version" : "0.4.0",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "The main feature of NNTPChan is that it uses the NNTP protocol to assist in decentralising the board data. To participate in posting, you must have permission to access a server within the graph or use a web client. For a while (between 2014-2018) it was popular, however as of 2019 it appears there are no web-accessible boards anymore.",
+      "version" : "3.1.0",
+      "status" : "maintained",
+      "last_checked" : "2019-11-26",
+      "created" : "2015"
    },
    {
       "author_name" : "Kyle Farwell",

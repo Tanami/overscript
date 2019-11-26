@@ -131,7 +131,7 @@ if you have any scripts you know about that aren't listed here, please email wei
             }
         },
         mounted: function() {
-            this.loadScripts()
+            // hmm.. guess we don't need to do anything here
         },
         computed: {
             sortedScripts: function() {
@@ -155,9 +155,6 @@ if you have any scripts you know about that aren't listed here, please email wei
             getImageURL: function(name) {
                 return name.toLowerCase().replace(/ /g, '_') + '.png';
             },
-            loadScripts: function() {
-                console.log('ok')
-            }
         },
     })
 </script>
