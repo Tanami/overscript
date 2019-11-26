@@ -617,7 +617,7 @@ script_data = [
       "download_url" : "files/yotsuba.txt",
       "language" : "PHP",
       "name" : "Yotsuba",
-      "notes" : "Yotsuba was written by team4chan for 4chan.org. It originally drew heavily from Futallaby's codebase but is now most likely using better-scalable PHP practices. The attached link is for an older leaked copy of the board rendering component.",
+      "notes" : "Yotsuba was written by team4chan for 4chan.org. It originally drew heavily from Futallaby's codebase but is now most likely using more ``scalable'' PHP practices. The download link is for an older leaked copy of the board rendering component.",
       "version" : "closed-source",
       "status" : "maintained",
       "last_checked" : "2019-08-11",

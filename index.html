@@ -57,7 +57,7 @@ if you have any scripts you know about that aren't listed here, please email wei
                       <button v-if="sortMethod !== 'language'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'language'">Language</button>
                       <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Language {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
 
-                      <button v-if="sortMethod !== 'author'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'author'">Author</button>
+                      <button v-if="sortMethod !== 'author_name'" type="button" class="btn btn-outline-primary" @click="sortMethod = 'author_name'">Author</button>
                       <button v-else type="button"  class="btn btn-primary" @click="sortToggle = !sortToggle">Author {{ (sortToggle ? '&#9660;' : '&#9650;') }}</button>
                     </div>
                 </div>
@@ -134,18 +134,19 @@ if you have any scripts you know about that aren't listed here, please email wei
         },
         computed: {
             sortedScripts: function() {
-                switch(this.sortMethod) {
-                    case 'name':
-                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
-                    break;
-                    case 'author':
-                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.author_name.localeCompare(b.author_name) : b.author_name.localeCompare(a.author_name))
-                    break;
-                    case 'language':
-                        return this.scripts.concat().sort((a, b) => (this.sortToggle) ? a.language.localeCompare(b.language) : b.language.localeCompare(a.language))
-                    break;
-                    default:
-                        return this.scripts
+                function maybe(a) {
+                    return a ? a : ''
+                }
+                if (this.sortMethod === '') {
+                    return this.scripts
+                }
+                else {
+                    if (this.sortToggle) {
+                        return this.scripts.concat().sort((a, b) => (maybe(a[this.sortMethod]).localeCompare(maybe(b[this.sortMethod]))))
+                    }
+                    else {
+                        return this.scripts.concat().sort((a, b) => (maybe(b[this.sortMethod]).localeCompare(maybe(a[this.sortMethod]))))
+                    }
                 }
             }
         },
