@@ -7,7 +7,7 @@ script_data = [
       "name" : "Kareha",
       "notes" : "This is my favourite script. It is easy for beginners to modify and it runs well on low-end servers. Kareha is spiritually similar to Wakaba as it is written by the same author. It is very popular in textboard communities such as 4-ch.net and sageru.org",
       "version" : "3.1.4",
-      "status" : "maintained",
+      "status" : "stable",
       "last_checked" : "2019-11-23",
       "created" : "2004?"
    },
@@ -19,7 +19,7 @@ script_data = [
       "name" : "SchemeBBS",
       "notes" : "SchemeBBS powers textboard.org, it features typical kareha-style textboard features such as quoting and shiichan-style text formatting. The code itself has few dependencies and is written competently but may be too lightweight for some people.",
       "version" : "n/a",
-      "status" : "maintained",
+      "status" : "stable",
       "last_checked" : "2019-11-23",
       "created" : "2018"
    },
@@ -31,7 +31,7 @@ script_data = [
       "name" : "RAL",
       "notes" : "RAL was written specifically for howler.space and attempts to focus on so-called perpetual posting (documented as ``continuities'') with a grid-style interface for viewing threads.",
       "version" : "v3.1",
-      "status" : "maintained",
+      "status" : "stable",
       "last_checked" : "2019-11-23",
       "created" : "2017"
    },
@@ -46,6 +46,42 @@ script_data = [
       "status" : "unknown",
       "last_checked" : "2019-08-11",
       "created" : "unknown"
+   },
+   {
+      "author_name" : "Kyle Farwell",
+      "author_url" : "http://kfarwell.org",
+      "download_url" : "https://github.com/kfarwell/werchan",
+      "language" : "Plan 9 rc",
+      "name" : "werchan",
+      "notes" : "the chan fell off. Probably a great choice if you run Plan 9 or want to use an almost CGI-free environment (!).",
+      "version" : "1.5",
+      "status" : "stable",
+      "last_checked" : "2019-11-26",
+      "created" : "2015"
+   },
+   {
+      "author_name" : "!WAHa_06x36",
+      "author_url" : "http://wakaba.c3.cx",
+      "download_url" : "http://wakaba.c3.cx",
+      "language" : "Perl",
+      "name" : "Wakaba",
+      "notes" : "Wakaba is a very old and popular script (slightly more popular than its cousin, Kareha) derived from Futallaby code. Wakaba uses a MySQL backend for storage. Wakaba's design serves as the scaffolding for many other scripts.",
+      "version" : "3.0.9",
+      "status" : "stable",
+      "last_checked" : "2019-11-23",
+      "created" : "2004"
+   },
+   {
+      "author_name" : "tslocum",
+      "author_url" : "http://kusabax.cultnet.net",
+      "download_url" : "http://kusabax.cultnet.net",
+      "language" : "PHP",
+      "name" : "Kusaba",
+      "notes" : "Kusaba was once the most popular script for imageboards. Kusaba's history is tumultuous and colourful since it was the target of many hacking attempts partly due to the code quality and partly due to the types of communities which used it. The original author (Trevor) abandoned it in 2008 and Harrison Weston became the new maintainer.",
+      "version" : "0.9.3",
+      "status" : "stable",
+      "last_checked" : "2019-11-26",
+      "created" : "2008?"
    },
    {
       "author_name" : "Stephen Lynx",
@@ -81,18 +117,6 @@ script_data = [
       "version" : "n/a",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
-      "created" : "unknown"
-   },
-   {
-      "author_name" : "Kyle Farwell",
-      "author_url" : "http://kfarwell.org",
-      "download_url" : "https://github.com/kfarwell/werchan",
-      "language" : "Plan 9 rc",
-      "name" : "werchan",
-      "notes" : "the chan fell off. Probably a great choice if you run Plan 9 or want to use an almost CGI-free environment (!).",
-      "version" : "1.5",
-      "status" : "unmaintained",
-      "last_checked" : "2019-11-20",
       "created" : "unknown"
    },
    {
@@ -137,11 +161,11 @@ script_data = [
       "download_url" : "https://github.com/infinity-next/infinity-next",
       "language" : "PHP",
       "name" : "Infinity Next",
-      "notes" : "8ch.net in-house IB",
-      "version" : "n/a",
-      "status" : "unknown",
+      "notes" : "",
+      "version" : "08/11/19 (git)",
+      "status" : "maintained",
       "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "created" : "2015"
    },
    {
       "author_name" : "oprel",
@@ -226,30 +250,6 @@ script_data = [
       "status" : "unknown",
       "last_checked" : "2019-08-11",
       "created" : "unknown"
-   },
-   {
-      "author_name" : "!WAHa_06x36",
-      "author_url" : "http://wakaba.c3.cx",
-      "download_url" : "http://wakaba.c3.cx",
-      "language" : "Perl",
-      "name" : "Wakaba",
-      "notes" : "Wakaba is a very old and popular script (slightly more popular than its cousin, Kareha) derived from Futallaby code. Wakaba uses a MySQL backend for storage. Wakaba's design serves as the scaffolding for many other scripts.",
-      "version" : "3.0.9",
-      "status" : "maintained",
-      "last_checked" : "2019-11-23",
-      "created" : "2004"
-   },
-   {
-      "author_name" : "tslocum",
-      "author_url" : "http://kusabax.cultnet.net",
-      "download_url" : "http://kusabax.cultnet.net",
-      "language" : "PHP",
-      "name" : "Kusaba",
-      "notes" : "Kusaba was once the most popular script for imageboards. Kusaba's history is tumultuous and colourful since it was the target of many hacking attempts partly due to the code quality and partly due to the types of communities which used it. The original author (Trevor) abandoned it in 2008 and Harrison Weston became the new maintainer.",
-      "version" : "0.9.3",
-      "status" : "stable",
-      "last_checked" : "2019-11-26",
-      "created" : "2008?"
    },
    {
       "author_name" : "marlencrabapple",
@@ -360,16 +360,16 @@ script_data = [
       "created" : "2008"
    },
    {
-      "author_name" : "drydock",
-      "author_url" : "http://code.google.com/p/drydock/",
+      "author_name" : "Albright",
+      "author_url" : "mailto:taqsuqs@gmail.com",
       "download_url" : "http://code.google.com/p/drydock/",
       "language" : "PHP",
       "name" : "Drydock",
-      "notes" : "haven't tested it in years",
-      "version" : "r211",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Drydock was a multi-board imageboard script which featurs a complete administration interface, similar to Kusaba. It was one of the first scripts to include a blotter function and image capcodes. The author appears to have stopped development since mid-2013. It was previously being used as the backend for kchan (url unknown).",
+      "version" : "r291",
+      "status" : "discontinued",
+      "last_checked" : "2019-11-26",
+      "created" : "2008"
    },
    {
       "author_name" : "sabitsuki",
@@ -485,7 +485,7 @@ script_data = [
       "download_url" : "https://github.com/tslocum/PyIB-Standalone",
       "language" : "Python",
       "name" : "PyIB",
-      "notes" : "written by an autist",
+      "notes" : "PyIB was originally written for PAQ.CC, an invite-only imageboard which used a system of referral tokens. Unfortunately the available source-code does not include this feature. The author appeared to stop development shortly after PAQ.CC went down.",
       "version" : "r66",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
@@ -650,14 +650,14 @@ script_data = [
    {
       "author_name" : "savetheinternet",
       "author_url" : "https://github.com/savetheinternet",
-      "download_url" : "http://www.tinyboard.org",
+      "download_url" : "https://github.com/savetheinternet/Tinyboard",
       "language" : "PHP",
       "name" : "Tinyboard",
-      "notes" : "4chon.net's script",
+      "notes" : "Originally written for 4chon.net, Tinyboard was the first imageboard to utilise DNSBL filtering and make use of modern PHP practices, such as using APC for caching. The codebase has been used as the basis for other projects such as vichan.",
       "version" : "0.9.2",
-      "status" : "unknown",
+      "status" : "stable",
       "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "created" : "2010"
    },
    {
       "author_name" : "kirtaner",
@@ -953,11 +953,11 @@ script_data = [
       "download_url" : "#none",
       "language" : "PHP",
       "name" : "Thorn",
-      "notes" : "very, very old",
-      "version" : "???",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Thorn was the author's first attempt at making an imageboard, based on Wakaba. The author has requested that I do not provide sources or other information so this serves simply as a reference to the fact it existed and was used at some point.",
+      "version" : "n/a",
+      "status" : "discontinued",
+      "last_checked" : "2019-11-26",
+      "created" : "n/a"
    },
    {
       "author_name" : "grumpy",
