@@ -101,7 +101,7 @@ script_data = [
       "download_url" : "https://github.com/DangerOnTheRanger/maniwani",
       "language" : "Python",
       "name" : "maniwani",
-      "notes" : "Maniwani is an experimental BBS which purveys many modern ideologies such as REST API support, real-time updates and CDN support. The script was mainly being used for futatsu.org but the site has recently gone down (late 2019). The code quality is quite high but the file layout is quite confusing.",
+      "notes" : "Maniwani is an experimental BBS which purveys many modern ideologies such as REST API support, real-time updates and CDN support. The script was mainly being used for futatsu.org but the site has recently gone down (late 2019). The code quality is decent but the file layout is quite confusing.",
       "version" : "b95bc09 (180519)",
       "status" : "stable",
       "last_checked" : "2019-11-30",
@@ -133,15 +133,15 @@ script_data = [
    },
    {
       "author_name" : "steenuil",
-      "author_url" : "https://github.com/steinuil",
+      "author_url" : "https://sgt.hootr.club",
       "download_url" : "https://github.com/steinuil/negoto",
       "language" : "Ur",
       "name" : "negoto",
-      "notes" : "runs as an executable",
-      "version" : "05d87bb",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Negoto is a simple Futaba-style imageboard system written in the Ur/Web typed system. Currently it is not being further developed but provides a good basis for developing something more complex.",
+      "version" : "144241e (130818)",
+      "status" : "stable",
+      "last_checked" : "2019-11-30",
+      "created" : "2017"
    },
    {
       "author_name" : "Ernstchan",
