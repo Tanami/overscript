@@ -89,11 +89,11 @@ script_data = [
       "download_url" : "https://gitgud.io/LynxChan/LynxChan/tags",
       "language" : "nodejs",
       "name" : "LynxChan",
-      "notes" : "JSON-RPC interface!",
-      "version" : "1.6.2",
-      "status" : "unknown",
+      "notes" : "Over the years LynxChan has evolved into a fully-fledged imageboard engine with a well-designed plugin system. The project is a one-man effort by Stephen Lynx. It is somewhat popular, currently being used by at least 20 websites.",
+      "version" : "2.2.17",
+      "status" : "maintained",
       "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "created" : "2015"
    },
    {
       "author_name" : "Kermit Alexander II",
@@ -578,7 +578,7 @@ script_data = [
    {
       "author_name" : "???",
       "author_url" : "http://www12.atwiki.jp/0ch/",
-      "download_url" : "http://www12.atwiki.jp/0ch/",
+      "download_url" : "files/0ch_test070124.zip",
       "language" : "",
       "name" : "0ch",
       "notes" : "untested",
