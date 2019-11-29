@@ -92,7 +92,7 @@ script_data = [
       "notes" : "Over the years LynxChan has evolved into a fully-fledged imageboard engine with a well-designed plugin system. The project is a one-man effort by Stephen Lynx. It is somewhat popular, currently being used by at least 20 websites.",
       "version" : "2.2.17",
       "status" : "maintained",
-      "last_checked" : "2019-08-11",
+      "last_checked" : "2019-11-30",
       "created" : "2015"
    },
    {
@@ -101,11 +101,11 @@ script_data = [
       "download_url" : "https://github.com/DangerOnTheRanger/maniwani",
       "language" : "Python",
       "name" : "maniwani",
-      "notes" : "Experimental BBS with modern ideologies.",
-      "version" : "52ca059",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Maniwani is an experimental BBS which purveys many modern ideologies such as REST API support, real-time updates and CDN support. The script was mainly being used for futatsu.org but the site has recently gone down (late 2019). The code quality is quite high but the file layout is quite confusing.",
+      "version" : "b95bc09 (180519)",
+      "status" : "stable",
+      "last_checked" : "2019-11-30",
+      "created" : "2018"
    },
    {
       "author_name" : "Yamada",
@@ -116,7 +116,7 @@ script_data = [
       "notes" : "A long time ago the author sent me the source, unfortunately I have not retained it over the years. It is a fork of TinyIB.",
       "version" : "n/a",
       "status" : "unknown",
-      "last_checked" : "2019-08-11",
+      "last_checked" : "2019-11-30",
       "created" : "unknown"
    },
    {
@@ -125,11 +125,11 @@ script_data = [
       "download_url" : "https://github.com/joshiemoore/NodeChan",
       "language" : "Java",
       "name" : "NodeChan",
-      "notes" : "ambitious attempt at p2p which does not use the DHT",
-      "version" : "0.7.5",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "NodeChan is a Java-based peer-to-peer textboard client which relies on UPNP or the use of gossip servers to discover peers that contain other messages and threads on the board. It is by nature highly-decentralised and is therefore well-suited to use in a LAN scenario. At the time of writing, the implementation is incomplete but provides a functional proof-of-concept which seems reasonably simple to extend.",
+      "version" : "9ba6909 (120819)",
+      "status" : "stable",
+      "last_checked" : "2019-11-30",
+      "created" : "2019"
    },
    {
       "author_name" : "steenuil",
