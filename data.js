@@ -156,15 +156,15 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "\"josh\"",
-      "author_url" : "#none",
+      "author_name" : "Joshua Moon",
+      "author_url" : "https://github.com/jaw-sh",
       "download_url" : "https://github.com/infinity-next/infinity-next",
       "language" : "PHP",
       "name" : "Infinity Next",
-      "notes" : "",
+      "notes" : "Infinity Next is a complete imageboard system implemented in Laravel. It was originally intended to be the replacement script for 8chan.net. It has a very high quality codebase and uses modern PHP practices. It would be a sensible choice for somebody looking to create a multi-imageboard website.",
       "version" : "08/11/19 (git)",
       "status" : "maintained",
-      "last_checked" : "2019-08-11",
+      "last_checked" : "2019-11-30",
       "created" : "2015"
    },
    {
