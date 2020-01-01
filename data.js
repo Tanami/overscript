@@ -678,7 +678,7 @@ script_data = [
       "language" : "PHP?",
       "name" : "Matsuba",
       "notes" : "sovietrussia's script",
-      "version" : "<i>(git)</i>",
+      "version" : "(git)",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
       "created" : "unknown"
@@ -689,7 +689,7 @@ script_data = [
       "download_url" : "http://www.wajett.net/labs/cb_02.php",
       "language" : "???",
       "name" : "C-BOARD",
-      "notes" : "this is actually a modded version",
+      "notes" : "The download URL provided is for a modded version of C-BOARD. I cannot locate the original source.",
       "version" : "3.8",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
@@ -701,9 +701,9 @@ script_data = [
       "download_url" : "files/kb19ful.lzh",
       "language" : "Perl",
       "name" : "K-Board",
-      "notes" : "experimental features",
+      "notes" : "K-board has a couple of experimental features such as a \"post map\" which shows how many posts each user has made.",
       "version" : "1.9",
-      "status" : "unknown",
+      "status" : "unmaintained",
       "last_checked" : "2019-08-11",
       "created" : "unknown"
    },
@@ -912,16 +912,16 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "unknown",
+      "author_name" : "hamilyon",
       "author_url" : "#none",
-      "download_url" : "http://himgb.googlecode.com/svn/trunk/hImgb.hs",
+      "download_url" : "https://github.com/hamilyon/himgb",
       "language" : "Haskell",
       "name" : "himgb",
-      "notes" : "U MENA HASKEL",
-      "version" : "unknown",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "This script is really old, the earliest mention of it is an old /prog/ thread. I have not seen it in use.",
+      "version" : "290412 (git)",
+      "status" : "stable",
+      "last_checked" : "2019-03-12",
+      "created" : "2007"
    },
    {
       "author_name" : "unknown",
