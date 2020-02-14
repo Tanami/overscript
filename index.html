@@ -35,7 +35,9 @@
 This is overscript, a comprehensive overview of all known anonymous futaba-style bulletin board scripts.
 <br />
 if you have any scripts you know about that aren't listed here, please email weitzeug@gmail.com with details about it
-<br /><br />I am maintaining an archive at <a href="http://tanami.org/pub/software/TrueScript/">/pub/software/TrueScript/</a> and a git mirror <a href="http://git.tanami.org">here</a>
+<br /><br />I am hosting a tarball archive at <a href="http://tanami.org/pub/software/TrueScript/">/pub/software/TrueScript/</a> and a git mirror <a href="http://git.tanami.org">here</a> but you should always try and get the latest version.
+<br /><br />
+You are also welcome to email me if you want assistance with setting up a script.
 </p>
 </div>
 <!-- it is a pretty well-known fact that modern javascript pretends to solve all templating problems but in the end the most useful code is always the hairiest.. -->
@@ -142,13 +144,12 @@ if you have any scripts you know about that aren't listed here, please email wei
                     return this.scripts
                 }
                 else {
-                    return this.scripts.concat().sort((a, b) => (maybe(a[this.sortMethod]).localeCompare(maybe(b[this.sortMethod]))))
-                    // if (this.sortToggle) {
-                        // return this.scripts.concat().sort((a, b) => (maybe(a[this.sortMethod]).localeCompare(maybe(b[this.sortMethod]))))
-                    // }
-                    // else {
-                    //     return this.scripts.concat().sort((a, b) => (maybe(b[this.sortMethod]).localeCompare(maybe(a[this.sortMethod]))))
-                    // }
+                    if (this.sortToggle) {
+                        return this.scripts.concat().sort((a, b) => (maybe(a[this.sortMethod]).localeCompare(maybe(b[this.sortMethod]))))
+                    }
+                    else {
+                        return this.scripts.concat().sort((a, b) => (maybe(b[this.sortMethod]).localeCompare(maybe(a[this.sortMethod]))))
+                    }
                 }
             }
         },
