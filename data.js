@@ -72,6 +72,18 @@ script_data = [
       "created" : "2004"
    },
    {
+      "author_name" : "liamwhite",
+      "author_url" : "https://github.com/liamwhite",
+      "download_url" : "https://github.com/derpibooru/philomena",
+      "language" : "Elixir",
+      "name" : "Philomena",
+      "notes" : "Philomena is a hybrid forum-imageboard script which runs as a standalone daemon. It was created specifically for derpibooru.org and features post-tagging, user registrations, forum/image search, and a Commissions function which is specific to Derpibooru.",
+      "version" : "6799622 (130320)",
+      "status" : "stable",
+      "last_checked" : "2020-03-14",
+      "created" : "2019"
+   },
+   {
       "author_name" : "tslocum",
       "author_url" : "http://kusabax.cultnet.net",
       "download_url" : "http://kusabax.cultnet.net",
