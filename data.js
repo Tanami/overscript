@@ -72,6 +72,18 @@ script_data = [
       "created" : "2004"
    },
    {
+      "author_name" : "Thomas Lynch",
+      "author_url" : "https://github.com/fatchan",
+      "download_url" : "https://github.com/fatchan/jschan",
+      "language" : "nodejs",
+      "name" : "jschan",
+      "notes" : "jschan is a futaba-style imageboard which uses Node.JS and MongoDB for the backend. It has some interesting features such as cyclic posts, webring support, and user-created boards. The code is almost entirely implemented by one author and uses modern development techniques like using models, migrations, etc.",
+      "version" : "ec71ffc (150220)",
+      "status" : "stable",
+      "last_checked" : "2020-02-16",
+      "created" : "2019"
+   },
+   {
       "author_name" : "liamwhite",
       "author_url" : "https://github.com/liamwhite",
       "download_url" : "https://github.com/derpibooru/philomena",
