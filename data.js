@@ -684,16 +684,16 @@ script_data = [
       "created" : "2010"
    },
    {
-      "author_name" : "kirtaner",
-      "author_url" : "#none",
+      "author_name" : "Aubrey \"Kirtaner\" Cottle",
+      "author_url" : "https://twitter.com/Kirtaner",
       "download_url" : "#none",
-      "language" : "Perl",
+      "language" : "Perl & PHP",
       "name" : "Taimaba",
-      "notes" : "420chan's script",
-      "version" : "???",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "420chan's script. A very heavily modified and enhanced fork of Wakaba, adding many modern features and, amusingly, dynamic PHP output, making it an odd hybrid platform with a distinct backend and frontend.",
+      "version" : "0.2.1",
+      "status" : "stable",
+      "last_checked" : "2020-06-12",
+      "created" : "2007-04-01"
    },
    {
       "author_name" : "Storlek",
