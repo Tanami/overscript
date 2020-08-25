@@ -60,6 +60,42 @@ script_data = [
       "created" : "2015"
    },
    {
+      "author_name" : "Amphy",
+      "author_url" : "n/a",
+      "download_url" : "n/a",
+      "language" : "PHP",
+      "name" : "Noder",
+      "notes" : "Noder is a graph-based textboard that allows you to connect arbitrary posts to your own and visualizes them with a directed top-down graph. It is similar in spirit to TreeBoard but is more practical to navigate since it does not span horizontally.",
+      "version" : "n/a",
+      "status" : "maintained",
+      "last_checked" : "2020-08-25",
+      "created" : "2019"
+   },
+   {
+      "author_name" : "okay zed",
+      "author_url" : "https://kthxb.ai",
+      "download_url" : "https://github.com/atobs/atob",
+      "language" : "nodejs",
+      "name" : "atob",
+      "notes" : "atob is a real-time textboard that uses a custom nodejs backend and has some unusual features such as color-based tripcodes and a real-time chat function. It also has a 'anonicator' feature which visualises live user activity. I think overall the system is very innovative.",
+      "version" : "0.1.0",
+      "status" : "maintained",
+      "last_checked" : "2020-08-25",
+      "created" : "2013"
+   },
+   {
+      "author_name" : "n/a",
+      "author_url" : "#none",
+      "download_url" : "#none",
+      "language" : "PHP",
+      "name" : "PeachBoard",
+      "notes" : "Peachboard is an ordinary 2ch-style textboard, it is the script that powers 2board.net.",
+      "version" : "n/a",
+      "status" : "maintained",
+      "last_checked" : "2020-08-25",
+      "created" : "2020"
+   },
+   {
       "author_name" : "!WAHa_06x36",
       "author_url" : "http://wakaba.c3.cx",
       "download_url" : "http://wakaba.c3.cx",
