@@ -36,6 +36,18 @@ script_data = [
       "created" : "2017"
    },
    {
+      "author_name" : "Crunklord420",
+      "author_url" : "https://kiwifarms.cc/users/crunklord420",
+      "download_url" : "https://git.kiwifarms.net/CrunkLord420/gemboard",
+      "language" : "Rust",
+      "name" : "gemboard",
+      "notes" : "Gemboard is a unique textboard system designed for the Gemini protocol. It runs as a system service and uses Postgres for data persistence.",
+      "version" : "a85e041f91",
+      "status" : "stable",
+      "last_checked" : "2020-11-24",
+      "created" : "2020"
+   },
+   {
       "author_name" : "majestrate",
       "author_url" : "https://github.com/majestrate",
       "download_url" : "https://github.com/majestrate/nntpchan/releases",
