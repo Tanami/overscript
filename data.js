@@ -312,16 +312,16 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "k-anon",
+      "author_name" : "k-anon (various)",
       "author_url" : "http://git.kiace.com.ar/",
       "download_url" : "https://github.com/dequis/wakarimasen/releases",
       "language" : "Python",
       "name" : "wakarimasen",
-      "notes" : "wakaba-compatible, low memory usage, extended admin panel",
-      "version" : "rev 444",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Wakarimasen is written for desuchan.net. Originally wakaba-compatible, it features an extended admin panel and supports multiple boards.",
+      "version" : "1.1",
+      "status" : "stable",
+      "last_checked" : "2020-11-24",
+      "created" : "2010"
    },
    {
       "author_name" : "marlencrabapple",
