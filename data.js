@@ -72,6 +72,18 @@ script_data = [
       "created" : "2015"
    },
    {
+      "author_name" : "David Wührer",
+      "author_url" : "#none",
+      "download_url" : "https://tanami.org/pub/software/TrueScript/Treeboard.zip",
+      "language" : "C",
+      "name" : "Treeboard",
+      "notes" : "Treeboard is the first graph-based textboard software, designed for tree-board.net. It is implemented in C and uses a real graph implementation that renders as a giant svg file. It is remarkable in that the whole thing is implemented as a 1500 line C program.",
+      "version" : "n/a",
+      "status" : "stable",
+      "last_checked" : "2020-11-25",
+      "created" : "2013?"
+   },
+   {
       "author_name" : "Amphy",
       "author_url" : "#none",
       "download_url" : "#none",
