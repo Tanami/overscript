@@ -1,5 +1,17 @@
 script_data = [
    {
+      "author_name" : "czaks",
+      "author_url" : "https://github.com/czaks",
+      "download_url" : "https://github.com/vichan-devel/vichan/releases",
+      "language" : "PHP",
+      "name" : "vichan",
+      "notes" : "Essentially an improved fork of Tinyboard and probably the most common imageboard script in use today. Recommended for beginners due to sane defaults and useful features like Tesseract OCR and DNSBL integration.",
+      "version" : "d6d1082 (031220)",
+      "status" : "maintained",
+      "last_checked" : "2021-01-13",
+      "created" : "2012"
+   },
+   {
       "author_name" : "!WAHa_06x36",
       "author_url" : "https://wakaba.c3.cx",
       "download_url" : "https://wakaba.c3.cx/releases/Kareha/",
@@ -283,18 +295,6 @@ script_data = [
       "name" : "Monaba",
       "notes" : "lots of modern features",
       "version" : "5d44e8d",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
-   },
-   {
-      "author_name" : "czaks",
-      "author_url" : "https://github.com/czaks",
-      "download_url" : "https://github.com/vichan-devel/vichan/releases",
-      "language" : "PHP",
-      "name" : "vichan",
-      "notes" : "vroom vroom caching",
-      "version" : "5.1.0",
       "status" : "unknown",
       "last_checked" : "2019-08-11",
       "created" : "unknown"
