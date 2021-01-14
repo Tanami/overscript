@@ -264,28 +264,16 @@ script_data = [
       "created" : "2015"
    },
    {
-      "author_name" : "flashwave",
-      "author_url" : "http://flash.moe/",
-      "download_url" : "https://github.com/flashwave/satoko",
-      "language" : "PHP",
-      "name" : "Satoko",
-      "notes" : "work in progress",
-      "version" : "5aca872",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
-   },
-   {
       "author_name" : "ahushh",
       "author_url" : "https://github.com/ahushh/",
       "download_url" : "https://github.com/ahushh/Monaba",
       "language" : "Haskell",
       "name" : "Monaba",
-      "notes" : "lots of modern features",
-      "version" : "5d44e8d",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Rich, featureful script implemented in the Yesod framework for Haskell. Mainly designed for haibane.ru, it has special functions for Tor-only operation and a tripcode replacement scheme called \"prooflables\". The system is straddling the line between pseudononymous systems and traditional forums as it supports private messaging and other user-identifying functions.",
+      "version" : "2.6.2",
+      "status" : "maintained",
+      "last_checked" : "2021-01-15",
+      "created" : "2013"
    },
    {
       "author_name" : "bakape",
