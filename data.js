@@ -209,23 +209,11 @@ script_data = [
       "download_url" : "https://github.com/DangerOnTheRanger/maniwani",
       "language" : "Python",
       "name" : "maniwani",
-      "notes" : "Maniwani is an experimental BBS which purveys many modern ideologies such as REST API support, real-time updates and CDN support. The script was mainly being used for futatsu.org but the site has recently gone down (late 2019). The code quality is decent but the file layout is quite confusing.",
-      "version" : "b95bc09 (180519)",
-      "status" : "stable",
-      "last_checked" : "2019-11-30",
+      "notes" : "Maniwani is an experimental BBS which purveys many modern ideologies such as REST API support, real-time updates and CDN support. The script is mainly being used by futatsu.org.",
+      "version" : "f8f850c (071020)",
+      "status" : "maintained",
+      "last_checked" : "2020-01-14",
       "created" : "2018"
-   },
-   {
-      "author_name" : "Yamada",
-      "author_url" : "http://iloveyamada.org",
-      "download_url" : "#none",
-      "language" : "PHP",
-      "name" : "Yamada IB",
-      "notes" : "A long time ago the author sent me the source, unfortunately I have not retained it over the years. It is a fork of TinyIB.",
-      "version" : "n/a",
-      "status" : "unknown",
-      "last_checked" : "2019-11-30",
-      "created" : "unknown"
    },
    {
       "author_name" : "Joshua Moore",
@@ -1176,15 +1164,15 @@ script_data = [
       "created" : "unknown"
    },
    {
-      "author_name" : "treeofsephiroth?",
-      "author_url" : "#none",
-      "download_url" : "http://gitorious.org/shimonoseki",
+      "author_name" : "Yamada",
+      "author_url" : "http://iloveyamada.org",
+      "download_url" : "#none",
       "language" : "PHP",
-      "name" : "Shimonoseki",
-      "notes" : "appears to be a bland Kusaba X rewrite (possibly insecure)",
-      "version" : "48a7d5ca",
+      "name" : "Yamada IB",
+      "notes" : "A long time ago the author sent me the source, unfortunately I have not retained it over the years. It is a fork of TinyIB.",
+      "version" : "n/a",
       "status" : "unknown",
-      "last_checked" : "2019-08-11",
+      "last_checked" : "2019-11-30",
       "created" : "unknown"
    },
    {
