@@ -240,16 +240,16 @@ script_data = [
       "created" : "2017"
    },
    {
-      "author_name" : "Ernstchan",
-      "author_url" : "http://kfarwell.org",
-      "download_url" : "https://github.com/ernstchan/phutaba",
+      "author_name" : "Weissbier",
+      "author_url" : "weissbier@ernstchan.com",
+      "download_url" : "http://git.tanami.org/ModernStuff/phutaba",
       "language" : "Perl",
       "name" : "Phutaba",
-      "notes" : "lots of small new features",
-      "version" : "f0356b9",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Originally written for ernstchan.net, Phutaba is a heavily-modified extension of Wakaba which adds post statistics, EXIF data extraction, catalog mode, and other small changes. As of 2021, it seems that ernstchan.com is no longer functional and the original github repository has been taken down.",
+      "version" : "ae541ef (230618)",
+      "status" : "discontinued",
+      "last_checked" : "2021-01-15",
+      "created" : "2010"
    },
    {
       "author_name" : "Joshua Moon",
@@ -1153,15 +1153,15 @@ script_data = [
    },
    {
       "author_name" : "Qiming Zeng",
-      "author_url" : "http://28chan.org",
+      "author_url" : "mailto:aworldwithoutsnowflakes1@gmail.com",
       "download_url" : "http://code.google.com/p/lucidtea/",
       "language" : "PHP",
       "name" : "Lucid Tea",
-      "notes" : "level of completion undetermined",
-      "version" : "r3",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "level of completion undetermined, pending further testing.",
+      "version" : "rev. 3",
+      "status" : "discontinued",
+      "last_checked" : "2021-01-15",
+      "created" : "2008"
    },
    {
       "author_name" : "Yamada",
