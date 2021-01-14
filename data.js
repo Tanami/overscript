@@ -132,6 +132,18 @@ script_data = [
       "created" : "2013"
    },
    {
+      "author_name" : "bakape",
+      "author_url" : "https://github.com/bakape",
+      "download_url" : "https://github.com/bakape/meguca/releases",
+      "language" : "Go",
+      "name" : "meguca",
+      "notes" : "Meguca is a fast multiboard system with all the modern trappings (catalogue, merged boards, formatting, etc). Like other recent imageboard softwares, it allows the user to register an account and use it for preserving contextual state. There is a public instance of Meguca at shamik.ooo (nsfw).",
+      "version" : "6.8.0",
+      "status" : "maintained",
+      "last_checked" : "2021-01-15",
+      "created" : "2010"
+   },
+   {
       "author_name" : "n/a",
       "author_url" : "#none",
       "download_url" : "#none",
@@ -197,10 +209,10 @@ script_data = [
       "download_url" : "https://gitgud.io/LynxChan/LynxChan/tags",
       "language" : "nodejs",
       "name" : "LynxChan",
-      "notes" : "Over the years LynxChan has evolved into a fully-fledged imageboard engine with a well-designed plugin system. The project is a one-man effort by Stephen Lynx. It is somewhat popular, currently being used by at least 20 websites.",
-      "version" : "2.2.17",
+      "notes" : "LynxChan is a typical modern imageboard system. Over the years LynxChan has evolved into a popular fully-fledged software with a well-designed plugin system. The project is a one-man effort by Stephen Lynx. It is somewhat popular, currently being used by at least 20 websites as of writing (2021).",
+      "version" : "2.4.10",
       "status" : "maintained",
-      "last_checked" : "2019-11-30",
+      "last_checked" : "2021-01-15",
       "created" : "2015"
    },
    {
@@ -274,18 +286,6 @@ script_data = [
       "status" : "maintained",
       "last_checked" : "2021-01-15",
       "created" : "2013"
-   },
-   {
-      "author_name" : "bakape",
-      "author_url" : "https://github.com/bakape",
-      "download_url" : "https://github.com/bakape/meguca/releases",
-      "language" : "Go",
-      "name" : "meguca",
-      "notes" : "Meguca is a fast multiboard system with all the modern trappings (catalogue, merged boards, formatting, etc). Like other recent imageboard softwares, it allows the user to register an account and use it for preserving contextual state. There is a public instance of Meguca at shamik.ooo (nsfw).",
-      "version" : "6.8.0",
-      "status" : "maintained",
-      "last_checked" : "2021-01-15",
-      "created" : "2010"
    },
    {
       "author_name" : "mission712",
