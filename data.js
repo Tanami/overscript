@@ -36,6 +36,18 @@ script_data = [
       "created" : "2018"
    },
    {
+      "author_name" : "oprel",
+      "author_url" : "https://github.com/oprel",
+      "download_url" : "https://github.com/oprel/emanon",
+      "language" : "Perl",
+      "name" : "emanon",
+      "notes" : "Modern extensions to Tablecat. Basically the de facto software for textboards now. In use at SAoVQ and other culturally significant websites. Most features are basic usability extensions to spiritual predecessors such as Shiichan.",
+      "version" : "727486f",
+      "status" : "stable",
+      "last_checked" : "2021-01-14",
+      "created" : "2015"
+   },
+   {
       "author_name" : "Yumi",
       "author_url" : "https://bm.howler.space/yumi/",
       "download_url" : "https://github.com/yumi-xx/RAL",
@@ -262,18 +274,6 @@ script_data = [
       "status" : "maintained",
       "last_checked" : "2019-11-30",
       "created" : "2015"
-   },
-   {
-      "author_name" : "oprel",
-      "author_url" : "https://github.com/oprel",
-      "download_url" : "https://github.com/oprel/emanon",
-      "language" : "Perl",
-      "name" : "emanon",
-      "notes" : "modern extensions to Tablecat",
-      "version" : "727486f",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
    },
    {
       "author_name" : "flashwave",
