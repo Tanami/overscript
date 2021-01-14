@@ -281,23 +281,23 @@ script_data = [
       "download_url" : "https://github.com/bakape/meguca/releases",
       "language" : "Go",
       "name" : "meguca",
-      "notes" : "where do we go from here?",
-      "version" : "2.3.0",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Meguca is a fast multiboard system with all the modern trappings (catalogue, merged boards, formatting, etc). Like other recent imageboard softwares, it allows the user to register an account and use it for preserving contextual state. There is a public instance of Meguca at shamik.ooo (nsfw).",
+      "version" : "6.8.0",
+      "status" : "maintained",
+      "last_checked" : "2021-01-15",
+      "created" : "2010"
    },
    {
       "author_name" : "mission712",
-      "author_url" : "https://github.com/mission712",
-      "download_url" : "https://github.com/mission712/blazechan",
+      "author_url" : "https://gitgud.io/m712",
+      "download_url" : "https://gitgud.io/blazechan/blazechan",
       "language" : "PHP",
       "name" : "BlazeChan",
-      "notes" : "WIP, looks dead",
-      "version" : "54a941f",
+      "notes" : "pending futher information",
+      "version" : "0.12.0",
       "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "last_checked" : "2021-01-15",
+      "created" : "2016"
    },
    {
       "author_name" : "k-anon (various)",
