@@ -12,6 +12,18 @@ script_data = [
       "created" : "2012"
    },
    {
+      "author_name" : "oprel",
+      "author_url" : "https://github.com/oprel",
+      "download_url" : "https://github.com/oprel/emanon",
+      "language" : "Perl",
+      "name" : "emanon",
+      "notes" : "Modern extensions to Tablecat. Basically the de facto software for textboards now. In use at SAoVQ and other culturally significant websites. Most features are basic usability extensions to spiritual predecessors such as Shiichan.",
+      "version" : "727486f",
+      "status" : "stable",
+      "last_checked" : "2021-01-14",
+      "created" : "2015"
+   },
+   {
       "author_name" : "!WAHa_06x36",
       "author_url" : "https://wakaba.c3.cx",
       "download_url" : "https://wakaba.c3.cx/releases/Kareha/",
@@ -24,6 +36,18 @@ script_data = [
       "created" : "2004?"
    },
    {
+      "author_name" : "bakape",
+      "author_url" : "https://github.com/bakape",
+      "download_url" : "https://github.com/bakape/meguca/releases",
+      "language" : "Go",
+      "name" : "meguca",
+      "notes" : "Meguca is a fast multiboard system with all the modern trappings (catalogue, merged boards, formatting, etc). Like other recent imageboard softwares, it allows the user to register an account and use it for preserving contextual state. There is a public instance of Meguca at shamik.ooo (nsfw).",
+      "version" : "6.8.0",
+      "status" : "maintained",
+      "last_checked" : "2021-01-15",
+      "created" : "2010"
+   },
+   {
       "author_name" : "Ben Bitdiddle",
       "author_url" : "https://gitlab.com/naughtybits",
       "download_url" : "https://gitlab.com/naughtybits/schemebbs",
@@ -34,18 +58,6 @@ script_data = [
       "status" : "stable",
       "last_checked" : "2019-11-23",
       "created" : "2018"
-   },
-   {
-      "author_name" : "oprel",
-      "author_url" : "https://github.com/oprel",
-      "download_url" : "https://github.com/oprel/emanon",
-      "language" : "Perl",
-      "name" : "emanon",
-      "notes" : "Modern extensions to Tablecat. Basically the de facto software for textboards now. In use at SAoVQ and other culturally significant websites. Most features are basic usability extensions to spiritual predecessors such as Shiichan.",
-      "version" : "727486f",
-      "status" : "stable",
-      "last_checked" : "2021-01-14",
-      "created" : "2015"
    },
    {
       "author_name" : "Yumi",
@@ -130,18 +142,6 @@ script_data = [
       "status" : "maintained",
       "last_checked" : "2020-08-25",
       "created" : "2013"
-   },
-   {
-      "author_name" : "bakape",
-      "author_url" : "https://github.com/bakape",
-      "download_url" : "https://github.com/bakape/meguca/releases",
-      "language" : "Go",
-      "name" : "meguca",
-      "notes" : "Meguca is a fast multiboard system with all the modern trappings (catalogue, merged boards, formatting, etc). Like other recent imageboard softwares, it allows the user to register an account and use it for preserving contextual state. There is a public instance of Meguca at shamik.ooo (nsfw).",
-      "version" : "6.8.0",
-      "status" : "maintained",
-      "last_checked" : "2021-01-15",
-      "created" : "2010"
    },
    {
       "author_name" : "n/a",
