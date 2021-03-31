@@ -1034,13 +1034,13 @@ script_data = [
    {
       "author_name" : "z411",
       "author_url" : "https://omaera.org/notme",
-      "download_url" : "https://github.com/z411/weabot",
+      "download_url" : "https://git.bienvenidoainternet.org/bai/weabot/",
       "language" : "Python",
       "name" : "weabot",
       "notes" : "based on PyIB with most of the Kusaba feature set",
-      "version" : "0.7.2",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
+      "version" : "0.8.10",
+      "status" : "maintained",
+      "last_checked" : "2021-03-31",
       "created" : "unknown"
    },
    {
