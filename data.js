@@ -1041,7 +1041,7 @@ script_data = [
       "version" : "0.8.10",
       "status" : "maintained",
       "last_checked" : "2021-03-31",
-      "created" : "unknown"
+      "created" : "2014"
    },
    {
       "author_name" : "Yuto Ikeno",
