@@ -36,6 +36,18 @@ script_data = [
       "created" : "2004?"
    },
    {
+      "author_name" : "Anonymous",
+      "author_url" : "https://4x13.net",
+      "download_url" : "https://bitbucket.org/796f/multichan/",
+      "language" : "Python",
+      "name" : "multich",
+      "notes" : "Multichan is a simple federated tag-based textboard with pseudo-image support, implemented with Python/Flask. It builds upon fashionable new federation concepts like the WebRing feature of vichan in that it also performs site-to-site replication of tags (boards) and posts. It also allows for browsing via a global index and receiving updates through Atom feeds.",
+      "version" : "f0edf77 (053021)",
+      "status" : "maintained",
+      "last_checked" : "2021-05-30",
+      "created" : "2020"
+   },
+   {
       "author_name" : "bakape",
       "author_url" : "https://github.com/bakape",
       "download_url" : "https://github.com/bakape/meguca/releases",
