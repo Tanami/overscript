@@ -16,7 +16,7 @@ script_data = [
       "author_url" : "https://github.com/czaks",
       "download_url" : "https://github.com/vichan-devel/vichan/releases",
       "language" : "PHP",
-      "name" : "viåchan",
+      "name" : "vichan",
       "notes" : "Essentially an improved fork of Tinyboard and probably the most common imageboard script in use today. Recommended for beginners due to sane defaults and useful features like Tesseract OCR and DNSBL integration.",
       "version" : "d6d1082 (031220)",
       "status" : "maintained",
