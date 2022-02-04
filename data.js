@@ -1,5 +1,17 @@
 script_data = [
    {
+      "author_name" : "Yanislav Igonin",
+      "author_url" : "https://github.com/yanislav-igonin",
+      "download_url" : "https://github.com/yanislav-igonin/micrach/pkgs/container/micrach-go%2Fmicrach",
+      "language" : "Go",
+      "name" : "micrach",
+      "notes" : "Tiny single board imageboard. Getting new features in my free time. Written as a side project when I was learning Go.",
+      "version" : "wip",
+      "status" : "maintained",
+      "last_checked" : "2022-02-03",
+      "created" : "2021"
+   },
+   {
       "author_name" : "czaks",
       "author_url" : "https://github.com/czaks",
       "download_url" : "https://github.com/vichan-devel/vichan/releases",
