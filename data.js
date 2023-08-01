@@ -1294,5 +1294,41 @@ script_data = [
       "status" : "unknown",
       "last_checked" : "2019-11-26",
       "created": "unknown"
+   },
+      {
+      "author_name" : "Odilitime",
+      "author_url" : "https://github.com/odilitime",
+      "download_url" : "https://github.com/odilitime/infinity",
+      "language" : "PHP",
+      "name" : "Infinity",
+      "notes" : "Maintained fork of infinity",
+      "version" : "n/a",
+      "status" : "stable",
+      "last_checked" : "2023-08-01",
+      "created" : "2021-10-07"
+   },
+   {
+      "author_name" : "Odilitime",
+      "author_url" : "https://gitgud.io/Sapphire",
+      "download_url" : "https://gitgud.io/Sapphire/FutaBilly",
+      "language" : "PHP/NodeJS",
+      "name" : "FutaBilly",
+      "notes" : "JS-required imageboard OR NodeJS archiver",
+      "version" : "unknown",
+      "status" : "inactive",
+      "last_checked" : "2023-08-01",
+      "created" : "2015-09-09"
+   },
+   {
+      "author_name" : "Odilitime",
+      "author_url" : "https://gitgud.io/odilitime",
+      "download_url" : "https://gitgud.io/odilitime/lynxphp",
+      "language" : "PHP",
+      "name" : "Double Plus",
+      "notes" : "no-js modular modern imageboard in heavy development",
+      "version" : "pre-1.0",
+      "status" : "maintained",
+      "last_checked" : "2023-08-01",
+      "created" : "2020-04-28"
    }
 ]
