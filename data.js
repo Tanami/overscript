@@ -674,14 +674,14 @@ script_data = [
    {
       "author_name" : "???",
       "author_url" : "http://php.s3.to/",
-      "download_url" : "http://php.s3.to/",
+      "download_url" : "https://github.com/k0me0/gazoubbsfix",
       "language" : "PHP",
       "name" : "GazouBBS",
-      "notes" : "ancient",
-      "version" : "???",
-      "status" : "unknown",
-      "last_checked" : "2019-08-11",
-      "created" : "unknown"
+      "notes" : "Ancient, but fundamental to BBS script history. Some people (i.e. ToR) have written patched and translated editions (see: https://github.com/fukionline/gazoubbsfix-en).",
+      "version" : "v3.6.",
+      "status" : "stable",
+      "last_checked" : "2024-06-29",
+      "created" : "2001"
    },
    {
       "author_name" : "???",
