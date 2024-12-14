@@ -1330,5 +1330,17 @@ script_data = [
       "status" : "maintained",
       "last_checked" : "2023-08-01",
       "created" : "2020-04-28"
+   },
+      {
+      "author_name" : "George Musk",
+      "author_url" : "https://codeberg.org/grgmusk",
+      "download_url" : "https://codeberg.org/grgmusk/toybbs",
+      "language" : "PHP",
+      "name" : "ToyBBS",
+      "notes" : "PHP textboard experiment",
+      "version" : "0.1.1",
+      "status" : "maintained",
+      "last_checked" : "2024-12-04",
+      "created" : "2024-10-30"
    }
 ]
