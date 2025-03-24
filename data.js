@@ -1342,5 +1342,17 @@ script_data = [
       "status" : "maintained",
       "last_checked" : "2024-12-04",
       "created" : "2024-10-30"
+   },
+   {
+      "author_name" : "George Musk",
+      "author_url" : "https://codeberg.org/grgmusk",
+      "download_url" : "https://codeberg.org/grgmusk/mmmb",
+      "language" : "PHP",
+      "name" : "MMMB",
+      "notes" : "MMMB is a mostly textboard-like forum script with PGP-based authorization/authentication. To post a message you have to sign it with PGP key.",
+      "version" : "0.1",
+      "status" : "maintained",
+      "last_checked" : "2025-03-20",
+      "created" : "2025-03-18"
    }
 ]
